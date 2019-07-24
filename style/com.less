@@ -1,0 +1,484 @@
+/**
+ * 一些组件样式
+ **/
+@import "./com/dialog.less";
+@import "./com/pagination.less";
+
+/**
+ * 常用的btn样式
+ * 默认高度32px，宽度自设定
+ */
+.btn {
+  display: inline-block;
+  padding: 0 10px;
+  height: 32px;
+  line-height: 30px;
+  font-size: 12px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #999;
+  font-weight: normal;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+    touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+   -moz-user-select: none;
+    -ms-user-select: none;
+        user-select: none;
+  background-image: none;
+
+  -webkit-box-sizing: border-box;
+   -moz-box-sizing: border-box;
+        box-sizing: border-box;
+}
+.btn:hover,
+.btn:focus,
+.btn.focus {
+  color: #333;
+  text-decoration: none;
+}
+.btn:active,
+.btn.active {
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+          box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+}
+.btn.btn-default {
+  font-size: 12px;
+}
+.btn:focus,
+.btn.focus,
+.btn:active,
+.btn.active
+.btn:active:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+// 按钮颜色
+.btn-white {
+  color: #333;
+  background-color: #fff;
+}
+.btn-common {
+  border: 1px solid #E6E6E6;
+  color: #333;
+  background-color: transparent;
+  &:hover {
+    color: @color-brand;
+    background-color: #FAFAFA;
+    border-color: rgba(0,0,0,.1);
+  }
+}
+.btn-brand {
+  color: #fff;
+  background-color: @color-brand;
+  &:hover,
+  &.hover,
+  &:focus,
+  &.focus,
+  &:active,
+  &.active,
+  &.zeroclipboard-is-hover {
+    background-color: @color-brand-hover;
+    color: #fff;
+  }
+}
+
+
+.btn-disabled {
+  color: #ccc;
+  cursor: not-allowed;
+  background-color: #f4f4f4;
+  &:hover,
+  &.hover,
+  &:focus,
+  &.focus,
+  &:active,
+  &.active {
+    background-color: #f4f4f4;
+    color: #ccc;
+  }
+}
+.btn-disabled.btn-brand {
+  background-color: #FFD4BE;
+  color: #fff;
+}
+.btn-disabled.btn-white{
+  background-color: #fff;
+  color: #EDEDF0;
+}
+
+.btn-no-radius {
+  .border-radius(0);
+}
+
+// 按钮大小
+.btn-xlarge {
+  height: 40px;
+  line-height: 38px;
+  font-size: 14px;
+}
+.btn-large {
+  height: 36px;
+  line-height: 34px;
+  font-size: 14px;
+}
+.btn-small {
+  height: 24px;
+  line-height: 22px;
+  font-size: 12px;
+}
+.btn-xsmall {
+  height: 20px;
+  line-height: 18px;
+  font-size: 12px;
+}
+
+// 按钮组合
+.btn-group {
+  overflow: hidden;
+}
+.btn-group .btn {
+  float: left;
+  margin: 0;
+  .border-radius(0);
+}
+
+// table
+.table-container {
+  .toolbar {
+    margin-bottom: 10px;
+  }
+  .table {
+    table-layout: fixed;
+    word-wrap: break-word;
+    width: 100%;
+
+    thead {
+      tr {
+        &.tr-nodata {
+          th {
+            color: #ccc;
+          }
+        }
+      }
+      th {
+        background-color: #fcfcfc;
+        border: none;
+        color: #999;
+        font-weight: normal;
+        padding: 8px 10px;
+        line-height: 16px;
+
+        &:first-child {
+          padding-left: 14px;
+        }
+      }
+      th.left {
+        text-align: left;
+      }
+      th.center {
+        text-align: center;
+      }
+      .dropdown {
+        .dropdown-toggle {
+          border: none;
+          height: auto;
+          min-width: 0;
+          padding: 0;
+          outline: none;
+
+          &:hover {
+            background: none;
+          }
+        }
+      }
+    }
+    tbody {
+      td {
+        border: none;
+        padding: 14px 10px;
+
+        position: relative;
+        &:first-child {
+          padding-left: 14px;
+        }
+
+        .operation {
+          display: none;
+        }
+      }
+      td.left {
+        text-align: left;
+      }
+      td.center {
+        text-align: center;
+      }
+      tr{
+        background-color: #FFFFFF;
+        //border: #FFFFFF 1px solid;
+      }
+      tr:nth-child(2n) {
+        background-color: #fcfcfc;
+        //border: #FAFAFA 1px solid;
+      }
+      tr.grey {
+        background-color: #fcfcfc;
+      }
+      tr:hover {
+        outline: 1px solid #d3d3db;
+      }
+      tr:hover td {
+        .box-shadow(0 2px 6px 0 rgba(32, 32, 64, 0.16));
+      }
+      tr:hover td:after {
+        content: "";
+        width: 15px;
+        height: 100%;
+        position: absolute;
+        right: -7px;
+        top: 0;
+        z-index: 1
+      }
+      tr:hover td:last-child:after {
+        content: "";
+        width: 0;
+      }
+      tr:nth-child(2n-1):hover td:after {
+        background-color: #FFF;
+      }
+      tr:nth-child(2n):hover td:after {
+        background-color: #fcfcfc;
+      }
+      tr:hover,
+      tr.hover,
+      tr.current {
+        td {
+          .operation {
+            display: block;
+          }
+        }
+      }
+      tr.tr-nodata,
+      tr.tr-nodata:hover {
+        td {
+          background: none;
+        }
+      }
+      .list-more {
+        position: relative;
+
+        .panel {
+          position: absolute;
+          left: -15px;
+          top: -28px;
+          padding: 7px 12px 6px;
+          background-color: #FFF;
+          border: 1px solid #ccc\9;
+          text-align: left;
+          display: none;
+          line-height: 1.8;
+          .box-shadow(0 0px 3px rgba(0,0,0,0.2));
+          border-collapse: separate;
+          width: 100px;
+        }
+
+        &:hover {
+          z-index: 2;
+
+          .panel {
+            display: block;
+          }
+        }
+      }
+    }
+    tfoot {
+      td {
+        border: none;
+        background-color: #fafafa;
+        padding: 17px 14px;
+      }
+    }
+  }
+  .scroll-fix {
+    .table {
+      .box-shadow(0 1px 2px 0 rgba(32, 32, 64, 0.16));
+    }
+  }
+
+  .table-with-border {
+    border: 1px solid #e2e2e9;
+  }
+}
+
+// 区分大小的数字
+.number {
+  .yuan {
+    font-size: 12px;
+  }
+  .pointer {
+    font-weight: bold;
+  }
+  .integer {
+    font-weight: bold;
+  }
+  .decimal {
+    font-size: 12px;
+    font-weight: bold;
+  }
+  .percent{
+    font-size: 12px;
+    margin-left: 2px;
+  }
+}
+.number-14 {
+  .integer {
+    font-size: 14px;
+  }
+}
+.number-16 {
+  .integer {
+    font-size: 16px;
+  }
+}
+.number-18 {
+  .integer {
+    font-size: 18px;
+  }
+}
+.number-24 {
+  .integer {
+    font-size: 24px;
+  }
+}
+.number-32 {
+  .integer {
+    font-size: 32px;
+  }
+  .decimal {
+    font-size: 16px;
+  }
+  .percent {
+    font-size: 16px;
+  }
+}
+.number-thin {
+  .integer,
+  .decimal {
+    font-weight: normal;
+  }
+}
+
+.percent {
+  .num {
+    font-weight: bold;
+  }
+  .symbol {
+    font-size: 12px;
+    font-weight: bold;
+  }
+}
+
+/**
+ * 头像
+ **/
+.avatar {
+  height: 18px;
+  width: 18px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+
+  &.avatar-1 {
+    @bg1: '//kiwipics.b0.upaiyun.com/c/3315457eba4b799ac08e62937da4d44c.png';
+    @bg2: '//kiwipics.b0.upaiyun.com/c/3315457eba4b799ac08e62937da4d44c.png';
+    .retina(@bg1, @bg2);
+  }
+}
+
+
+/**
+ * 平台标签
+ **/
+.tag {
+  height: 20px;
+  width: 20px;
+  text-align: center;
+  line-height: 20px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+.tag-taobao {
+  @bg1: '//kiwipics.b0.upaiyun.com/c/003f92293510e05eb9b5d12171e5b8d2.png';
+  @bg2: '//kiwipics.b0.upaiyun.com/c/003f92293510e05eb9b5d12171e5b8d2.png';
+  .retina(@bg1,@bg2);
+}
+.tag-tmall {
+  @bg1: '//kiwipics.b0.upaiyun.com/c/787ce00461cdf7b537a5b7404fea9c44.png';
+  @bg2: '//kiwipics.b0.upaiyun.com/c/787ce00461cdf7b537a5b7404fea9c44.png';
+  .retina(@bg1,@bg2);
+}
+.tag-coupon {
+  width: auto;
+
+  .icon {
+    width: 17px;
+    height: 16px;
+    display: inline-block;
+    vertical-align: middle;
+    @bg1: '//img.alicdn.com/tps/TB11209NpXXXXbkXpXXXXXXXXXX-17-16.png';
+    @bg2: '//img.alicdn.com/tps/TB1pIV0NpXXXXXgXVXXXXXXXXXX-34-32.png';
+    .retina(@bg1, @bg2);
+  }
+  .money {
+    border: 1px solid #ff5500;
+    border-left: none;
+    display: inline-block;
+    vertical-align: middle;
+    height: 14px;
+    line-height: 14px;
+    background-color: #FFF;
+    border-radius: 0px 2px 2px 0px;
+    padding: 0 3px;
+    color: #E64D00;
+  }
+}
+
+
+/**
+ * 右侧浮动小工具
+ */
+.fixedtool {
+  position: fixed;
+  right: 0;
+  bottom: 140px;
+}
+
+.gotop {
+  display: none;
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  line-height: 40px;
+  text-align: center;
+  background: #fff;
+  border: 1px solid #e2e2e9;
+
+  &:before {
+    color: #666;
+    font-size: 20px;
+  }
+  &:hover {
+    background-color: #E6E6E8;
+
+    &:before {
+      color: #fa6419;
+    }
+  }
+}

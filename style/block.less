@@ -1,0 +1,189 @@
+/* 切换的进度条显示 */
+.block-switch-loading {
+  height: 3px;
+  overflow: hidden;
+  background-color: #00A8FF;
+  display: block;
+  position: fixed;
+  _position: absolute;
+  left: 0;
+  top: 0;
+  width: 0%;
+  z-index: 999999;
+}
+.block-loading {
+  width: 400px;
+  height: 300px;
+  margin: 0 auto;
+  background-image: url(//img.alicdn.com/tps/TB1kpJhPpXXXXXGXpXXXXXXXXXX-800-600.gif);
+  background-size: contain;
+}
+
+.block-module {
+  background-color: #fff;
+
+  .block-hd {
+    padding: 0 20px;
+    border-bottom: 1px solid #f5f5f5;
+
+    .title {
+      font-size: 24px;
+    }
+  }
+}
+
+/**
+ * 列表模式
+ */
+.block-list {
+  border-bottom: 1px solid #f5f5f5;
+  padding: 20px 0;
+
+  .img {
+    background-color: #FFF;
+    float: left;
+    position: relative;
+    display: table-cell;
+    vertical-align: middle;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+
+    img {
+      max-height: 140px;
+      max-width: 140px;
+    }
+    .cover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(242,242,245,.2);
+    }
+    .invalid {
+      position: absolute;
+      left: 0;
+      right: 0;
+      line-height: 32px;
+      text-align: center;
+      margin-top: -16px;
+      top: 50%;
+      background-color: #f2f2f5;
+      background-color: rgba(242,242,245,.8);
+    }
+  }
+  .attr {
+    margin-left: 160px;
+    height: 140px;
+
+    li {
+      padding: 2px 4px;
+      margin-bottom: 4px;
+    }
+    .title {
+      font-size: 18px;
+      height: 34px;
+      overflow: hidden;
+      padding-bottom: 2px;
+    }
+    .favor-container {
+      cursor: pointer;
+
+      &:hover {
+        span {
+          color: @color-brand;
+        }
+      }
+    }
+
+  }
+}
+
+/**
+ * 区块模式
+ */
+.block-grid {
+  background-color: #fff;
+  float: left;
+  font-size: 12px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+
+  &:hover {
+    box-shadow: 0 0 6px rgba(0,0,0,.1);
+  }
+
+  .img {
+    position: relative;
+    display: table-cell;
+    vertical-align: middle;
+    width: 260px;
+    height: 260px;
+    text-align: center;
+
+    img {
+      max-height: 260px;
+      max-width: 260px;
+    }
+
+    .lq {
+      position: absolute;
+      width: 82px;
+      height: 73px;
+      right: 0;
+      top: 0;
+      z-index: 2;
+
+      .bd {
+        height: 50px;
+        background-color: #FF2220;
+        color: #fff;
+
+        .line1 {
+          line-height: 22px;
+        }
+        .line2 {
+          line-height: 22px;
+        }
+      }
+      .ft {
+        height: 23px;
+        @bg1: "//kiwipics.b0.upaiyun.com/c/a4b8fc39dd3f2262a096ac531287da6c.png";
+        @bg2: "//kiwipics.b0.upaiyun.com/c/a4b8fc39dd3f2262a096ac531287da6c.png";
+        .retina(@bg1, @bg2);
+      }
+    }
+  }
+  .attr {
+    padding: 10px;
+
+    .title {
+      height: 34px;
+      overflow: hidden;
+      padding-bottom: 2px;
+    }
+  }
+}
+
+.page-header {
+  height: 75px;
+  line-height: 75px;
+  border-bottom: 1px solid #eee;
+  padding: 0 30px;
+  background-color: #fff;
+
+  .title-bar {
+    float: left;
+  }
+  .title {
+    color:#333;
+    display:inline-block;
+    font-size:18px;
+    margin-right:20px;
+    font-weight:normal;
+  }
+}
+.page-body {
+  padding: 30px;
+}

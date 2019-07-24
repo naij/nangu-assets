@@ -1,0 +1,31 @@
+<div class="pager">
+  <ul>
+    <li class="num num-prev" t-class:notallowed="page == 1">
+      <a href="javascript:;" t-bind:mx-click="page > 1 ? 'toPrev()' : ''">
+        <span class="quanfont icon-back"></span>
+        <span>上一页</span>
+      </a>
+    </li>
+    <li class="num" t-if="start > 1">
+      <a href="javascript:;" mx-click="toPage({page:1})">1</a>
+    </li>
+    <li class="notallowed num" t-if="start > 2"><a href="javascript:;">...</a></li>
+    {{#for(i in pageNums)}}
+    <li class="num" t-class:active="page == i">
+      <a href="javascript:;" mx-click="toPage({page:{{i}}})">{{i}}</a>
+    </li>
+    {{/for}}
+    <li class="num notallowed" t-if="end + 2 < pages">
+      <a href="javascript:;">...</a>
+    </li>
+    <li class="num" t-if="end < pages">
+      <a href="javascript:;" mx-click="toPage({page:{{pages}}})">{{pages}}</a>
+    </li>
+    <li class="num num-next" t-class:notallowed="page == pages">
+      <a href="javascript:;" t-bind:mx-click="page < pages ? 'toNext()' : ''">
+        <span>下一页</span>
+        <span class="quanfont icon-more"></span>
+      </a>
+    </li>
+  </ul>
+</div>

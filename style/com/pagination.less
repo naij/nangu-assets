@@ -1,0 +1,40 @@
+.pager {
+  text-align: right;
+  padding-top: 8px;
+
+  .num {
+    display: inline-block;
+  }
+  .num a {
+    margin: 0 3px;
+    text-align: center;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    display: block;
+  }
+  .num a:hover {
+    background-color: @color-brand-hover;
+    color: #fff
+  }
+  .num-prev,
+  .num-next {
+    a {
+      width: 80px;
+    }
+  }
+  .active a {
+    color: #fff;
+    background-color: @color-brand;
+  }
+  .notallowed a,
+  .notallowed a:hover {
+    color:#999;
+    background: transparent;
+    cursor: not-allowed;
+  }
+}
+.pager-container {
+  display: table;
+  margin: 20px auto;
+}
