@@ -1,0 +1,28 @@
+<div class="picture-upload">
+  <div class="dialog-hd">
+    <h2 class="dialog-title">图片上传</h2>
+  </div>
+  <div class="dialog-bd">
+    <ul class="preview-cnt clearfix">
+      {{#for(item in pics)}}
+      <li>
+        <div class="pic-cnt">
+          <img src="{{item.filePath}}" />
+        </div>
+        <div class="meta">
+          <div class="progress progress{{__index__}}"></div>
+          {{item.fileSize}}
+        </div>
+      </li>
+      {{/for}}
+    </ul>
+    <div class="pic-upload-input">
+      <input type="file" name="upload" id="J_upload" multiple="multiple" mx-change="fileChange()" />
+    </div>
+  </div>
+  <div class="dialog-ft">
+    <a href="javascript:;" class="btn btn-brand btn-large mr10" mx-click="upload()">上传</a> 
+    <a href="javascript:;" class="btn btn-normal btn-large" mx-click="cancel()">取消</a>
+  </div>
+</div>
+

@@ -5,7 +5,8 @@ var routes = function() {
   var map = {
     'app/views/layout/default': [
       '/',
-      '/activity/list'
+      '/activity/list',
+      '/picture/list'
     ]
   }
 

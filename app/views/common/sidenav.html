@@ -1,8 +1,9 @@
 <h1 class="title"><a href="/">南谷小程序后台</a></h1>
-<ul class="nav">
+<dl class="nav">
   {{#for(item in menuList)}}
-  <li t-class:active="item.active">
-    <a href="{{item.path}}">{{item.name}}</a>
-  </li>
+  <dt>{{item.mainCat}}</dt>
+  {{#for(subitem in item.subCat)}}
+  <dd t-class:active="subitem.active"><a href="{{subitem.path}}"><span class="iconfont {{subitem.icon}}"></span>{{subitem.name}}</a></dd>
   {{/for}}
-</ul>
+  {{/for}}
+</dl>

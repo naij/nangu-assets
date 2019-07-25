@@ -1,0 +1,40 @@
+<div class="page-header clearfix">
+    <div class="title-bar">
+      <h2 class="title">图片列表</h2>
+    </div>
+  </div>
+  <div class="page-body table-container">
+    <div class="toolbar clearfix">
+      <a href="#" class="btn btn-brand btn-large" mx-click="upload()">上传图片</a>
+    </div>
+    <table class="table">
+      <thead>
+        <tr t-class:no-data="list.length == 0">
+          <th class="left" width="120">图片预览</th>
+          <th class="left">图片地址</th>
+          <th class="left" width="100">图片尺寸</th>
+          <th class="left" width="150">上传时间</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#for(item in list)}}
+        <tr>
+          <td class="left">{{item.title}}</td>
+          <td class="center">
+            <a href="/activity/edit?id={{item.id}}" class="color-blue">编辑</a>
+            <a href="#" mx-click="del{id:{{id}}}" class="color-blue">删除</a>
+          </td>
+        </tr>
+        {{/for}}
+        {{#if(list.length == 0)}}
+        <tr class="none">
+          <td colspan="4">
+            暂无数据
+          </td>
+        </tr>
+        {{/if}}
+      </tbody>
+    </table>
+    <div class="tfoot">
+    </div>
+  </div>
