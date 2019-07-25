@@ -23,12 +23,14 @@ module.exports = Magix.View.extend({
     //   me.data = {
     //     list: data
     //   }
-      me.setView().then(function () {
-        
-      })
+      me.setView()
     // })
   },
-  'upload<click>': function() {
-    this.mxDialog('app/views/pages/picture/upload', {width: 700})
+  'upload<click>': function(e) {
+    e.preventDefault()
+    var me = this
+    me.mxDialog('app/views/pages/picture/upload', {width: 700, callback: function() {
+      me.render()
+    }})
   }
 })

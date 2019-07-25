@@ -3,6 +3,9 @@ var $ = require('jquery')
 
 module.exports = Magix.View.extend({
   tmpl: '@upload.html',
+  init: function(extra) {
+    this.data = extra
+  },
   render: function() {
     var me = this
     me.setView()
@@ -66,7 +69,7 @@ module.exports = Magix.View.extend({
         // 上传完成
         xhr.addEventListener('load', uploadComplete, false)
         // 上传
-        xhr.open('POST', '/api/tool/pic/create.json?_csrf=' + Magix.local('csrf'))
+        xhr.open('POST', '/api/tool/pic/create.json?_csrf=')
         // 发送
         xhr.send(fd)
       }
@@ -90,25 +93,22 @@ module.exports = Magix.View.extend({
       upload()
 
       if (index == files.length) {
-        Util.hideDialog()
-        me.getManaged('data').callback()
+        me.data.dialog.close()
+        me.data.callback()
       }
     }
   },
   'fileChange<change>': function (e) {
-    var me = this
     var files = $('#J_upload')[0].files
-
-    me.picPreview(files)
+    this.picPreview(files)
   },
   'upload<click>': function (e) {
-    e.halt()
-    var me = this
+    e.preventDefault()
     var files = $('#J_upload')[0].files
-
-    me.uploadFile(files)
+    this.uploadFile(files)
   },
   'cancel<click>': function (e) {
-    
+    e.preventDefault()
+    this.data.dialog.close()
   }
 })
