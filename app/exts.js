@@ -132,5 +132,22 @@ Magix.View.merge({
     }
 
     return defer.promise()
+  },
+  animateLoading: function () {
+    var uxloading = $('.block-switch-loading')
+    uxloading.css({
+      opacity: 1,
+      width: 0
+    })
+    uxloading.stop().animate({
+      width: '100%'
+    }, 200, 'linear', function () {
+      var _this = this
+      setTimeout(function () {
+        uxloading.stop().animate({
+          opacity: 0
+        }, 250)
+      }, 250)
+    })
   }
 })

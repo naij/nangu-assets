@@ -19,5 +19,6 @@ module.exports = Magix.View.extend({
       mainView: 'app/views/pages' + path
     }
     me.setView()
+    me.animateLoading()
   }
 })
