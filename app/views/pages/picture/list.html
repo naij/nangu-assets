@@ -7,28 +7,31 @@
     <div class="toolbar clearfix">
       <a href="#" class="btn btn-brand btn-large" mx-click="upload()">上传图片</a>
     </div>
-    <table class="table">
+    <table class="table pic-list">
       <thead>
         <tr t-class:no-data="list.length == 0">
           <th class="left" width="120">图片预览</th>
           <th class="left">图片地址</th>
-          <th class="left" width="100">图片尺寸</th>
           <th class="left" width="150">上传时间</th>
         </tr>
       </thead>
       <tbody>
         {{#for(item in list)}}
         <tr>
-          <td class="left">{{item.title}}</td>
-          <td class="center">
-            <a href="/activity/edit?id={{item.id}}" class="color-blue">编辑</a>
-            <a href="#" mx-click="del{id:{{id}}}" class="color-blue">删除</a>
+          <td class="left">
+            <div class="pic-cnt">
+              <a href="{{item.picPath}}" target="_blank"><img src="{{item.picPath}}?x-oss-process=style/p_30" /></a>
+            </div>
           </td>
+          <td class="left">
+            <textarea class="textarea" onclick="select()">{{item.picPath}}</textarea>
+          </td>
+          <td class="left">{{item.createdAt}}</td>
         </tr>
         {{/for}}
         {{#if(list.length == 0)}}
         <tr class="none">
-          <td colspan="4">
+          <td colspan="3">
             暂无数据
           </td>
         </tr>
