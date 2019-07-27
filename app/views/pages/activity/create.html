@@ -1,0 +1,53 @@
+<div class="page-header clearfix">
+  <div class="title-bar">
+    <h2 class="title">新增活动</h2>
+  </div>
+</div>
+<div class="page-body activity-create">
+  <form id="addForm">
+    <ul class="union-form">
+      <li class="field">
+        <p class="field-label2">标题</p>
+        <input type="text" class="input" name="title">
+      </li>
+      <li class="field">
+        <p class="field-label2">价格</p>
+        <input type="text" class="input" name="price">
+      </li>
+      <li class="field">
+          <p class="field-label2">地理位置</p>
+          <input type="text" class="input" name="location">
+        </li>
+      <li class="field">
+        <p class="field-label2">封面图</p>
+        <div class="cover">
+          <div class="img-placeholder">
+            <span class="iconfont iconhao"></span>
+            <div>选择封面</div>
+          </div>
+        </div>
+      </li>
+      <li class="field">
+        <p class="field-label2">轮播图</p>
+        <div class="slide">
+          <div class="img-placeholder">
+            <span class="iconfont iconhao"></span>
+            <div>选择轮播图</div>
+          </div>
+        </div>
+      </li>
+      <li class="field">
+        <p class="field-label2">预约须知</p>
+        <div id="notice-editor"></div>
+      </li>
+      <li class="field">
+        <p class="field-label2">项目介绍</p>
+        <div id="description-editor"></div>
+      </li>
+      <li class="field">
+        <a href="#" class="btn btn-brand btn-large mr10" mx-click="submit">发布</a>
+        <a href="#" class="btn btn-brand btn-large" mx-click="draft">保存成草稿</a>
+      </li>
+    </ul>
+  </form>
+</div>
