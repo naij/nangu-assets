@@ -4,7 +4,7 @@
   </div>
 </div>
 <div class="page-body activity-create">
-  <form id="addForm">
+  <form id="activity-create-form">
     <ul class="union-form">
       <li class="field">
         <p class="field-label2">标题</p>
@@ -35,6 +35,7 @@
           <div class="img-container">
             <div class="mask" mx-click="pickLocationCover()">重新选择图片</div>
             <img src="{{locationCover}}" class="img">
+            <input type="hidden" name="locationCover" value="{{locationCover}}">
           </div>
           {{/if}}
         </div>
@@ -52,6 +53,7 @@
           <div class="img-container">
             <div class="mask" mx-click="pickCover()">重新选择图片</div>
             <img src="{{cover}}" class="img">
+            <input type="hidden" name="cover" value="{{cover}}">
           </div>
           {{/if}}
         </div>
@@ -64,6 +66,7 @@
             <div class="img-container">
               <div class="mask" mx-click="pickSlide({index:{{__INDEX__}}})">重新选择图片</div>
               <img src="{{item.picPath}}" class="img">
+              <input type="hidden" name="slide[{{__INDEX__}}]" value="{{item.picPath}}">
             </div>
             {{/for}}
           {{/if}}
@@ -84,8 +87,8 @@
         <div id="description-editor"></div>
       </li>
       <li class="field">
-        <a href="#" class="btn btn-brand btn-large mr10" mx-click="submit">发布</a>
-        <a href="#" class="btn btn-brand btn-large" mx-click="draft">保存成草稿</a>
+        <a href="#" class="btn btn-brand btn-large mr10" mx-click="submit()">发布</a>
+        <a href="#" class="btn btn-brand btn-large" mx-click="draft()">保存成草稿</a>
       </li>
     </ul>
   </form>

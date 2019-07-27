@@ -1,4 +1,5 @@
 var Magix = require('magix')
+var Router = Magix.Router
 var $ = require('jquery')
 var Editor = require('app/coms/editor/editor')
 var Dialog = require('app/mixins/dialog')
@@ -64,6 +65,17 @@ module.exports = Magix.View.extend({
         
         me.setView()
       }
+    })
+  },
+  'submit<click>': function(e) {
+    e.preventDefault()
+    let formData = $('#activity-create-form').serializeJSON({useIntKeysAsArrayIndex: true})
+    
+    this.request().all([{
+      name: 'activity_create',
+      params: formData
+    }], function(e, MesModel) {
+      Router.to('/activity/list')
     })
   }
 })
