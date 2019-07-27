@@ -1,6 +1,6 @@
 var Magix = require('magix')
 var $ = require('jquery')
-var DialogZIndex = 500
+var DialogZIndex = 10040
 var CacheList = []
 var RemoveCache = function(view) {
   for (var i = CacheList.length - 1, one; i >= 0; i--) {

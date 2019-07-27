@@ -18,6 +18,67 @@
   }
 }
 
+/* 图片选择 */
+.image-picker {
+  ul.image-container {
+    border: 1px solid #eee;
+    height: 300px;
+    overflow: auto;
+    padding: 10px;
+  }
+  li {
+    float: left;
+    border: 1px solid #f1f1f1;
+    border-radius: 1px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    position: relative;
+  }
+  li:hover {
+    border-color: @color-green;
+  }
+  li .img-block {
+    height: 100px;
+    width: 100px;
+    text-align: center;
+    vertical-align: middle;
+    display: table-cell;
+  }
+  li img {
+    max-height: 100px;
+    max-width: 100px;
+    vertical-align: middle;
+  }
+  li.selected {
+    border-color: @color-green;
+
+    .mask {
+      display: block;
+    }
+  }
+  .mask {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: none;
+
+    .iconfont {
+      position: absolute;
+      right: 0;
+      top: 0;
+      color: #fff;
+      background: @color-green;
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+      text-align: center;
+    }
+  }
+}
+
 /* 图片上传 */
 .picture-upload {
   ul.preview-cnt {
@@ -37,21 +98,21 @@
     position: relative;
   }
   li:hover {
-    border-color: #00A8FF;
+    border-color: @color-brand;
   }
-  li .pic-cnt{
+  li .pic-cnt {
     height: 100px;
     width: 100px;
     text-align: center;
     vertical-align: middle;
     display: table-cell;
   }
-  li img{
+  li img {
     max-height: 100px;
     max-width: 100px;
     vertical-align: middle;
   }
-  li .meta{
+  li .meta {
     position: absolute;
     left: 0;
     bottom: 0;
@@ -61,14 +122,14 @@
     padding: 5px 0;
     text-indent: 1em;
   }
-  li .progress{
+  li .progress {
     position: absolute;
     left: 0;
     bottom: 0;
     height: 28px;
     width: 100%;
   }
-  li .progress div{
+  li .progress div {
     position: absolute;
     left: 0;
     bottom: 0;
