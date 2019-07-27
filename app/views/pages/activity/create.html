@@ -15,25 +15,64 @@
         <input type="text" class="input" name="price">
       </li>
       <li class="field">
-          <p class="field-label2">地理位置</p>
-          <input type="text" class="input" name="location">
-        </li>
+        <p class="field-label2">地理位置</p>
+        <input type="text" class="input" name="location">
+      </li>
+      <li class="field">
+        <p class="field-label2">地理位置经纬度</p>
+        <input type="text" class="input" name="longitudeAndlatitude">
+      </li>
+      <li class="field">
+        <p class="field-label2">地理位置截图</p>
+        <div class="location-cover clearfix">
+          {{^if(locationCover)}}
+          <div class="img-placeholder" mx-click="pickLocationCover()">
+            <span class="iconfont iconhao"></span>
+            <div>添加地理位置截图</div>
+          </div>
+          {{/if}}
+          {{#if(locationCover)}}
+          <div class="img-container">
+            <div class="mask" mx-click="pickLocationCover()">重新选择图片</div>
+            <img src="{{locationCover}}" class="img">
+          </div>
+          {{/if}}
+        </div>
+      </li>
       <li class="field">
         <p class="field-label2">封面图</p>
-        <div class="cover">
+        <div class="cover clearfix">
+          {{^if(cover)}}
           <div class="img-placeholder" mx-click="pickCover()">
             <span class="iconfont iconhao"></span>
-            <div>选择封面</div>
+            <div>添加封面</div>
           </div>
+          {{/if}}
+          {{#if(cover)}}
+          <div class="img-container">
+            <div class="mask" mx-click="pickCover()">重新选择图片</div>
+            <img src="{{cover}}" class="img">
+          </div>
+          {{/if}}
         </div>
       </li>
       <li class="field">
         <p class="field-label2">轮播图</p>
-        <div class="slide">
-          <div class="img-placeholder">
+        <div class="slide clearfix">
+          {{#if(slide.length > 0)}}
+            {{#for(item in slide)}}
+            <div class="img-container">
+              <div class="mask" mx-click="pickSlide({index:{{__INDEX__}}})">重新选择图片</div>
+              <img src="{{item.picPath}}" class="img">
+            </div>
+            {{/for}}
+          {{/if}}
+          {{^if(slide.length >= 2)}}
+          <div class="img-placeholder" mx-click="pickSlide()">
             <span class="iconfont iconhao"></span>
-            <div>选择轮播图</div>
+            <div>添加轮播图</div>
           </div>
+          {{/if}}
         </div>
       </li>
       <li class="field">

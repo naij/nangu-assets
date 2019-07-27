@@ -1,8 +1,10 @@
 var Magix = require('magix')
 var $ = require('jquery')
+var Dialog = require('app/mixins/dialog')
 
 module.exports = Magix.View.extend({
   tmpl: '@imgpicker.html',
+  mixins: [Dialog],
   init: function(extra) {
     this.extraData = extra
   },
@@ -14,7 +16,8 @@ module.exports = Magix.View.extend({
       var data = MesModel.get('data')
 
       me.data = {
-        list: data
+        list: data,
+        selectedList: []
       }
       me.setView()
     })
@@ -24,9 +27,18 @@ module.exports = Magix.View.extend({
     let limit = me.extraData.limit
     let index = e.params.index
     let list = me.data.list
-    let selectedList = me.data.selectedList || []
+    let selectedList = me.data.selectedList
+    let selectedIndex
 
-    if (selectedList.length < limit) {
+    $.each(selectedList, function(i, v) {
+      if (v.id == list[index].id) {
+        selectedIndex = i
+      }
+    })
+
+    if (typeof(selectedIndex) != "undefined") {
+      selectedList.splice(selectedIndex, 1)
+    } else if (selectedList.length < limit) {
       selectedList.push(list[index])
     } else {
       selectedList.shift()
@@ -48,12 +60,23 @@ module.exports = Magix.View.extend({
     }
     me.setView()
   },
+  'upload<click>': function(e) {
+    e.preventDefault()
+    var me = this
+    me.mxDialog('app/views/pages/picture/upload', {
+      width: 700, 
+      callback: function() {
+        me.render()
+      }
+    })
+  },
   'submit<click>': function (e) {
     e.preventDefault()
-    
+    this.extraData.dialog.close()
+    this.extraData.callback(this.data.selectedList)
   },
   'cancel<click>': function (e) {
     e.preventDefault()
-    this.data.dialog.close()
+    this.extraData.dialog.close()
   }
 })

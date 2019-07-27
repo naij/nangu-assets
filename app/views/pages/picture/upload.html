@@ -21,7 +21,8 @@
     </div>
   </div>
   <div class="dialog-ft">
-    <a href="javascript:;" class="btn btn-brand btn-large mr10" mx-click="upload()">上传</a> 
+    <a href="javascript:;" class="btn btn-brand btn-large mr10" mx-click="upload()" t-if="fileList.length > 0">上传</a>
+    <a href="javascript:;" class="btn btn-disabled btn-large mr10" t-if="fileList.length == 0">上传</a>
     <a href="javascript:;" class="btn btn-normal btn-large" mx-click="cancel()">取消</a>
   </div>
 </div>

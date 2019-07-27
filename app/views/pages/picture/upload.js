@@ -4,19 +4,22 @@ var $ = require('jquery')
 module.exports = Magix.View.extend({
   tmpl: '@upload.html',
   init: function(extra) {
-    this.data = extra
+    this.extraData = extra
   },
   render: function() {
     var me = this
+    me.data = {
+      fileList: []
+    }
     me.setView()
   },
-  picPreview: function (files) {
+  picPreview: function (fileList) {
     var me = this
-    var filesLength = files.length
+    var fileListLength = fileList.length
     var pics = []
 
-    for (var i = 0; i < filesLength; i ++) {
-      var file = files[i]
+    for (var i = 0; i < fileListLength; i ++) {
+      var file = fileList[i]
       var fileObj = {}
 
       if (file) {
@@ -41,7 +44,7 @@ module.exports = Magix.View.extend({
             fileObj.filePath = e.target.result
             pics.push(fileObj)
 
-            if (index == filesLength -1) {
+            if (index == fileListLength -1) {
               me.data = {
                 pics: pics
               }
@@ -52,16 +55,17 @@ module.exports = Magix.View.extend({
       }
     }
   },
-  uploadFile: function (files) {
-    var me = this
-    var index = 0
+  uploadFile: function () {
+    let me = this
+    let index = 0
+    let fileList = me.data.fileList
 
     function upload() {
-      if (index < files.length && index != files.length) {
+      if (index < fileList.length && index != fileList.length) {
         // 创建FormData()对象
         var fd = new FormData()
         // 文件对象 file 
-        fd.append('pic', files[index])
+        fd.append('pic', fileList[index])
         // 准备使用ajax上传
         var xhr = new XMLHttpRequest()
         // 进度条      
@@ -92,23 +96,27 @@ module.exports = Magix.View.extend({
       index ++
       upload()
 
-      if (index == files.length) {
-        me.data.dialog.close()
-        me.data.callback()
+      if (index == fileList.length) {
+        me.extraData.dialog.close()
+        me.extraData.callback()
       }
     }
   },
   'fileChange<change>': function (e) {
-    var files = $('#J_upload')[0].files
-    this.picPreview(files)
+    var fileList = $('#J_upload')[0].files
+
+    if (fileList.length > 0) {
+      this.data.fileList = fileList
+      this.setView()
+      this.picPreview(fileList)
+    }
   },
   'upload<click>': function (e) {
     e.preventDefault()
-    var files = $('#J_upload')[0].files
-    this.uploadFile(files)
+    this.uploadFile()
   },
   'cancel<click>': function (e) {
     e.preventDefault()
-    this.data.dialog.close()
+    this.extraData.dialog.close()
   }
 })
