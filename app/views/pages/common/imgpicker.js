@@ -23,12 +23,12 @@ module.exports = Magix.View.extend({
     })
   },
   'pick<click>': function(e) {
-    let me = this
-    let limit = me.extraData.limit
-    let index = e.params.index
-    let list = me.data.list
-    let selectedList = me.data.selectedList
-    let selectedIndex
+    var me = this
+    var limit = me.extraData.limit
+    var index = e.params.index
+    var list = me.data.list
+    var selectedList = me.data.selectedList
+    var selectedIndex
 
     $.each(selectedList, function(i, v) {
       if (v.id == list[index].id) {
