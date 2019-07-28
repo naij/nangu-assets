@@ -117,7 +117,7 @@ Magix.View.merge({
       me.on('destroy', function() {
         if (me.__pat) me.__pat.$destroy()
       })
-      me.rendered = true
+      // me.rendered = true
     } else {
       if (!data.__inject__) {
         $.extend(me.__pat.$data, me.data)

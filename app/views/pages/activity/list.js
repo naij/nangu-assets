@@ -14,6 +14,7 @@ module.exports = Magix.View.extend({
     me.request().all([{
       name: 'activity_list',
       params: {
+        status: [1, 2],
         pageNo: pageNo,
         pageSize: pageSize
       }
@@ -29,18 +30,69 @@ module.exports = Magix.View.extend({
       me.setView()
     })
   },
+  'online<click>': function(e) {
+    e.preventDefault()
+    var id = e.params.id
+    var me = this
+    me.request().all([{
+      name: 'activity_online',
+      params: {
+        id: id
+      }
+    }], function(e, MesModel) {
+      me.render()
+    })
+  },
+  'offline<click>': function(e) {
+    e.preventDefault()
+    var id = e.params.id
+    var me = this
+    me.request().all([{
+      name: 'activity_offline',
+      params: {
+        id: id
+      }
+    }], function(e, MesModel) {
+      me.render()
+    })
+  },
+  'remove<click>': function(e) {
+    e.preventDefault()
+    var id = e.params.id
+    var me = this
+    me.request().all([{
+      name: 'activity_remove',
+      params: {
+        id: id
+      }
+    }], function(e, MesModel) {
+      me.render()
+    })
+  },
   'pageChange<change>': function(e) {
     this.to({pageNo: e.state.page})
   },
   filters: {
-    parseStatus: function(value) {
+    formatType: function(value) {
+      var type
+      switch(value) {
+        case 1 :
+          type = '合作活动'
+          break
+        case 2 :
+          type = '自营活动'
+          break
+      }
+      return type
+    },
+    formatStatus: function(value) {
       var status
       switch(value) {
         case 1 :
-          status = '<span class="color-green">已上线</span>'
+          status = '<span class="color-green">正式发布</span>'
           break
         case 2 :
-          status = '<span class="color-orange">已下线</span>'
+          status = '<span class="color-l">已下线</span>'
           break
       }
       return status
