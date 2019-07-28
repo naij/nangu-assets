@@ -6,6 +6,7 @@ var routes = function() {
     'app/views/layout/default': [
       '/',
       '/activity/list',
+      '/activity/recyclebin',
       '/activity/create',
       '/picture/list'
     ]

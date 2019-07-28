@@ -1,6 +1,7 @@
 <div class="page-header clearfix">
   <div class="title-bar">
-    <h2 class="title">新增活动</h2>
+    <h2 class="title" t-if="id">编辑活动</h2>
+    <h2 class="title" t-if="!id">新增活动</h2>
   </div>
 </div>
 <div class="page-body activity-create">
@@ -8,19 +9,19 @@
     <ul class="union-form">
       <li class="field">
         <p class="field-label2">标题</p>
-        <input type="text" class="input" name="title">
+        <input type="text" class="input" name="title" value="{{title}}">
       </li>
       <li class="field">
         <p class="field-label2">价格</p>
-        <input type="text" class="input" name="price">
+        <input type="text" class="input" name="price" value="{{price}}">
       </li>
       <li class="field">
         <p class="field-label2">地理位置</p>
-        <input type="text" class="input" name="location">
+        <input type="text" class="input" name="location" value="{{location}}">
       </li>
       <li class="field">
         <p class="field-label2">地理位置经纬度</p>
-        <input type="text" class="input" name="longitudeAndlatitude">
+        <input type="text" class="input" name="longitudeAndlatitude" value="{{longitudeAndlatitude}}">
       </li>
       <li class="field">
         <p class="field-label2">地理位置截图</p>
@@ -65,8 +66,8 @@
             {{#for(item in slide)}}
             <div class="img-container">
               <div class="mask" mx-click="pickSlide({index:{{__INDEX__}}})">重新选择图片</div>
-              <img src="{{item.picPath}}" class="img">
-              <input type="hidden" name="slide[{{__INDEX__}}]" value="{{item.picPath}}">
+              <img src="{{item}}" class="img">
+              <input type="hidden" name="slide[{{__INDEX__}}]" value="{{item}}">
             </div>
             {{/for}}
           {{/if}}

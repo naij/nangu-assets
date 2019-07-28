@@ -6,6 +6,11 @@ Service.add([
     name: 'activity_list',
     url: '/api/weixin/activity/list.json'
   },
+  // 获取单个活动
+  {
+    name: 'activity_detail',
+    url: '/api/weixin/activity/detail.json'
+  },
   // 设置活动上线
   {
     name: 'activity_online',

@@ -3,6 +3,9 @@
       <h2 class="dialog-title">选择图片</h2>
     </div>
     <div class="dialog-bd">
+      <div class="upload">
+        <a href="#" class="btn btn-large btn-green" mx-click="upload()">本地上传</a>
+      </div>
       <ul class="image-container clearfix">
         {{#for(item in list)}}
         <li t-class:selected="item.selected" mx-click="pick({index:{{__INDEX__}}})">
@@ -12,10 +15,6 @@
           <div class="mask"><span class="iconfont iconduigou"></span></div>
         </li>
         {{/for}}
-        <li class="img-add" mx-click="upload()">
-          <span class="iconfont iconhao"></span>
-          <div>本地上传</div>
-        </li>
       </ul>
     </div>
     <div class="dialog-ft">

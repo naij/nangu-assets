@@ -16,7 +16,7 @@ module.exports = Magix.View.extend({
       var data = MesModel.get('data')
 
       me.data = {
-        list: data,
+        list: data.list,
         selectedList: []
       }
       me.setView()

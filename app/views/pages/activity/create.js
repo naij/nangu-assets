@@ -8,16 +8,44 @@ module.exports = Magix.View.extend({
   mixins: [Dialog],
   render: function() {
     var me = this
-    me.data = {
-      cover: '',
-      locationCover: '',
-      slide: []
+    var id = me.param('id')
+
+    if (typeof(id) != 'undefined') {
+      me.request().all([{
+        name: 'activity_detail',
+        params: {
+          id: id
+        }
+      }], function(e, MesModel) {
+        var data = MesModel.get('data')
+  
+        me.data = data
+        me.data.id = id
+        me.setView().then(function() {
+          me._rendered(data)
+        })
+      })
+    } else {
+      me.data = {
+        title: '',
+        price: '',
+        location: '',
+        longitudeAndlatitude: '',
+        locationCover: '',
+        cover: '',
+        slide: [],
+        costDescription: '',
+        costInclude: '',
+        usage: '',
+        notice: '',
+        description: ''
+      }
+      me.setView().then(function() {
+        me._rendered()
+      })
     }
-    me.setView().then(function() {
-      me._rendered()
-    })
   },
-  _rendered: function() {
+  _rendered: function(data) {
     var costDescriptionEditor = new Editor('#cost-description-editor')
     costDescriptionEditor.create()
     var costIncludeEditor = new Editor('#cost-include-editor')
@@ -28,6 +56,14 @@ module.exports = Magix.View.extend({
     noticeEditor.create()
     var descriptionEditor = new Editor('#description-editor')
     descriptionEditor.create()
+
+    if (data) {
+      costDescriptionEditor.txt.html(data.costDescription)
+      costIncludeEditor.txt.html(data.costInclude)
+      usageEditor.txt.html(data.usage)
+      noticeEditor.txt.html(data.notice)
+      descriptionEditor.txt.html(data.description)
+    }
 
     this.costDescriptionEditor = costDescriptionEditor
     this.costIncludeEditor = costIncludeEditor
@@ -79,9 +115,9 @@ module.exports = Magix.View.extend({
       callback: function(data) {
         // 有index 说明是替换操作
         if (typeof(index) != "undefined") {
-          me.data.slide.splice(index, 1, data[0])
+          me.data.slide.splice(index, 1, data[0].picPath)
         } else {
-          me.data.slide.push(data[0])
+          me.data.slide.push(data[0].picPath)
         }
         
         me.setView()
