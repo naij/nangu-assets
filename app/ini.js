@@ -9,6 +9,9 @@ var routes = function() {
       '/activity/recyclebin',
       '/activity/create',
       '/picture/list'
+    ],
+    'app/views/layout/blank': [
+      '/member/login'
     ]
   }
 

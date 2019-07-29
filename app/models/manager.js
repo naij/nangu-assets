@@ -1,6 +1,11 @@
 var Service = require('app/models/service')
 
 Service.add([
+  // 登录
+  {
+    name: 'login',
+    url: '/api/weixin/activity/list.json'
+  },
   // 获取活动列表
   {
     name: 'activity_list',
