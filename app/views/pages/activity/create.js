@@ -10,7 +10,7 @@ module.exports = Magix.View.extend({
     var me = this
     var id = me.param('id')
 
-    if (typeof(id) != 'undefined') {
+    if (id !== '') {
       me.request().all([{
         name: 'activity_detail',
         params: {

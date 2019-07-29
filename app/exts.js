@@ -50,9 +50,9 @@ Magix.View.merge({
 
         me.filters = me.filters || {}
         options.filters = $.extend(filters, me.filters)
-        $.each(me.filters, function(key, filter) {
-          me.filters[key] = $.bind(filter, me)
-        })
+        // $.each(me.filters, function(key, filter) {
+        //   me.filters[key] = $.bind(filter, me)
+        // })
 
         me.__pat = new Pat(options)
         me.__pat.on('beforeDeleteBlock', function(targets) {
@@ -64,7 +64,7 @@ Magix.View.merge({
         })
 
         me.__pat.on('beforeUpdateAttribute', function(targets, attribute, value) {
-          if (!/(mx-|data-)/.test(attribute)) return
+          // if (!/(mx-|data-)/.test(attribute)) return
 
           for (var i = 0, target; i < targets.length; i++) {
             target = targets[i]
@@ -117,7 +117,7 @@ Magix.View.merge({
       me.on('destroy', function() {
         if (me.__pat) me.__pat.$destroy()
       })
-      // me.rendered = true
+      me.rendered = true
     } else {
       if (!data.__inject__) {
         $.extend(me.__pat.$data, me.data)

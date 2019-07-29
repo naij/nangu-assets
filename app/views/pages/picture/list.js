@@ -34,9 +34,12 @@ module.exports = Magix.View.extend({
   'upload<click>': function(e) {
     e.preventDefault()
     var me = this
-    me.mxDialog('app/views/pages/picture/upload', {width: 700, callback: function() {
-      me.render()
-    }})
+    me.mxDialog('app/views/pages/picture/upload', {
+      width: 700, 
+      callback: function() {
+        me.render()
+      }
+    })
   },
   'pageChange<change>': function(e) {
     this.to({pageNo: e.state.page})

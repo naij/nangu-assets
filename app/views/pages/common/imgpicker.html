@@ -10,8 +10,9 @@
         {{#for(item in list)}}
         <li t-class:selected="item.selected" mx-click="pick({index:{{__INDEX__}}})">
           <div class="img-block">
-            <img src="{{item.picPath}}?x-oss-process=style/p_30" />
+            <img src="{{item.picPath}}?x-oss-process=style/p_30" class="img" />
           </div>
+          <div class="name">{{item.picName}}</div>
           <div class="mask"><span class="iconfont iconduigou"></span></div>
         </li>
         {{/for}}
