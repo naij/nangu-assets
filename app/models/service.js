@@ -12,6 +12,10 @@ var Service = Magix.Service.extend(function(bag, callback) {
   var dataType = bag.get('dataType') || ajaxSetting.dataType
   var paramsStrArr = []
 
+  if (method.toUpperCase() == 'POST') {
+    params['_csrf'] = Magix.config('csrf')
+  }
+
   $.extend(params, {
     t: (+new Date())
   })

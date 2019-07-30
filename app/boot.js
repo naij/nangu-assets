@@ -21,14 +21,24 @@ seajs.config({
   charset: 'utf-8'
 })
 
-seajs.use(['magix'], function(Magix) {
+seajs.use(['magix', 'jquery'], function(Magix, $) {
   Magix.checkToLogin =  function() {
-    if (!Magix.isLogined) {
-      location.href = '/login'
+    if (!Magix.config('isLogined')) {
+      location.href = '/member/login'
     }
   }
 
-  Magix.boot({
-    ini: 'app/ini'
+  $.ajax({
+    url: '/api/member/pubinfo.json',
+    dataType: 'json',
+    complete: function(xhr, text) {
+      var resp = $.parseJSON(xhr.responseText)
+      Magix.config({'isLogined': resp.data.isLogined})
+      Magix.config({'csrf': resp.data.csrf})
+
+      Magix.boot({
+        ini: 'app/ini'
+      })
+    }
   })
 })

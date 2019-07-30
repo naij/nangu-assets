@@ -10,11 +10,12 @@ module.exports = Magix.View.extend({
     this.setView()
   },
   'submit<click>': function(e) {
-    e.preventDefaut()
+    e.preventDefault()
+    var me = this
     var formData = $('#loginForm').serializeJSON()
 
     me.request().all([{
-      name: '',
+      name: 'login',
       params: formData
     }], function(e, MesModel) {
       me.to('/activity/list')

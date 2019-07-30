@@ -1,28 +1,41 @@
 var Magix = require('magix')
+var Router = Magix.Router
 var $ = require('jquery')
 
+var routeMap = {
+  'app/views/layout/default': [
+    {path: '/', needLogin: true},
+    {path: '/activity/list', needLogin: true},
+    {path: '/activity/recyclebin', needLogin: true},
+    {path: '/activity/create', needLogin: true},
+    {path: '/picture/list', needLogin: true}
+  ],
+  'app/views/layout/blank': [
+    {path: '/member/login', needLogin: false}
+  ]
+}
 var routes = function() {
-  var map = {
-    'app/views/layout/default': [
-      '/',
-      '/activity/list',
-      '/activity/recyclebin',
-      '/activity/create',
-      '/picture/list'
-    ],
-    'app/views/layout/blank': [
-      '/member/login'
-    ]
-  }
-
   var s = {}
-  $.each(map, function(k, item) {
+  $.each(routeMap, function(k, item) {
     $.each(item, function(i, v) {
-      s[v] = k
+      s[v.path] = k
     })
   })
   return s
 }()
+
+Router.on('changed', function (e) {
+  $.each(routeMap, function(k, item) {
+    $.each(item, function(i, v) {
+      if (v.path == e.path.to) {
+        if (v.needLogin) {
+          Magix.checkToLogin()
+        }
+      }
+    })
+  })
+})
+
 
 return {
   defaultPath: '/',
