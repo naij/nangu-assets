@@ -44,11 +44,6 @@
       </tbody>
     </table>
     <div class="tfoot">
-      <div class="pager-container" mx-view="app/coms/pagination/pagination"
-        view-total="{{totalCount}}"
-        view-size="{{pageSize}}"
-        view-page="{{pageNo}}"
-        mx-change="pageChange()">
-      </div>
+      <div class="pager-container" mx-view="app/coms/pagination/pagination?total={{totalCount}}&size={{pageSize}}&page={{pageNo}}" mx-change="pageChange()"></div>
     </div>
   </div>

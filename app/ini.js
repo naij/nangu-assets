@@ -25,6 +25,7 @@ var routes = function() {
 }()
 
 Router.on('changed', function (e) {
+  if (!e.path) return
   $.each(routeMap, function(k, item) {
     $.each(item, function(i, v) {
       if (v.path == e.path.to) {
