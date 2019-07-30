@@ -21,6 +21,12 @@ module.exports = Magix.View.extend({
   
         me.data = data
         me.data.id = id
+
+        // 在上线状态并且有草稿的情况下显示提示
+        if (data.draft && data.status == 1) {
+          me.data.hasDraft = true
+        }
+        
         me.setView().then(function() {
           me._rendered(data)
         })
@@ -63,19 +69,22 @@ module.exports = Magix.View.extend({
     this._customInsertImg(descriptionEditor)
     descriptionEditor.create()
 
-    if (data) {
-      costDescriptionEditor.txt.html(data.costDescription)
-      costIncludeEditor.txt.html(data.costInclude)
-      usageEditor.txt.html(data.usage)
-      noticeEditor.txt.html(data.notice)
-      descriptionEditor.txt.html(data.description)
-    }
-
     this.costDescriptionEditor = costDescriptionEditor
     this.costIncludeEditor = costIncludeEditor
     this.usageEditor = usageEditor
     this.noticeEditor = noticeEditor
     this.descriptionEditor = descriptionEditor
+
+    if (data) {
+      this._setEditorContent(data)
+    }
+  },
+  _setEditorContent: function(data) {
+    this.costDescriptionEditor.txt.html(data.costDescription)
+    this.costIncludeEditor.txt.html(data.costInclude)
+    this.usageEditor.txt.html(data.usage)
+    this.noticeEditor.txt.html(data.notice)
+    this.descriptionEditor.txt.html(data.description)
   },
   // 自定义图片插入
   _customInsertImg: function(editorInstance) {
@@ -177,28 +186,49 @@ module.exports = Magix.View.extend({
     var me = this
     var id = me.data.id
     var status = me.data.status || 2
+    var postData = {}
     var formData = $('#activity-create-form').serializeJSON({useIntKeysAsArrayIndex: true})
     var editorContent = me._getEditorContent()
-    Magix.mix(formData, editorContent)
 
-    // 编辑状态存储草稿不能改变原来的状态
-    formData.status = status
-    formData.draft = JSON.stringify(formData)
+    // 上线状态时保存草稿只改变draft字段，其他字段不能动
+    if (status == 1) {
+      postData = me.data
+    } else {
+      postData.status = status
+      Magix.mix(postData, formData)
+      Magix.mix(postData, editorContent)
+    }
+    
+    postData.draft = JSON.stringify(formData)
     var modelName
 
     if (typeof(id) == 'undefined') {
       modelName = 'activity_create'
     } else {
-      formData.id = id
+      postData.id = id
       modelName = 'activity_update'
     }
 
     me.request().all([{
       name: modelName,
-      params: formData
+      params: postData
     }], function(e, MesModel) {
       me.alert('草稿保存成功！')
       me.data.id = MesModel.get('data').id
     })
+  },
+  'loaddraft<click>': function(e) {
+    e.preventDefault()
+    var data = this.data
+    this.data = Magix.mix(data, JSON.parse(data.draft))
+    this.data.hasDraft = false
+    this.setView()
+    this._setEditorContent(this.data)
+    this.alert('已用草稿内容覆盖当前内容！')
+  },
+  'canceldraft<click>': function(e) {
+    e.preventDefault()
+    this.data.hasDraft = false
+    this.setView()
   }
 })

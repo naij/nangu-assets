@@ -5,6 +5,13 @@
   </div>
 </div>
 <div class="page-body activity-create">
+  <div class="draft-tip" t-if="hasDraft">
+    <p class="bd">系统检测到你有一份编辑中的草稿，是否需要覆盖当前内容？</p>
+    <div>
+      <a href="#" class="btn btn-green btn-large mr10" mx-click="loaddraft()">覆盖</a>
+      <a href="#" class="btn btn-normal btn-large" mx-click="canceldraft()">不用</a>
+    </div>
+  </div>
   <form id="activity-create-form">
     <input type="hidden" name="type" value="1">
     <ul class="union-form">

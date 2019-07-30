@@ -30,6 +30,22 @@
 
 /* 活动创建 */
 .activity-create {
+  position: relative;
+  .draft-tip {
+    position: absolute;
+    z-index: 10;
+    right: 30px;
+    top: 30px;
+    width: 200px;
+    padding: 10px;
+    border: 1px solid @color-yellow;
+    background-color: rgba(255, 180, 0, 0.1);
+
+    .bd {
+      color: #666;
+      margin-bottom: 10px;
+    }
+  }
   .img-placeholder {
     float: left;
     width: 210px;
