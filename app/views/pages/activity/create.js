@@ -46,15 +46,21 @@ module.exports = Magix.View.extend({
     }
   },
   _rendered: function(data) {
+    var me = this
     var costDescriptionEditor = new Editor('#cost-description-editor')
+    this._customInsertImg(costDescriptionEditor)
     costDescriptionEditor.create()
     var costIncludeEditor = new Editor('#cost-include-editor')
+    this._customInsertImg(costIncludeEditor)
     costIncludeEditor.create()
     var usageEditor = new Editor('#usage-editor')
+    this._customInsertImg(usageEditor)
     usageEditor.create()
     var noticeEditor = new Editor('#notice-editor')
+    this._customInsertImg(noticeEditor)
     noticeEditor.create()
     var descriptionEditor = new Editor('#description-editor')
+    this._customInsertImg(descriptionEditor)
     descriptionEditor.create()
 
     if (data) {
@@ -71,14 +77,27 @@ module.exports = Magix.View.extend({
     this.noticeEditor = noticeEditor
     this.descriptionEditor = descriptionEditor
   },
+  // 自定义图片插入
+  _customInsertImg: function(editorInstance) {
+    var me = this
+    editorInstance.customConfig.onInsertImg = function (cb) {
+      me.mxDialog('app/views/pages/common/imgpicker', {
+        width: 700,
+        limit: 1,
+        callback: function(data) {
+          cb(data[0].picPath)
+        }
+      })
+    }
+  },
   _getEditorContent: function() {
     var me = this
     var editorContent = {}
-    editorContent.costDescription = me.costDescriptionEditor.txt.html().replace(/[\r\n]/g, "").replace(/<style(([\s\S])*?)<\/style>/g, '')
-    editorContent.costInclude = me.costIncludeEditor.txt.html().replace(/[\r\n]/g, "").replace(/<style(([\s\S])*?)<\/style>/g, '')
-    editorContent.usage = me.usageEditor.txt.html().replace(/[\r\n]/g, "").replace(/<style(([\s\S])*?)<\/style>/g, '')
-    editorContent.notice = me.noticeEditor.txt.html().replace(/[\r\n]/g, "").replace(/<style(([\s\S])*?)<\/style>/g, '')
-    editorContent.description = me.descriptionEditor.txt.html().replace(/[\r\n]/g, "").replace(/<style(([\s\S])*?)<\/style>/g, '')
+    editorContent.costDescription = me.costDescriptionEditor.txt.html().replace(/[\r\n]/g, "").replace(/<style(([\s\S])*?)<\/style>/g, '').replace(/\<img/gi, '<img style="width:100%;height:auto" ').replace(/<p>/ig, '<p class="p_class">')
+    editorContent.costInclude = me.costIncludeEditor.txt.html().replace(/[\r\n]/g, "").replace(/<style(([\s\S])*?)<\/style>/g, '').replace(/\<img/gi, '<img style="width:100%;height:auto" ').replace(/<p>/ig, '<p class="p_class">')
+    editorContent.usage = me.usageEditor.txt.html().replace(/[\r\n]/g, "").replace(/<style(([\s\S])*?)<\/style>/g, '').replace(/\<img/gi, '<img style="width:100%;height:auto" ').replace(/<p>/ig, '<p class="p_class">')
+    editorContent.notice = me.noticeEditor.txt.html().replace(/[\r\n]/g, "").replace(/<style(([\s\S])*?)<\/style>/g, '').replace(/\<img/gi, '<img style="width:100%;height:auto" ').replace(/<p>/ig, '<p class="p_class">')
+    editorContent.description = me.descriptionEditor.txt.html().replace(/[\r\n]/g, "").replace(/<style(([\s\S])*?)<\/style>/g, '').replace(/\<img/gi, '<img style="width:100%;height:auto" ').replace(/<p>/ig, '<p class="p_class">')
     return editorContent
   },
   'pickLocationCover<click>': function(e) {
