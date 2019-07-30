@@ -176,10 +176,13 @@ module.exports = Magix.View.extend({
     e.preventDefault()
     var me = this
     var id = me.data.id
+    var status = me.data.status || 2
     var formData = $('#activity-create-form').serializeJSON({useIntKeysAsArrayIndex: true})
     var editorContent = me._getEditorContent()
     Magix.mix(formData, editorContent)
 
+    // 编辑状态存储草稿不能改变原来的状态
+    formData.status = status
     formData.draft = JSON.stringify(formData)
     var modelName
 
@@ -194,6 +197,7 @@ module.exports = Magix.View.extend({
       name: modelName,
       params: formData
     }], function(e, MesModel) {
+      me.alert('草稿保存成功！')
       me.data.id = MesModel.get('data').id
     })
   }

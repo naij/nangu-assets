@@ -1,28 +1,28 @@
 <div class="image-picker">
-    <div class="dialog-hd">
-      <h2 class="dialog-title">选择图片</h2>
-    </div>
-    <div class="dialog-bd">
-      <div class="upload">
-        <a href="#" class="btn btn-large btn-green" mx-click="upload()">本地上传</a>
-      </div>
-      <ul class="image-container clearfix">
-        {{#for(item in list)}}
-        <li t-class:selected="item.selected" mx-click="pick({index:{{__INDEX__}}})">
-          <div class="img-block">
-            <img src="{{item.picPath}}?x-oss-process=style/p_30" class="img" />
-          </div>
-          <div class="name">{{item.picName}}</div>
-          <div class="mask"><span class="iconfont iconduigou"></span></div>
-        </li>
-        {{/for}}
-      </ul>
-    </div>
-    <div class="dialog-ft">
-      <a href="javascript:;" class="btn btn-brand btn-large mr10" mx-click="submit()" t-if="selectedList.length > 0">确定</a>
-      <a href="javascript:;" class="btn btn-disabled btn-large mr10" t-if="selectedList.length == 0">确定</a>
-      <a href="javascript:;" class="btn btn-normal btn-large" mx-click="cancel()">取消</a>
-    </div>
+  <div class="dialog-hd">
+    <h2 class="dialog-title">选择图片</h2>
   </div>
+  <div class="dialog-bd">
+    <div class="upload">
+      <a href="#" class="btn btn-large btn-green" mx-click="upload()">本地上传</a>
+    </div>
+    <ul class="image-container clearfix">
+      {{#for(item in list)}}
+      <li t-class:selected="item.selected" mx-click="pick({index:{{__INDEX__}}})">
+        <div class="img-block">
+          <img src="{{item.picPath}}?x-oss-process=style/p_30" class="img" />
+        </div>
+        <div class="name">{{item.picName}}</div>
+        <div class="mask"><span class="iconfont iconduigou"></span></div>
+      </li>
+      {{/for}}
+    </ul>
+  </div>
+  <div class="dialog-ft">
+    <a href="javascript:;" class="btn btn-brand btn-large mr10" mx-click="submit()" t-if="selectedList.length > 0">确定</a>
+    <a href="javascript:;" class="btn btn-disabled btn-large mr10" t-if="selectedList.length == 0">确定</a>
+    <a href="javascript:;" class="btn btn-normal btn-large" mx-click="cancel()">取消</a>
+  </div>
+</div>
   
   
