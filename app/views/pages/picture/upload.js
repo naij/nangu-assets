@@ -73,7 +73,7 @@ module.exports = Magix.View.extend({
         // 上传完成
         xhr.addEventListener('load', uploadComplete, false)
         // 上传
-        xhr.open('POST', '/api/tool/pic/create.json?_csrf=')
+        xhr.open('POST', '/api/tool/pic/create.json?_csrf=' + Magix.config('csrf'))
         // 发送
         xhr.send(fd)
       }
