@@ -4,18 +4,18 @@ Service.add([
   // 登录
   {
     name: 'login',
-    url: '/api/member/login.json',
+    url: '/api/member/admin/login.json',
     method: 'POST'
   },
   // 登出
   {
     name: 'logout',
-    url: '/api/member/logout.json'
+    url: '/api/member/admin/logout.json'
   },
   // 基础信息
   {
     name: 'pubinfo',
-    url: '/api/member/pubinfo.json'
+    url: '/api/member/admin/pubinfo.json'
   },
   // 获取活动列表
   {
