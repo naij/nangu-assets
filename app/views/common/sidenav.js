@@ -24,6 +24,15 @@ var menuList = [{
       icon: 'iconziyuan'
     }
   ]
+}, {
+  mainCat: '用户管理',
+  subCat: [
+    {
+      path: '/member/list',
+      name: '注册用户',
+      icon: 'iconyonghu'
+    }
+  ]
 }]
 
 module.exports = Magix.View.extend({

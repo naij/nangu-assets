@@ -17,6 +17,11 @@ Service.add([
     name: 'pubinfo',
     url: '/api/member/admin/pubinfo.json'
   },
+  // 获取注册用户列表
+  {
+    name: 'member_list',
+    url: '/api/member/member/list.json'
+  },
   // 获取活动列表
   {
     name: 'activity_list',

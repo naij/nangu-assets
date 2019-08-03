@@ -1,0 +1,39 @@
+<div class="page-header clearfix">
+  <div class="title-bar">
+    <h2 class="title">注册用户列表</h2>
+  </div>
+</div>
+<div class="page-body table-container">
+  <table class="table member-list">
+    <thead>
+      <tr t-class:no-data="list.length == 0">
+        <th class="left" width="120">用户头像</th>
+        <th class="left">昵称</th>
+        <th class="left" width="150">创建时间</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#for(item in list)}}
+      <tr>
+        <td class="left">
+          <div class="pic-cnt">
+            <a href="{{item.avatarUrl}}" target="_blank"><img src="{{item.avatarUrl}}" /></a>
+          </div>
+        </td>
+        <td class="left">{{item.nickName}}</td>
+        <td class="left">{{item.createdAt|formatDate}}</td>
+      </tr>
+      {{/for}}
+      {{#if(list.length == 0)}}
+      <tr class="none">
+        <td colspan="3">
+          暂无数据
+        </td>
+      </tr>
+      {{/if}}
+    </tbody>
+  </table>
+  <div class="tfoot">
+    <div class="pager-container" mx-view="app/coms/pagination/pagination?total={{totalCount}}&size={{pageSize}}&page={{pageNo}}" mx-change="pageChange()"></div>
+  </div>
+</div>
