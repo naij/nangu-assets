@@ -29,7 +29,7 @@ seajs.use(['magix', 'jquery'], function(Magix, $) {
   }
 
   $.ajax({
-    url: '/api/member/pubinfo.json',
+    url: '/api/member/admin/pubinfo.json',
     dataType: 'json',
     complete: function(xhr, text) {
       var resp = $.parseJSON(xhr.responseText)

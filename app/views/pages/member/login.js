@@ -18,6 +18,7 @@ module.exports = Magix.View.extend({
       name: 'login',
       params: formData
     }], function(e, MesModel) {
+      Magix.config({'isLogined': true})
       me.to('/activity/list')
     })
   }
