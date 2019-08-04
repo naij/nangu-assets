@@ -56,9 +56,9 @@ module.exports = Magix.View.extend({
     }
   },
   uploadFile: function () {
-    let me = this
-    let index = 0
-    let fileList = me.data.fileList
+    var me = this
+    var index = 0
+    var fileList = me.data.fileList
 
     function upload() {
       if (index < fileList.length && index != fileList.length) {

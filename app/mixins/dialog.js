@@ -4,10 +4,10 @@ var Magix = require('magix')
 var $ = require('jquery')
 var Win = $(window)
 module.exports = {
-  alert(content, enterCallback, title) {
+  alert: function(content, enterCallback, title) {
     this.confirm(content, enterCallback, null, title, 'alert')
   },
-  confirm(content, enterCallback, cancelCallback, title, view) {
+  confirm: function(content, enterCallback, cancelCallback, title, view) {
     this.mxDialog('app/views/partials/' + (view || 'confirm'), {
       body: content,
       cancelCallback: cancelCallback,
@@ -20,7 +20,7 @@ module.exports = {
       top: Math.max((Win.height() - 220) / 2, 0)
     })
   },
-  mxDialog(view, options) {
+  mxDialog: function(view, options) {
     var me = this
     var dlg
     var closeCallback
