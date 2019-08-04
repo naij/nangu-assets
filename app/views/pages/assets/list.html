@@ -1,0 +1,43 @@
+<div class="page-header clearfix">
+  <div class="title-bar">
+    <h2 class="title">发布列表</h2>
+  </div>
+</div>
+<div class="page-body table-container">
+  <table class="table pic-list">
+    <thead>
+      <tr t-class:no-data="list.length == 0">
+        <th class="left" width="180">发布时间</th>
+        <th class="left" width="120">应用名</th>
+        <th class="left" width="120">版本号</th>
+        <th class="left" width="120">发布类型</th>
+        <th class="left" width="80">状态</th>
+        <th class="center">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#for(item in list)}}
+      <tr>
+        <td class="left">{{item.createdAt|formatDate}}</td>
+        <td class="left">{{item.appName}}</td>
+        <td class="left">{{item.refName}}</td>
+        <td class="left">{{item.refName|formatType}}</td>
+        <td class="left">{{{item.status|formatStatus}}}</td>
+        <td class="center">
+          <a href="/assets/detail?id={{item.id}}" class="color-blue">查看详情</a>
+        </td>
+      </tr>
+      {{/for}}
+      {{#if(list.length == 0)}}
+      <tr class="none">
+        <td class="center" colspan="6">
+          暂无数据
+        </td>
+      </tr>
+      {{/if}}
+    </tbody>
+  </table>
+  <div class="tfoot">
+    <div class="pager-container" mx-view="app/coms/pagination/pagination?total={{totalCount}}&size={{pageSize}}&page={{pageNo}}" mx-change="pageChange()"></div>
+  </div>
+</div>

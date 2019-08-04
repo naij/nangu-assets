@@ -72,6 +72,16 @@ Service.add([
   {
     name: 'picture_list',
     url: '/api/tool/pic/list.json'
+  },
+  // 获取静态资源发布列表
+  {
+    name: 'assets_list',
+    url: '/api/tool/assets/list.json'
+  },
+  // 获取静态资源发布详情
+  {
+    name: 'assets_detail',
+    url: '/api/tool/assets/detail.json'
   }
 ])
 

@@ -10,7 +10,9 @@ var routeMap = {
     {path: '/activity/create', needLogin: true},
     {path: '/picture/list', needLogin: true},
     {path: '/custom/list', needLogin: true},
-    {path: '/member/list', needLogin: true}
+    {path: '/member/list', needLogin: true},
+    {path: '/assets/list', needLogin: true},
+    {path: '/assets/detail', needLogin: true}
   ],
   'app/views/layout/blank': [
     {path: '/member/login', needLogin: false}

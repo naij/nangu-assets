@@ -33,6 +33,15 @@ var menuList = [{
       icon: 'iconyonghu'
     }
   ]
+}, {
+  mainCat: '代码管理',
+  subCat: [
+    {
+      path: '/assets/list',
+      name: '发布列表',
+      icon: 'icondaima'
+    }
+  ]
 }]
 
 module.exports = Magix.View.extend({
