@@ -5,7 +5,7 @@ var rename  = require('gulp-rename')
 var uglify  = require('gulp-uglify')
 var cssmin  = require('gulp-cssmin')
 var clean   = require('gulp-clean')
-var combine = require('gulp-magix-cmd')
+var combine = require('./tool/gulp-combine')
 
 gulp.task('clean', function() {
   return gulp.src('./build', {read: false})
@@ -15,15 +15,16 @@ gulp.task('clean', function() {
 gulp.task('compress', ['clean'], function() {
   gulp.src([
     './app/**/*.js',
+    // './app/views/layout/blank.js'
     '!./app/boot.js',
     '!./app/libs/sea.js'
   ])
     .pipe(combine())
-    // .pipe(uglify({
-    //   output: {
-    //     ascii_only: true
-    //   }
-    // }))
+    .pipe(uglify({
+      output: {
+        ascii_only: true
+      }
+    }))
     .pipe(gulp.dest('./build/app/'))
 
   gulp.src(['./app/boot.js'])
