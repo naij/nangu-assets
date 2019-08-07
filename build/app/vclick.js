@@ -1,17 +1,1 @@
-define('app/vclick',['magix','jquery'],function(require,exports,module){
-/*Magix ,$ */
-var Magix = require('magix')
-var $ = require('jquery')
-
-$('body').on('click', 'a', function(e) {
-  var $tar = $(e.currentTarget)
-  var href = $tar.attr('href')
-  var ignore = $tar.attr('vclick-ignore')
-
-  if (href && /^\/[^\/]/.test(href) && !ignore) {
-    e.preventDefault()
-    Magix.Router.to(href)
-  }
-})
-
-});
+define("app/vclick",["magix","jquery"],function(t){var e=t("magix"),r=t("jquery");r("body").on("click","a",function(t){var a=r(t.currentTarget),c=a.attr("href"),i=a.attr("vclick-ignore");c&&/^\/[^\/]/.test(c)&&!i&&(t.preventDefault(),e.Router.to(c))})});
