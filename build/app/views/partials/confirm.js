@@ -1,0 +1,1 @@
+define("app/views/partials/confirm",function(){});
