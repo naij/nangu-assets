@@ -1,0 +1,1 @@
+define("app/plugins/index",["app/plugins/serializejson","app/plugins/slider"],function(p){p("app/plugins/serializejson"),p("app/plugins/slider")});
