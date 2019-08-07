@@ -1,1 +1,94 @@
-define("app/views/common/sidenav",["magix","jquery"],function(t,a,i){var n=t("magix"),e=t("jquery"),s=n.Router,c=[{mainCat:"\u5185\u5bb9\u7ba1\u7406",subCat:[{path:"/activity/list",name:"\u6d3b\u52a8\u7ba1\u7406",icon:"iconicon3"},{path:"/picture/list",name:"\u56fe\u7247\u7ba1\u7406",icon:"icontupian"}]},{mainCat:"\u8ba2\u5355\u7ba1\u7406",subCat:[{path:"/custom/list",name:"\u5b9a\u5236\u7ba1\u7406",icon:"iconziyuan"}]},{mainCat:"\u7528\u6237\u7ba1\u7406",subCat:[{path:"/member/list",name:"\u6ce8\u518c\u7528\u6237",icon:"iconyonghu"}]},{mainCat:"\u4ee3\u7801\u7ba1\u7406",subCat:[{path:"/assets/list",name:"\u53d1\u5e03\u5217\u8868",icon:"icondaima"}]}];i.exports=n.View.extend({tmpl:{html:'<h1 class="title"><a href="/">\u5357\u8c37\u5c0f\u7a0b\u5e8f\u540e\u53f0</a></h1><dl class="nav">{{#for(item in menuList)}}<dt>{{item.mainCat}}</dt>{{#for(subitem in item.subCat)}}<dd t-class:active="subitem.active"><a href="{{subitem.path}}"><span class="iconfont {{subitem.icon}}"></span>{{subitem.name}}</a></dd>{{/for}} {{/for}}</dl>',subs:[]},ctor:function(){this.observe(null,!0)},render:function(){var t,a=this,i=s.parse(),n=i.path;e.each(c,function(a,i){e.each(i.subCat,function(a,i){i.active=!1,n===i.path&&(i.active=!0,t=!0)})}),t||(c[0].subCat[0].active=!0),a.data={menuList:c},a.setView()}})});
+define('app/views/common/sidenav',['magix','jquery'],function(require,exports,module){
+/*Magix ,$ */
+var Magix = require('magix')
+var $ = require('jquery')
+var Router = Magix.Router
+var menuList = [{
+  mainCat: '内容管理',
+  subCat: [
+    {
+      path: '/activity/list',
+      name: '活动管理',
+      icon: 'iconicon3'
+    },
+    {
+      path: '/picture/list',
+      name: '图片管理',
+      icon: 'icontupian'
+    }
+  ]
+}, {
+  mainCat: '订单管理',
+  subCat: [
+    {
+      path: '/custom/list',
+      name: '定制管理',
+      icon: 'iconziyuan'
+    }
+  ]
+}, {
+  mainCat: '用户管理',
+  subCat: [
+    {
+      path: '/member/list',
+      name: '注册用户',
+      icon: 'iconyonghu'
+    }
+  ]
+}, {
+  mainCat: '代码管理',
+  subCat: [
+    {
+      path: '/assets/list',
+      name: '发布列表',
+      icon: 'icondaima'
+    }
+  ]
+}]
+
+module.exports = Magix.View.extend({
+  tmpl: {"html":"<h1 class=\"title\"><a href=\"/\">南谷小程序后台</a></h1><dl class=\"nav\">{{#for(item in menuList)}}<dt>{{item.mainCat}}</dt>{{#for(subitem in item.subCat)}}<dd t-class:active=\"subitem.active\"><a href=\"{{subitem.path}}\"><span class=\"iconfont {{subitem.icon}}\"></span>{{subitem.name}}</a></dd>{{/for}} {{/for}}</dl>","subs":[]},
+  ctor: function() {
+    this.observe(null, true)
+  },
+  render: function() {
+    var me = this
+    var loc = Router.parse()
+    var path = loc.path
+    var i, menu, finded
+
+
+    // for (i = 0; (menu = menuList[i]) != null; i++) {
+    //   menu.active = false
+
+    //   if (menu.sub && $.inArray(path, menu.sub) != -1) {
+    //     menu.active = true
+    //     finded = true
+    //   } else if (path === menu.path) {
+    //     menu.active = true
+    //     finded = true
+    //   }
+    // }
+
+    $.each(menuList, function(index, value) {
+      $.each(value.subCat, function(subIndex, subValue) {
+        subValue.active = false
+        if (path === subValue.path) {
+          subValue.active = true
+          finded = true
+        }
+      })
+    })
+
+    //找不到就选中第一个
+    if (!finded) {
+      menuList[0].subCat[0].active = true
+    }
+
+    me.data = {
+      menuList: menuList
+    }
+    me.setView()
+  }
+})
+});

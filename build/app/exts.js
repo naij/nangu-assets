@@ -1,1 +1,157 @@
-define("app/exts",["magix","pat","jquery","app/models/manager","app/filters"],function(t){var e=t("magix"),a=t("pat"),n=t("jquery"),i=t("app/models/manager"),r=t("app/filters"),o=e.Router;e.View.merge({ctor:function(){this.$locker={},this.on("rendercall",function(){this.$locker={}})},param:function(t){return o.parse().params[t]||""},to:function(){return o.to.apply(o,arguments)},request:function(t){var e=this,a=new i;return e.capture(t||a.id,a,!0)},setView:function(t,i){var o,d=this,p=n.Deferred(),u=n("#"+d.id),f=u[0],c=d.data;return d.rendered?(c.__inject__||(n.extend(d.__pat.$data,d.data),d.data=d.__pat.$data),d.__pat.$apply(),i&&i(),p.resolve()):(d.beginUpdate(d.id),f&&(o={el:u[0],data:c,template:d.tmpl,dataCheckType:"dirtyCheck"},d.filters=d.filters||{},o.filters=n.extend(r,d.filters),d.__pat=new a(o),d.__pat.on("beforeDeleteBlock",function(t){n.each(t,function(t,e){1===e.nodeType&&d.owner.unmountZone&&d.owner.unmountZone(e)})}),d.__pat.on("beforeUpdateAttribute",function(t){for(var a,n=0;n<t.length;n++)if(a=t[n],a.hasAttribute("mx-view")){var i=e.Vframe.get(a.id);i&&i.unmountView()}}),d.__pat.on("afterUpdateAttribute",function(t,a){if(/(mx-|data-)/.test(a))for(var n,i=0;i<t.length;i++)if(n=t[i],n.hasAttribute("mx-view")){var r=e.Vframe.get(n.id);r&&r.mountView(n.getAttribute("mx-view"))}}),d.__pat.on("afterAddBlock",function(t){n.each(t,function(t,e){1===e.nodeType&&(e.getAttribute("mx-vframe")?(e.id||(e.id="mx_n_"+(new Date).getTime()),d.owner.mountVframe(e.id,e.getAttribute("mx-view"))):d.owner.mountZone(e.id))})}),d.data=d.__pat.$data),d.endUpdate(d.id),t&&t.call(d),p.resolve(),d.on("destroy",function(){d.__pat&&d.__pat.$destroy()}),d.rendered=!0),p.promise()},animateLoading:function(){var t=n(".block-switch-loading");t.css({opacity:1,width:0}),t.stop().animate({width:"100%"},200,"linear",function(){setTimeout(function(){t.stop().animate({opacity:0},250)},250)})}})});
+define('app/exts',['magix','pat','jquery','app/models/manager','app/filters'],function(require,exports,module){
+/*Magix ,Pat ,$ ,Manager ,filters */
+var Magix = require('magix')
+var Pat = require('pat')
+var $ = require('jquery')
+var Manager = require('app/models/manager')
+var filters = require('app/filters')
+var Router = Magix.Router
+
+Magix.View.merge({
+  ctor: function() {
+    this.$locker = {}
+    this.on('rendercall', function() {
+      this.$locker = {}
+    })
+  },
+  param: function(key) {
+    return Router.parse().params[key] || ''
+  },
+  to: function() {
+    return Router.to.apply(Router, arguments)
+  },
+  request: function(key) {
+    var me = this
+    var s = new Manager()
+    return me.capture(key || s.id, s, true)
+  },
+  /**
+   * 更新view
+   * @param  {function} firstCallback 第一次渲染view会调用
+   * @param  {function} otherCallback 除第一次渲染其他时候的render会调用
+   */
+  setView: function(firstCallback, otherCallback) {
+    var me = this
+    var defer = $.Deferred()
+    var wrapper = $('#' + me.id)
+    var n = wrapper[0]
+
+    var data = me.data
+
+    var options
+    if (!me.rendered) {
+      me.beginUpdate(me.id)
+
+      if (n) {
+        options = {
+          el: wrapper[0],
+          data: data,
+          template: me.tmpl,
+          dataCheckType: 'dirtyCheck'
+        }
+
+        me.filters = me.filters || {}
+        options.filters = $.extend(filters, me.filters)
+        // $.each(me.filters, function(key, filter) {
+        //   me.filters[key] = $.bind(filter, me)
+        // })
+
+        me.__pat = new Pat(options)
+        me.__pat.on('beforeDeleteBlock', function(targets) {
+          $.each(targets, function(index, target) {
+            if (target.nodeType === 1) {
+              me.owner.unmountZone && me.owner.unmountZone(target)
+            }
+          })
+        })
+
+        me.__pat.on('beforeUpdateAttribute', function(targets, attribute, value) {
+          // if (!/(mx-|data-)/.test(attribute)) return
+
+          for (var i = 0, target; i < targets.length; i++) {
+            target = targets[i]
+            if (target.hasAttribute('mx-view')) {
+              var vf = Magix.Vframe.get(target.id)
+              if (vf) {
+                vf.unmountView()
+              }
+            }
+          }
+        })
+          // 属性变更时有些特殊场景需要处理
+        me.__pat.on('afterUpdateAttribute', function(targets, attribute, value) {
+          if (!/(mx-|data-)/.test(attribute)) return
+
+          for (var i = 0, target; i < targets.length; i++) {
+            target = targets[i]
+            if (target.hasAttribute('mx-view')) {
+              var vf = Magix.Vframe.get(target.id)
+              if (vf) {
+                vf.mountView(target.getAttribute('mx-view'))
+              }
+            }
+          }
+        })
+
+        // 添加时需要boot brix组件
+        me.__pat.on('afterAddBlock', function(targets) {
+          $.each(targets, function(i, target) {
+            if (target.nodeType === 1) {
+              if (target.getAttribute('mx-vframe')) {
+                if (!target.id) {
+                  target.id = 'mx_n_' + new Date().getTime()
+                }
+                me.owner.mountVframe(target.id, target.getAttribute('mx-view'))
+              } else {
+                me.owner.mountZone(target.id)
+              }
+            }
+
+          })
+        })
+        me.data = me.__pat.$data
+      }
+
+      me.endUpdate(me.id)
+      firstCallback && firstCallback.call(me)
+      defer.resolve()
+
+      me.on('destroy', function() {
+        if (me.__pat) me.__pat.$destroy()
+      })
+      me.rendered = true
+    } else {
+      if (!data.__inject__) {
+        $.extend(me.__pat.$data, me.data)
+        me.data = me.__pat.$data
+      }
+      me.__pat.$apply()
+
+      // me.owner.mountZone()
+
+      otherCallback && otherCallback()
+      defer.resolve()
+    }
+
+    return defer.promise()
+  },
+  animateLoading: function () {
+    var uxloading = $('.block-switch-loading')
+    uxloading.css({
+      opacity: 1,
+      width: 0
+    })
+    uxloading.stop().animate({
+      width: '100%'
+    }, 200, 'linear', function () {
+      var _this = this
+      setTimeout(function () {
+        uxloading.stop().animate({
+          opacity: 0
+        }, 250)
+      }, 250)
+    })
+  }
+})
+
+});

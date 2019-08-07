@@ -1,1 +1,92 @@
-define("app/models/manager",["app/models/service"],function(i,e,t){var a=i("app/models/service");a.add([{name:"login",url:"/api/member/admin/login.json",method:"POST"},{name:"logout",url:"/api/member/admin/logout.json"},{name:"pubinfo",url:"/api/member/admin/pubinfo.json"},{name:"member_list",url:"/api/member/member/list.json"},{name:"activity_list",url:"/api/weixin/activity/list.json"},{name:"activity_detail",url:"/api/weixin/activity/detail.json"},{name:"activity_online",url:"/api/weixin/activity/online.json",method:"POST"},{name:"activity_offline",url:"/api/weixin/activity/offline.json",method:"POST"},{name:"activity_create",url:"/api/weixin/activity/create.json",method:"POST"},{name:"activity_update",url:"/api/weixin/activity/update.json",method:"POST"},{name:"activity_remove",url:"/api/weixin/activity/remove.json",method:"POST"},{name:"activity_remove_complete",url:"/api/weixin/activity/remove_complete.json",method:"POST"},{name:"picture_list",url:"/api/tool/pic/list.json"},{name:"assets_list",url:"/api/tool/assets/list.json"},{name:"assets_detail",url:"/api/tool/assets/detail.json"}]),t.exports=a});
+define('app/models/manager',['app/models/service'],function(require,exports,module){
+/*Service */
+var Service = require('app/models/service')
+
+Service.add([
+  // 登录
+  {
+    name: 'login',
+    url: '/api/member/admin/login.json',
+    method: 'POST'
+  },
+  // 登出
+  {
+    name: 'logout',
+    url: '/api/member/admin/logout.json'
+  },
+  // 基础信息
+  {
+    name: 'pubinfo',
+    url: '/api/member/admin/pubinfo.json'
+  },
+  // 获取注册用户列表
+  {
+    name: 'member_list',
+    url: '/api/member/member/list.json'
+  },
+  // 获取活动列表
+  {
+    name: 'activity_list',
+    url: '/api/weixin/activity/list.json'
+  },
+  // 获取单个活动
+  {
+    name: 'activity_detail',
+    url: '/api/weixin/activity/detail.json'
+  },
+  // 设置活动上线
+  {
+    name: 'activity_online',
+    url: '/api/weixin/activity/online.json',
+    method: 'POST'
+  },
+  // 设置活动下线
+  {
+    name: 'activity_offline',
+    url: '/api/weixin/activity/offline.json',
+    method: 'POST'
+  },
+  // 获取活动列表
+  {
+    name: 'activity_create',
+    url: '/api/weixin/activity/create.json',
+    method: 'POST'
+  },
+  // 更新活动
+  {
+    name: 'activity_update',
+    url: '/api/weixin/activity/update.json',
+    method: 'POST'
+  },
+  // 删除活动
+  {
+    name: 'activity_remove',
+    url: '/api/weixin/activity/remove.json',
+    method: 'POST'
+  },
+  // 彻底删除活动
+  {
+    name: 'activity_remove_complete',
+    url: '/api/weixin/activity/remove_complete.json',
+    method: 'POST'
+  },
+  // 获取图片列表
+  {
+    name: 'picture_list',
+    url: '/api/tool/pic/list.json'
+  },
+  // 获取静态资源发布列表
+  {
+    name: 'assets_list',
+    url: '/api/tool/assets/list.json'
+  },
+  // 获取静态资源发布详情
+  {
+    name: 'assets_detail',
+    url: '/api/tool/assets/detail.json'
+  }
+])
+
+module.exports = Service
+
+});

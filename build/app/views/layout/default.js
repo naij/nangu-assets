@@ -1,1 +1,27 @@
-define("app/views/layout/default",["magix"],function(i,e,a){var t=i("magix"),s=t.Router;a.exports=t.View.extend({tmpl:{html:'<div class="block-switch-loading"></div><div mx-view="app/views/common/sidenav" class="sidenav"></div><div class="content"><div mx-view="{{mainView}}"></div></div>',subs:[]},ctor:function(){this.observe(null,!0)},render:function(){var i=this,e=s.parse(),a=e.path;"/"===a&&(a="/activity/list"),i.data={mainView:"app/views/pages"+a},i.setView(),i.animateLoading()}})});
+define('app/views/layout/default',['magix'],function(require,exports,module){
+/*Magix */
+var Magix = require('magix')
+var Router = Magix.Router
+
+module.exports = Magix.View.extend({
+  tmpl: {"html":"<div class=\"block-switch-loading\"></div><div mx-view=\"app/views/common/sidenav\" class=\"sidenav\"></div><div class=\"content\"><div mx-view=\"{{mainView}}\"></div></div>","subs":[]},
+  ctor: function() {
+    this.observe(null, true)
+  },
+  render: function() {
+    var me = this
+    var loc = Router.parse()
+    var path = loc.path
+
+    if (path === '/') {
+      path = '/activity/list'
+    }
+
+    me.data = {
+      mainView: 'app/views/pages' + path
+    }
+    me.setView()
+    me.animateLoading()
+  }
+})
+});
