@@ -1,1 +1,58 @@
-define("app/ini",["magix","jquery"],function(e){var t=e("magix"),n=t.Router,a=e("jquery"),i={"app/views/layout/default":[{path:"/",needLogin:!0},{path:"/activity/list",needLogin:!0},{path:"/activity/recyclebin",needLogin:!0},{path:"/activity/create",needLogin:!0},{path:"/picture/list",needLogin:!0},{path:"/custom/list",needLogin:!0},{path:"/member/list",needLogin:!0},{path:"/assets/list",needLogin:!0},{path:"/assets/detail",needLogin:!0}],"app/views/layout/blank":[{path:"/member/login",needLogin:!1}]},p=function(){var e={};return a.each(i,function(t,n){a.each(n,function(n,a){e[a.path]=t})}),e}();return n.on("changed",function(e){e.path&&a.each(i,function(n,i){a.each(i,function(n,a){a.path==e.path.to&&a.needLogin&&t.checkToLogin()})})}),{defaultPath:"/",defaultView:"app/views/layout/default",unmatchView:"app/views/common/404",routes:p,exts:["app/exts","app/vclick","app/plugins/index"]}});
+define('app/ini',['magix','jquery'],function(require,exports,module){
+/*Magix ,$ */
+var Magix = require('magix')
+var Router = Magix.Router
+var $ = require('jquery')
+
+var routeMap = {
+  'app/views/layout/default': [
+    {path: '/', needLogin: true},
+    {path: '/activity/list', needLogin: true},
+    {path: '/activity/recyclebin', needLogin: true},
+    {path: '/activity/create', needLogin: true},
+    {path: '/picture/list', needLogin: true},
+    {path: '/custom/list', needLogin: true},
+    {path: '/member/list', needLogin: true},
+    {path: '/assets/list', needLogin: true},
+    {path: '/assets/detail', needLogin: true}
+  ],
+  'app/views/layout/blank': [
+    {path: '/member/login', needLogin: false}
+  ]
+}
+var routes = function() {
+  var s = {}
+  $.each(routeMap, function(k, item) {
+    $.each(item, function(i, v) {
+      s[v.path] = k
+    })
+  })
+  return s
+}()
+
+Router.on('changed', function (e) {
+  if (!e.path) return
+  $.each(routeMap, function(k, item) {
+    $.each(item, function(i, v) {
+      if (v.path == e.path.to) {
+        if (v.needLogin) {
+          Magix.checkToLogin()
+        }
+      }
+    })
+  })
+})
+
+
+return {
+  defaultPath: '/',
+  defaultView: 'app/views/layout/default',
+  unmatchView: 'app/views/common/404',
+  routes: routes,
+  exts: [
+    'app/exts',
+    'app/vclick',
+    'app/plugins/index'
+  ]
+}
+});

@@ -1,1 +1,68 @@
-define("app/models/service",["magix","jquery"],function(e,o,t){var r=e("magix"),a=e("jquery"),n=r.Service.extend(function(e,o){var t={method:"GET",dataType:"json"},n=e.get("params")||e.get("formParams")||e.get("urlParams")||{},p=e.get("url"),s=e.get("method")||t.method,d=e.get("dataType")||t.dataType,c=[];if("POST"==s.toUpperCase()&&(n._csrf=r.config("csrf")),a.extend(n,{t:+new Date}),"object"==typeof n){for(var i in n)n.hasOwnProperty(i)&&c.push("object"==typeof n[i]?i+"="+encodeURIComponent(JSON.stringify(n[i])):i+"="+encodeURIComponent(n[i]));n=c.join("&")}a.ajax({url:r.toUrl(p),dataType:d,data:n,type:s,complete:function(t,r){if("error"===r)console.log("error....");else{var n=a.parseJSON(t.responseText);n.code&&200===n.code?(e.set("data",n.data),o()):console.log("error....")}}})});t.exports=n});
+define('app/models/service',['magix','jquery'],function(require,exports,module){
+/*Magix ,$ */
+var Magix = require('magix')
+var $ = require('jquery')
+
+var Service = Magix.Service.extend(function(bag, callback) {
+  var ajaxSetting = {
+    method: 'GET',
+    dataType: 'json'
+  }
+  var params = bag.get('params') || bag.get('formParams') || bag.get('urlParams') || {}
+  var url = bag.get('url')
+  var method = bag.get('method') || ajaxSetting.method
+  var dataType = bag.get('dataType') || ajaxSetting.dataType
+  var paramsStrArr = []
+
+  if (method.toUpperCase() == 'POST') {
+    params['_csrf'] = Magix.config('csrf')
+  }
+
+  $.extend(params, {
+    t: (+new Date())
+  })
+
+  if (typeof params === 'object') {
+    for (var key in params) {
+      if (params.hasOwnProperty(key)) {
+        if (typeof params[key] === 'object') {
+          paramsStrArr.push(key + '=' + encodeURIComponent(JSON.stringify(params[key])))
+        } else {
+          paramsStrArr.push(key + '=' + encodeURIComponent(params[key]))
+        }
+      }
+    }
+    params = paramsStrArr.join('&')
+  }
+
+  $.ajax({
+    url: Magix.toUrl(url),
+    dataType: dataType,
+    data: params,
+    type: method,
+    complete: function(xhr, text) {
+      if (text === 'error') {
+        // callback({
+        //   msg: xhr.statusText
+        // })
+        // 缺少一个统一的错误处理
+        console.log('error....')
+      } else {
+        var resp = $.parseJSON(xhr.responseText)
+        if (resp.code && resp.code === 200) {
+          bag.set('data', resp.data)
+          callback()
+        } else {
+          // callback({
+          //   msg: resp.message
+          // })
+          console.log('error....')
+        }
+      }
+    }
+  })
+})
+
+module.exports = Service
+
+});

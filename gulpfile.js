@@ -19,11 +19,11 @@ gulp.task('compress', ['clean'], function() {
     '!./app/libs/sea.js'
   ])
     .pipe(combine())
-    .pipe(uglify({
-      output: {
-        ascii_only: true
-      }
-    }))
+    // .pipe(uglify({
+    //   output: {
+    //     ascii_only: true
+    //   }
+    // }))
     .pipe(gulp.dest('./build/app/'))
 
   gulp.src(['./app/boot.js'])

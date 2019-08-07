@@ -1,1 +1,27 @@
-define("app/views/pages/assets/detail",["magix","jquery"],function(a,e,i){{var s=a("magix");a("jquery")}i.exports=s.View.extend({tmpl:{html:'<div class="page-header clearfix"><div class="title-bar"><h2 class="title">\u53d1\u5e03\u8be6\u60c5</h2></div></div><div class="page-body assets-detail"><div class="info-container">{{{info}}}</div></div>',subs:[]},render:function(){var a=this,e=a.param("id");a.request().all([{name:"assets_detail",params:{id:e}}],function(e,i){var s=i.get("data");a.data={info:s.info},a.setView()})}})});
+define('app/views/pages/assets/detail',['magix','jquery'],function(require,exports,module){
+/*Magix ,$ */
+var Magix = require('magix')
+var $ = require('jquery')
+
+module.exports = Magix.View.extend({
+  tmpl: {"html":"<div class=\"page-header clearfix\"><div class=\"title-bar\"><h2 class=\"title\">发布详情</h2></div></div><div class=\"page-body assets-detail\"><div class=\"info-container\">{{{info}}}</div></div>","subs":[]},
+  render: function() {
+    var me = this
+    var id = me.param('id')
+
+    me.request().all([{
+      name: 'assets_detail',
+      params: {
+        id: id
+      }
+    }], function(e, MesModel) {
+      var data = MesModel.get('data')
+
+      me.data = {
+        info: data.info
+      }
+      me.setView()
+    })
+  }
+})
+});
