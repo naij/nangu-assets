@@ -1,12 +1,12 @@
 <div class="page-header clearfix">
   <div class="title-bar">
-    <h2 class="title">活动列表</h2>
+    <h2 class="title">旅拍列表</h2>
   </div>
 </div>
 <div class="page-body table-container">
   <div class="toolbar clearfix">
-    <a href="/activity/recyclebin" class="btn btn-white btn-large fr">回收站</a>
-    <a href="/activity/create" class="btn btn-brand btn-large">新增活动</a>
+    <a href="/photograph/recyclebin" class="btn btn-white btn-large fr">回收站</a>
+    <a href="/photograph/create" class="btn btn-brand btn-large">新增旅拍</a>
   </div>
   <table class="table">
     <thead>
@@ -26,13 +26,13 @@
           <img src="{{item.cover}}">
         </td>
         <td class="left">{{item.title}}</td>
-        <td class="left">{{{item.type|formatType}}}</td>
+        <td class="left">旅拍活动</td>
         <td class="left">{{item.updatedAt|formatDate}}</td>
         <td class="left">{{{item.status|formatStatus}}}</td>
         <td class="center">
           <a href="#" mx-click="online({id:{{item.id}}})" class="color-blue mr10" t-if="item.status==2">上线</a>
           <a href="#" mx-click="offline({id:{{item.id}}})" class="color-blue mr10" t-if="item.status==1">下线</a>
-          <a href="/activity/create?id={{item.id}}" class="color-blue mr10">编辑</a>
+          <a href="/photograph/create?id={{item.id}}" class="color-blue mr10">编辑</a>
           <a href="#" mx-click="remove({id:{{item.id}}})" class="color-blue">删除</a>
         </td>
       </tr>

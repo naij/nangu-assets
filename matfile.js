@@ -31,6 +31,6 @@ mat.task('pushState', function () {
 mat.task('default', ['less', 'combine', 'pushState'], function () {
   mat.url([/\.json/])
     .use(proxy({
-      proxyPass: '127.0.0.1:7001'
+      proxyPass: '127.0.0.1:7002'
     }))
 })

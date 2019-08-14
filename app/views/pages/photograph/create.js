@@ -36,9 +36,6 @@ module.exports = Magix.View.extend({
         type: 1,
         title: '',
         price: '',
-        location: '',
-        longitudeAndlatitude: '',
-        locationCover: '',
         cover: '',
         slide: [],
         costDescription: '',
@@ -110,18 +107,6 @@ module.exports = Magix.View.extend({
     editorContent.description = me.descriptionEditor.txt.html().replace(/[\r\n]/g, "").replace(/<style(([\s\S])*?)<\/style>/g, '').replace(/\<img/gi, '<img style="width:100%;height:auto" ').replace(/<p>/ig, '<p class="p_class">')
     return editorContent
   },
-  'pickLocationCover<click>': function(e) {
-    e.preventDefault()
-    var me = this
-    me.mxDialog('app/views/pages/common/imgpicker', {
-      width: 700,
-      limit: 1,
-      callback: function(data) {
-        me.data.locationCover = data[0].picPath
-        me.setView()
-      }
-    })
-  },
   'pickCover<click>': function(e) {
     e.preventDefault()
     var me = this
@@ -179,7 +164,7 @@ module.exports = Magix.View.extend({
       name: modelName,
       params: formData
     }], function(e, MesModel) {
-      me.to('/activity/list')
+      me.to('/photograph/list')
     })
   },
   'draft<click>': function(e) {

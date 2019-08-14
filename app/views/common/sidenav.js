@@ -7,7 +7,20 @@ var menuList = [{
     {
       path: '/activity/list',
       name: '活动管理',
-      icon: 'iconicon3'
+      icon: 'iconicon3',
+      childCat: [
+        '/activity/create',
+        '/activity/recyclebin'
+      ]
+    },
+    {
+      path: '/photograph/list',
+      name: '旅拍管理',
+      icon: 'iconpaizhao',
+      childCat: [
+        '/photograph/create',
+        '/photograph/recyclebin'
+      ]
     },
     {
       path: '/picture/list',
@@ -39,7 +52,10 @@ var menuList = [{
     {
       path: '/assets/list',
       name: '发布列表',
-      icon: 'icondaima'
+      icon: 'icondaima',
+      childCat: [
+        '/assets/detail'
+      ]
     }
   ]
 }]
@@ -71,7 +87,10 @@ module.exports = Magix.View.extend({
     $.each(menuList, function(index, value) {
       $.each(value.subCat, function(subIndex, subValue) {
         subValue.active = false
-        if (path === subValue.path) {
+        if (subValue.childCat && $.inArray(path, subValue.childCat) != -1) {
+          subValue.active = true
+          finded = true
+        } else if (path === subValue.path) {
           subValue.active = true
           finded = true
         }
