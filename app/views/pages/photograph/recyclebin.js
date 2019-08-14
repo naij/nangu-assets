@@ -16,7 +16,7 @@ module.exports = Magix.View.extend({
     me.request().all([{
       name: 'activity_list',
       params: {
-        type: [1, 2],
+        type: [3],
         status: [0],
         pageNo: pageNo,
         pageSize: pageSize
@@ -63,19 +63,5 @@ module.exports = Magix.View.extend({
   },
   'pageChange<change>': function(e) {
     this.to({pageNo: e.state.page})
-  },
-  filters: {
-    formatType: function(value) {
-      var type
-      switch(value) {
-        case 1 :
-          type = '<span class="color-orange"><i class="iconfont iconhezuo-copy"></i>合作活动</span>'
-          break
-        case 2 :
-          type = '<span class="color-green"><i class="iconfont iconziying"></i>自营活动</span>'
-          break
-      }
-      return type
-    }
   }
 })

@@ -13,14 +13,8 @@
     </div>
   </div>
   <form id="activity-create-form">
+    <input type="hidden" name="type" value="3">
     <ul class="union-form">
-      <li class="field">
-        <p class="field-label2">活动类型</p>
-        <select class="select" name="type">
-          <option value="1" selected="{{type==1?'selected':''}}">合作活动</option>
-          <option value="2" selected="{{type==2?'selected':''}}">自营活动</option>
-        </select>
-      </li>
       <li class="field">
         <p class="field-label2">标题</p>
         <input type="text" class="input" name="title" value="{{title}}">
@@ -28,32 +22,6 @@
       <li class="field">
         <p class="field-label2">价格</p>
         <input type="number" class="input" name="price" value="{{price}}">
-      </li>
-      <li class="field">
-        <p class="field-label2">地理位置</p>
-        <input type="text" class="input" name="location" value="{{location}}">
-      </li>
-      <li class="field">
-        <p class="field-label2">地理位置经纬度</p>
-        <input type="text" class="input" name="longitudeAndlatitude" value="{{longitudeAndlatitude}}">
-      </li>
-      <li class="field">
-        <p class="field-label2">地理位置截图</p>
-        <div class="location-cover clearfix">
-          {{^if(locationCover)}}
-          <div class="img-placeholder" mx-click="pickLocationCover()">
-            <span class="iconfont iconhao"></span>
-            <div>添加地理位置截图</div>
-          </div>
-          {{/if}}
-          {{#if(locationCover)}}
-          <div class="img-container">
-            <div class="mask" mx-click="pickLocationCover()">重新选择图片</div>
-            <img src="{{locationCover}}" class="img">
-            <input type="hidden" name="locationCover" value="{{locationCover}}">
-          </div>
-          {{/if}}
-        </div>
       </li>
       <li class="field">
         <p class="field-label2">封面图</p>
