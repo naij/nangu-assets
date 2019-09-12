@@ -21,6 +21,9 @@ module.exports = Magix.View.extend({
   
         me.data = data
         me.data.id = id
+        me.data.spuSpec = me._parseSpuSpec(data.spuSpec)
+        me.data.skuSpec = me._parseSkuSpec(data.spuSpec, data.sku)
+        me.data.deletedSkuSpec = []
 
         // 在上线状态并且有草稿的情况下显示提示
         if (data.draft && data.status == 1) {
@@ -38,7 +41,10 @@ module.exports = Magix.View.extend({
         price: '',
         cover: '',
         slide: [],
-        detail: {}
+        detail: {},
+        spuSpec: me._parseSpuSpec({}),
+        skuSpec: me._parseSkuSpec({}),
+        deletedSkuSpec: []
       }
       me.setView().then(function() {
         me._rendered()
@@ -65,6 +71,35 @@ module.exports = Magix.View.extend({
     this.usageEditor.txt.html(data.detail.usage)
     this.descriptionEditor.txt.html(data.detail.description)
   },
+  _parseSpuSpec: function(spec) {
+    if ($.isEmptyObject(spec)) {
+      return []
+    } else {
+      return spec['套餐']
+    }
+  },
+  _parseSkuSpec: function (spuSpec, sku) {
+    if ($.isEmptyObject(spuSpec)) {
+      return []
+    } else {
+      let skuSpec = []
+      spuSpec.forEach(function(v, i) {
+        sku.forEach(function(subv, subi) {
+          if (subv.indexes == i) {
+            skuSpec.push({
+              skuId: subv.skuSn,
+              specValue: v,
+              price: subv.price,
+              stock: subv.stock,
+              indexes: i,
+              spec: {"套餐": v}
+            })
+          }
+        })
+      })
+      return skuSpec
+    }
+  },
   // 自定义图片插入
   _customInsertImg: function(editorInstance) {
     var me = this
@@ -84,6 +119,44 @@ module.exports = Magix.View.extend({
     editorContent.usage = me.usageEditor.txt.html().replace(/[\r\n]/g, "").replace(/<style(([\s\S])*?)<\/style>/g, '').replace(/\<img/gi, '<img style="width:100%;height:auto" ').replace(/<p>/ig, '<p class="p_class">')
     editorContent.description = me.descriptionEditor.txt.html().replace(/[\r\n]/g, "").replace(/<style(([\s\S])*?)<\/style>/g, '').replace(/\<img/gi, '<img style="width:100%;height:auto" ').replace(/<p>/ig, '<p class="p_class">')
     return editorContent
+  },
+  _updateIndexes: function () {
+    var me = this
+    me.data.spuSpec.forEach(function(v ,i) {
+      me.data.skuSpec[i]['indexes'] = i
+    })
+  },
+  'addSpuSpec<click>': function(e) {
+    e.preventDefault()
+    var me = this
+    var specValue = $('#J_spec_value').val()
+    if (specValue) {
+      me.data.spuSpec.push(specValue)
+      me.data.skuSpec.push({
+        specValue: specValue,
+        price: '',
+        stock: '',
+        spec: {"套餐": specValue}
+      })
+      me._updateIndexes()
+      me.setView()
+    }
+  },
+  'delSpuSpec<click>': function(e) {
+    e.preventDefault()
+    var me = this
+    var index = e.params.index
+    me.data.spuSpec.splice(index, 1)
+    me.data.deletedSkuSpec.push(me.data.skuSpec.splice(index, 1)[0])
+    me._updateIndexes()
+    me.setView()
+  },
+  'bindSkuSpecChange<change>': function(e) {
+    var me = this
+    var index = e.params.index
+    var field = e.params.field
+    var input = $(e.eventTarget)
+    me.data.skuSpec[index][field] = input.val()
   },
   'pickCover<click>': function(e) {
     e.preventDefault()
@@ -120,9 +193,15 @@ module.exports = Magix.View.extend({
     e.preventDefault()
     var me = this
     var id = me.data.id
-    var formData = $('#activity-create-form').serializeJSON({useIntKeysAsArrayIndex: true})
+    var formData = $('#spu-create-form').serializeJSON({useIntKeysAsArrayIndex: true})
     var editorContent = me._getEditorContent()
+    var spuSpec = {'套餐': me.data.spuSpec}
+    var skuSpec = me.data.skuSpec
+    var deletedSkuSpec = me.data.deletedSkuSpec
 
+    formData.spuSpec = JSON.stringify(spuSpec)
+    formData.skuSpec = JSON.stringify(skuSpec)
+    formData.deletedSkuSpec = JSON.stringify(deletedSkuSpec)
     formData.detail = JSON.stringify(editorContent)
     
     // 活动发布后就清空草稿
@@ -138,7 +217,6 @@ module.exports = Magix.View.extend({
       formData.id = id
       modelName = 'roomvoucher_update'
     }
-
     me.request().all([{
       name: modelName,
       params: formData
@@ -152,7 +230,7 @@ module.exports = Magix.View.extend({
     var id = me.data.id
     var status = me.data.status || 2
     var postData = {}
-    var formData = $('#activity-create-form').serializeJSON({useIntKeysAsArrayIndex: true})
+    var formData = $('#spu-create-form').serializeJSON({useIntKeysAsArrayIndex: true})
     var editorContent = me._getEditorContent()
 
     // 上线状态时保存草稿只改变draft字段，其他字段不能动

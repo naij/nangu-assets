@@ -157,7 +157,7 @@ module.exports = Magix.View.extend({
     e.preventDefault()
     var me = this
     var id = me.data.id
-    var formData = $('#activity-create-form').serializeJSON({useIntKeysAsArrayIndex: true})
+    var formData = $('#spu-create-form').serializeJSON({useIntKeysAsArrayIndex: true})
     var editorContent = me._getEditorContent()
     Magix.mix(formData, editorContent)
     
@@ -188,7 +188,7 @@ module.exports = Magix.View.extend({
     var id = me.data.id
     var status = me.data.status || 2
     var postData = {}
-    var formData = $('#activity-create-form').serializeJSON({useIntKeysAsArrayIndex: true})
+    var formData = $('#spu-create-form').serializeJSON({useIntKeysAsArrayIndex: true})
     var editorContent = me._getEditorContent()
 
     // 上线状态时保存草稿只改变draft字段，其他字段不能动
