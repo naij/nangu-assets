@@ -12,7 +12,7 @@ module.exports = Magix.View.extend({
 
     if (id !== '') {
       me.request().all([{
-        name: 'activity_detail',
+        name: 'roomvoucher_detail',
         params: {
           id: id
         }
@@ -21,6 +21,9 @@ module.exports = Magix.View.extend({
   
         me.data = data
         me.data.id = id
+        me.data.spuSpec = me._parseSpuSpec(data.spuSpec)
+        me.data.skuSpec = me._parseSkuSpec(data.spuSpec, data.sku)
+        me.data.deletedSkuSpec = []
 
         // 在上线状态并且有草稿的情况下显示提示
         if (data.draft && data.status == 1) {
@@ -36,16 +39,12 @@ module.exports = Magix.View.extend({
         type: 1,
         title: '',
         price: '',
-        location: '',
-        longitudeAndlatitude: '',
-        locationCover: '',
         cover: '',
         slide: [],
-        costDescription: '',
-        costInclude: '',
-        usage: '',
-        notice: '',
-        description: ''
+        detail: {},
+        spuSpec: me._parseSpuSpec({}),
+        skuSpec: me._parseSkuSpec({}),
+        deletedSkuSpec: []
       }
       me.setView().then(function() {
         me._rendered()
@@ -54,26 +53,14 @@ module.exports = Magix.View.extend({
   },
   _rendered: function(data) {
     var me = this
-    var costDescriptionEditor = new Editor('#cost-description-editor')
-    this._customInsertImg(costDescriptionEditor)
-    costDescriptionEditor.create()
-    var costIncludeEditor = new Editor('#cost-include-editor')
-    this._customInsertImg(costIncludeEditor)
-    costIncludeEditor.create()
     var usageEditor = new Editor('#usage-editor')
     this._customInsertImg(usageEditor)
     usageEditor.create()
-    var noticeEditor = new Editor('#notice-editor')
-    this._customInsertImg(noticeEditor)
-    noticeEditor.create()
     var descriptionEditor = new Editor('#description-editor')
     this._customInsertImg(descriptionEditor)
     descriptionEditor.create()
 
-    this.costDescriptionEditor = costDescriptionEditor
-    this.costIncludeEditor = costIncludeEditor
     this.usageEditor = usageEditor
-    this.noticeEditor = noticeEditor
     this.descriptionEditor = descriptionEditor
 
     if (data) {
@@ -81,11 +68,37 @@ module.exports = Magix.View.extend({
     }
   },
   _setEditorContent: function(data) {
-    this.costDescriptionEditor.txt.html(data.costDescription)
-    this.costIncludeEditor.txt.html(data.costInclude)
-    this.usageEditor.txt.html(data.usage)
-    this.noticeEditor.txt.html(data.notice)
-    this.descriptionEditor.txt.html(data.description)
+    this.usageEditor.txt.html(data.detail.usage)
+    this.descriptionEditor.txt.html(data.detail.description)
+  },
+  _parseSpuSpec: function(spec) {
+    if ($.isEmptyObject(spec)) {
+      return []
+    } else {
+      return spec['套餐']
+    }
+  },
+  _parseSkuSpec: function (spuSpec, sku) {
+    if ($.isEmptyObject(spuSpec)) {
+      return []
+    } else {
+      var skuSpec = []
+      spuSpec.forEach(function(v, i) {
+        sku.forEach(function(subv, subi) {
+          if (subv.indexes == i) {
+            skuSpec.push({
+              skuId: subv.skuSn,
+              specValue: v,
+              price: subv.price,
+              stock: subv.stock,
+              indexes: i,
+              spec: {"套餐": v}
+            })
+          }
+        })
+      })
+      return skuSpec
+    }
   },
   // 自定义图片插入
   _customInsertImg: function(editorInstance) {
@@ -103,24 +116,47 @@ module.exports = Magix.View.extend({
   _getEditorContent: function() {
     var me = this
     var editorContent = {}
-    editorContent.costDescription = me.costDescriptionEditor.txt.html().replace(/[\r\n]/g, "").replace(/<style(([\s\S])*?)<\/style>/g, '').replace(/\<img/gi, '<img style="width:100%;height:auto" ').replace(/<p>/ig, '<p class="p_class">')
-    editorContent.costInclude = me.costIncludeEditor.txt.html().replace(/[\r\n]/g, "").replace(/<style(([\s\S])*?)<\/style>/g, '').replace(/\<img/gi, '<img style="width:100%;height:auto" ').replace(/<p>/ig, '<p class="p_class">')
     editorContent.usage = me.usageEditor.txt.html().replace(/[\r\n]/g, "").replace(/<style(([\s\S])*?)<\/style>/g, '').replace(/\<img/gi, '<img style="width:100%;height:auto" ').replace(/<p>/ig, '<p class="p_class">')
-    editorContent.notice = me.noticeEditor.txt.html().replace(/[\r\n]/g, "").replace(/<style(([\s\S])*?)<\/style>/g, '').replace(/\<img/gi, '<img style="width:100%;height:auto" ').replace(/<p>/ig, '<p class="p_class">')
     editorContent.description = me.descriptionEditor.txt.html().replace(/[\r\n]/g, "").replace(/<style(([\s\S])*?)<\/style>/g, '').replace(/\<img/gi, '<img style="width:100%;height:auto" ').replace(/<p>/ig, '<p class="p_class">')
     return editorContent
   },
-  'pickLocationCover<click>': function(e) {
+  _updateIndexes: function () {
+    var me = this
+    me.data.spuSpec.forEach(function(v ,i) {
+      me.data.skuSpec[i]['indexes'] = i
+    })
+  },
+  'addSpuSpec<click>': function(e) {
     e.preventDefault()
     var me = this
-    me.mxDialog('app/views/pages/common/imgpicker', {
-      width: 700,
-      limit: 1,
-      callback: function(data) {
-        me.data.locationCover = data[0].picPath
-        me.setView()
-      }
-    })
+    var specValue = $('#J_spec_value').val()
+    if (specValue) {
+      me.data.spuSpec.push(specValue)
+      me.data.skuSpec.push({
+        specValue: specValue,
+        price: '',
+        stock: '',
+        spec: {"套餐": specValue}
+      })
+      me._updateIndexes()
+      me.setView()
+    }
+  },
+  'delSpuSpec<click>': function(e) {
+    e.preventDefault()
+    var me = this
+    var index = e.params.index
+    me.data.spuSpec.splice(index, 1)
+    me.data.deletedSkuSpec.push(me.data.skuSpec.splice(index, 1)[0])
+    me._updateIndexes()
+    me.setView()
+  },
+  'bindSkuSpecChange<change>': function(e) {
+    var me = this
+    var index = e.params.index
+    var field = e.params.field
+    var input = $(e.eventTarget)
+    me.data.skuSpec[index][field] = input.val()
   },
   'pickCover<click>': function(e) {
     e.preventDefault()
@@ -159,8 +195,32 @@ module.exports = Magix.View.extend({
     var id = me.data.id
     var formData = $('#spu-create-form').serializeJSON({useIntKeysAsArrayIndex: true})
     var editorContent = me._getEditorContent()
-    Magix.mix(formData, editorContent)
-    
+    var spuSpec = {'套餐': me.data.spuSpec}
+    var skuSpec = me.data.skuSpec
+    var deletedSkuSpec = me.data.deletedSkuSpec
+
+    if (!formData.title) {
+      return this.alert('请填写标题！')
+    } else if (me.data.spuSpec.length == 0) {
+      return this.alert('请填写套餐内容！')
+    } else if (!formData.cover) {
+      return this.alert('请选择封面图！')
+    } else if (formData.slide.length == 0) {
+      return this.alert('请选择轮播图！')
+    } 
+
+    formData.spuSpec = JSON.stringify(spuSpec)
+    formData.skuSpec = JSON.stringify(skuSpec)
+    formData.deletedSkuSpec = JSON.stringify(deletedSkuSpec)
+    formData.detail = JSON.stringify(editorContent)
+
+    // 按价格从低到高排序
+    skuSpec.sort(function(a, b) {
+      return a.price - b.price
+    })
+
+    // sku中最低价格
+    formData.price = skuSpec[0].price
     // 活动发布后就清空草稿
     formData.draft = ''
     // 发布后状态设置成 1
@@ -169,17 +229,16 @@ module.exports = Magix.View.extend({
     var modelName
 
     if (typeof(id) == 'undefined') {
-      modelName = 'activity_create'
+      modelName = 'roomvoucher_create'
     } else {
       formData.id = id
-      modelName = 'activity_update'
+      modelName = 'roomvoucher_update'
     }
-
     me.request().all([{
       name: modelName,
       params: formData
     }], function(e, MesModel) {
-      me.to('/activity/list')
+      me.to('/roomvoucher/list')
     })
   },
   'draft<click>': function(e) {
@@ -196,18 +255,18 @@ module.exports = Magix.View.extend({
       postData = me.data
     } else {
       postData.status = status
+      formData.detail = editorContent
       Magix.mix(postData, formData)
-      Magix.mix(postData, editorContent)
     }
     
-    postData.draft = JSON.stringify(formData)
+    postData.draft = JSON.stringify(postData)
     var modelName
 
     if (typeof(id) == 'undefined') {
-      modelName = 'activity_create'
+      modelName = 'roomvoucher_create'
     } else {
       postData.id = id
-      modelName = 'activity_update'
+      modelName = 'roomvoucher_update'
     }
 
     me.request().all([{

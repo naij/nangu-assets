@@ -14,6 +14,15 @@ var menuList = [{
       ]
     },
     {
+      path: '/roomvoucher/list',
+      name: '房券管理',
+      icon: 'iconyouhuiquan',
+      childCat: [
+        '/roomvoucher/create',
+        '/roomvoucher/recyclebin'
+      ]
+    },
+    {
       path: '/photograph/list',
       name: '旅拍管理',
       icon: 'iconpaizhao',

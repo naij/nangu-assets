@@ -1,7 +1,7 @@
 <div class="page-header clearfix">
   <div class="title-bar">
-    <h2 class="title" t-if="id">编辑活动</h2>
-    <h2 class="title" t-if="!id">新增活动</h2>
+    <h2 class="title" t-if="id">编辑房券</h2>
+    <h2 class="title" t-if="!id">新增房券</h2>
   </div>
 </div>
 <div class="page-body spu-create">
@@ -13,47 +13,48 @@
     </div>
   </div>
   <form id="spu-create-form">
+    <input type="hidden" name="category"" value="4">
     <ul class="union-form">
-      <li class="field">
-        <p class="field-label2">活动类型</p>
-        <select class="select" name="type">
-          <option value="1" selected="{{type==1?'selected':''}}">合作活动</option>
-          <option value="2" selected="{{type==2?'selected':''}}">自营活动</option>
-        </select>
-      </li>
       <li class="field">
         <p class="field-label2">标题</p>
         <input type="text" class="input" name="title" value="{{title}}">
       </li>
       <li class="field">
-        <p class="field-label2">价格</p>
-        <input type="number" class="input" name="price" value="{{price}}">
-      </li>
-      <li class="field">
-        <p class="field-label2">地理位置</p>
-        <input type="text" class="input" name="location" value="{{location}}">
-      </li>
-      <li class="field">
-        <p class="field-label2">地理位置经纬度</p>
-        <input type="text" class="input" name="longitudeAndlatitude" value="{{longitudeAndlatitude}}">
-      </li>
-      <li class="field">
-        <p class="field-label2">地理位置截图</p>
-        <div class="location-cover clearfix">
-          {{^if(locationCover)}}
-          <div class="img-placeholder" mx-click="pickLocationCover()">
-            <span class="iconfont iconhao"></span>
-            <div>添加地理位置截图</div>
-          </div>
-          {{/if}}
-          {{#if(locationCover)}}
-          <div class="img-container">
-            <div class="mask" mx-click="pickLocationCover()">重新选择图片</div>
-            <img src="{{locationCover}}" class="img">
-            <input type="hidden" name="locationCover" value="{{locationCover}}">
-          </div>
-          {{/if}}
+        <p class="field-label2">套餐</p>
+        <div class="spac-add">
+          <input placeholder="请输入自定义套餐标题" class="input mr10" id="J_spec_value">
+          <a href="#" class="btn btn-brand btn-large" mx-click="addSpuSpec()">+添加</a>
         </div>
+        <div class="spac-container clearfix" t-if="spuSpec.length>0">
+          {{#for(item in spuSpec)}}
+          <div class="spac-item">{{item}}<span class="iconfont iconguanbi close" mx-click="delSpuSpec({index:{{__INDEX__}}})"></span></div>
+          {{/for}}
+        </div>
+      </li>
+      <li class="field table-container" t-if="spuSpec.length>0">
+        <p class="field-label2">销售规则</p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="left" width="150">套餐</th>
+              <th class="left" width="150">价格</th>
+              <th class="left" width="150">数量</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#for(item in skuSpec)}}
+            <tr>
+              <td class="left">{{item.specValue}}</td>
+              <td class="left">
+                <input placeholder="套餐价格" type="number" class="input input-narrow" value="{{item.price}}" mx-change="bindSkuSpecChange({index:{{__INDEX__}},field:'price'})">
+              </td>
+              <td class="left">
+                <input placeholder="数量" type="number" class="input input-narrow" value="{{item.stock}}" mx-change="bindSkuSpecChange({index:{{__INDEX__}},field:'stock'})">
+              </td>
+            </tr>
+            {{/for}}
+          </tbody>
+        </table>
       </li>
       <li class="field">
         <p class="field-label2">封面图</p>
@@ -94,28 +95,16 @@
         </div>
       </li>
       <li class="field">
-        <p class="field-label2">费用说明</p>
-        <div id="cost-description-editor"></div>
-      </li>
-      <li class="field">
-        <p class="field-label2">费用包含</p>
-        <div id="cost-include-editor"></div>
-      </li>
-      <li class="field">
-        <p class="field-label2">使用方法</p>
-        <div id="usage-editor"></div>
-      </li>
-      <li class="field">
-        <p class="field-label2">注意事项</p>
-        <div id="notice-editor"></div>
-      </li>
-      <li class="field">
         <p class="field-label2">产品说明</p>
         <div id="description-editor"></div>
       </li>
       <li class="field">
+        <p class="field-label2">使用规则</p>
+        <div id="usage-editor"></div>
+      </li>
+      <li class="field">
         <a href="#" class="btn btn-brand btn-large mr10" mx-click="submit()">发布</a>
-        <a href="#" class="btn btn-brand btn-large" mx-click="draft()">保存成草稿</a>
+        <!-- <a href="#" class="btn btn-brand btn-large" mx-click="draft()">保存成草稿</a> -->
       </li>
     </ul>
   </form>

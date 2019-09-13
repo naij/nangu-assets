@@ -68,6 +68,52 @@ Service.add([
     url: '/api/weixin/activity/remove_complete.json',
     method: 'POST'
   },
+  // 获取房券列表
+  {
+    name: 'roomvoucher_list',
+    url: '/api/weixin/roomvoucher/list.json'
+  },
+  // 获取单个房券
+  {
+    name: 'roomvoucher_detail',
+    url: '/api/weixin/roomvoucher/detail.json'
+  },
+  // 设置房券上线
+  {
+    name: 'roomvoucher_online',
+    url: '/api/weixin/roomvoucher/online.json',
+    method: 'POST'
+  },
+  // 设置房券下线
+  {
+    name: 'roomvoucher_offline',
+    url: '/api/weixin/roomvoucher/offline.json',
+    method: 'POST'
+  },
+  // 创建房券
+  {
+    name: 'roomvoucher_create',
+    url: '/api/weixin/roomvoucher/create.json',
+    method: 'POST'
+  },
+  // 更新房券
+  {
+    name: 'roomvoucher_update',
+    url: '/api/weixin/roomvoucher/update.json',
+    method: 'POST'
+  },
+  // 删除房券
+  {
+    name: 'roomvoucher_remove',
+    url: '/api/weixin/roomvoucher/remove.json',
+    method: 'POST'
+  },
+  // 彻底删除房券
+  {
+    name: 'roomvoucher_remove_complete',
+    url: '/api/weixin/roomvoucher/remove_complete.json',
+    method: 'POST'
+  },
   // 获取图片列表
   {
     name: 'picture_list',
