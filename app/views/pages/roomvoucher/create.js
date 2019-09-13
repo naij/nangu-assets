@@ -82,7 +82,7 @@ module.exports = Magix.View.extend({
     if ($.isEmptyObject(spuSpec)) {
       return []
     } else {
-      let skuSpec = []
+      var skuSpec = []
       spuSpec.forEach(function(v, i) {
         sku.forEach(function(subv, subi) {
           if (subv.indexes == i) {
@@ -199,11 +199,28 @@ module.exports = Magix.View.extend({
     var skuSpec = me.data.skuSpec
     var deletedSkuSpec = me.data.deletedSkuSpec
 
+    if (!formData.title) {
+      return this.alert('请填写标题！')
+    } else if (me.data.spuSpec.length == 0) {
+      return this.alert('请填写套餐内容！')
+    } else if (!formData.cover) {
+      return this.alert('请选择封面图！')
+    } else if (formData.slide.length == 0) {
+      return this.alert('请选择轮播图！')
+    } 
+
     formData.spuSpec = JSON.stringify(spuSpec)
     formData.skuSpec = JSON.stringify(skuSpec)
     formData.deletedSkuSpec = JSON.stringify(deletedSkuSpec)
     formData.detail = JSON.stringify(editorContent)
-    
+
+    // 按价格从低到高排序
+    skuSpec.sort(function(a, b) {
+      return a.price - b.price
+    })
+
+    // sku中最低价格
+    formData.price = skuSpec[0].price
     // 活动发布后就清空草稿
     formData.draft = ''
     // 发布后状态设置成 1
