@@ -18,7 +18,7 @@
     "gulp-util": "3.0.4",
     "gulp-magix-cmd": "0.0.7",
     "gulp-jshint": "^1.9.0",
-    "mat": "0.1.10",
+    "mat": "1.0.7",
     "mat-proxy": "0.0.2",
     "mat-less": "0.0.3",
     "magix-combine": "3.2.2"
