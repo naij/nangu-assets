@@ -87,7 +87,7 @@ module.exports = Magix.View.extend({
         sku.forEach(function(subv, subi) {
           if (subv.indexes == i) {
             skuSpec.push({
-              skuId: subv.skuSn,
+              skuSn: subv.skuSn,
               specValue: v,
               price: subv.price,
               stock: subv.stock,
