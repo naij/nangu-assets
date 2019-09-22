@@ -1,0 +1,27 @@
+<div class="page-header clearfix">
+    <div class="title-bar">
+      <h2 class="title" t-if="categoryId">编辑类目</h2>
+      <h2 class="title" t-if="!categoryId">新增类目</h2>
+    </div>
+  </div>
+  <div class="page-body spu-create">
+    <form id="category-create-form">
+      <ul class="union-form">
+        <li class="field">
+          <p class="field-label2">类目名称</p>
+          <input type="text" class="input" name="name" value="{{name}}">
+        </li>
+        <li class="field">
+          <p class="field-label2">上级分类</p>
+          <select class="select" name="parentId" disabled="{{categoryId ? true : false}}">
+            {{#for(item in categoryList)}}
+            <option value="{{item.categoryId}}" selected="{{item.selected}}">{{item.name}}</option>
+            {{/for}}
+          </select>
+        </li>
+        <li class="field">
+          <a href="#" class="btn btn-brand btn-large" mx-click="submit()">提交</a>
+        </li>
+      </ul>
+    </form>
+  </div>

@@ -38,6 +38,14 @@ var menuList = [{
       path: '/picture/list',
       name: '图片管理',
       icon: 'icontupian'
+    },
+    {
+      path: '/category/list',
+      name: '类目管理',
+      icon: 'iconleimu',
+      childNav: [
+        '/category/create'
+      ]
     }
   ]
 }, {

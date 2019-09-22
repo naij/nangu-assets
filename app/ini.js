@@ -11,6 +11,8 @@ var routeMap = {
     {path: '/roomvoucher/list', needLogin: true},
     {path: '/roomvoucher/recyclebin', needLogin: true},
     {path: '/roomvoucher/create', needLogin: true},
+    {path: '/category/list', needLogin: true},
+    {path: '/category/create', needLogin: true},
     {path: '/photograph/list', needLogin: true},
     {path: '/photograph/recyclebin', needLogin: true},
     {path: '/photograph/create', needLogin: true},

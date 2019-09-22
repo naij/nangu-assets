@@ -114,6 +114,34 @@ Service.add([
     url: '/api/weixin/roomvoucher/remove_complete.json',
     method: 'POST'
   },
+  // 获取类目列表
+  {
+    name: 'category_list',
+    url: '/api/weixin/category/list.json'
+  },
+  // 获取单个类目
+  {
+    name: 'category_detail',
+    url: '/api/weixin/category/detail.json'
+  },
+  // 创建类目
+  {
+    name: 'category_create',
+    url: '/api/weixin/category/create.json',
+    method: 'POST'
+  },
+  // 更新类目
+  {
+    name: 'category_update',
+    url: '/api/weixin/category/update.json',
+    method: 'POST'
+  },
+  // 删除类目
+  {
+    name: 'category_remove',
+    url: '/api/weixin/category/remove.json',
+    method: 'POST'
+  },
   // 获取图片列表
   {
     name: 'picture_list',
