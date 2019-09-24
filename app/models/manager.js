@@ -142,6 +142,36 @@ Service.add([
     url: '/api/weixin/category/remove.json',
     method: 'POST'
   },
+
+  // 获取属性列表
+  {
+    name: 'attribute_list',
+    url: '/api/weixin/attribute/list.json'
+  },
+  // 获取单个属性
+  {
+    name: 'attribute_detail',
+    url: '/api/weixin/attribute/detail.json'
+  },
+  // 创建属性
+  {
+    name: 'attribute_create',
+    url: '/api/weixin/attribute/create.json',
+    method: 'POST'
+  },
+  // 更新属性
+  {
+    name: 'attribute_update',
+    url: '/api/weixin/attribute/update.json',
+    method: 'POST'
+  },
+  // 删除属性
+  {
+    name: 'attribute_remove',
+    url: '/api/weixin/attribute/remove.json',
+    method: 'POST'
+  },
+
   // 获取图片列表
   {
     name: 'picture_list',

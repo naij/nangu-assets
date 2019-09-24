@@ -5,6 +5,8 @@ var $ = require('jquery')
 var routeMap = {
   'app/views/layout/default': [
     {path: '/', needLogin: true},
+    {path: '/product/category', needLogin: true},
+    {path: '/product/publish', needLogin: true},
     {path: '/activity/list', needLogin: true},
     {path: '/activity/recyclebin', needLogin: true},
     {path: '/activity/create', needLogin: true},
@@ -13,6 +15,8 @@ var routeMap = {
     {path: '/roomvoucher/create', needLogin: true},
     {path: '/category/list', needLogin: true},
     {path: '/category/create', needLogin: true},
+    {path: '/attribute/list', needLogin: true},
+    {path: '/attribute/create', needLogin: true},
     {path: '/photograph/list', needLogin: true},
     {path: '/photograph/recyclebin', needLogin: true},
     {path: '/photograph/create', needLogin: true},

@@ -1,0 +1,30 @@
+<div class="page-header clearfix">
+  <div class="title-bar">
+    <h2 class="title">选择类目</h2>
+  </div>
+</div>
+<div class="page-body">
+  <div class="product-publish-category">
+    <div class="category-list-container clearfix">
+      <div class="category-list">
+        {{#for(item in parentList)}}
+        <div class="category-item" t-class:selected="item.selected" mx-click="switchParentCategory({parentId:{{item.categoryId}},index:{{__INDEX__}}})">
+          <span>{{item.name}}</span>
+          <span class="iconfont iconjiantou"></span>
+        </div>
+        {{/for}}
+      </div>
+      <div class="category-list">
+        {{#for(item in childList)}}
+        <div class="category-item" t-class:selected="item.selected" mx-click="switchChildCategory({categoryId:{{item.categoryId}},index:{{__INDEX__}}})">
+          <span>{{item.name}}</span>
+          <span class="iconfont iconjiantou"></span>
+        </div>
+        {{/for}}
+      </div>
+    </div>
+    <div class="publish">
+      <button class="btn btn-brand btn-large" t-class:btn-disabled="categoryId?false:true" disabled="{{categoryId?false:true}}" mx-click="gotoPublish()">下一步，发布商品</button>
+    </div>
+  </div>
+</div>

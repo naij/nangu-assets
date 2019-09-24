@@ -28,6 +28,53 @@
   }
 }
 
+/* 选择类目 */ 
+.product-publish-category {
+  .category-list-container {
+    width: 624px;
+    margin: 0 auto;
+  }
+  .category-list {
+    border: 1px solid #eee;
+    height: 330px;
+    width: 300px;
+    background-color: #fff;
+    padding: 10px 0;
+    margin-right: 20px;
+    float: left;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+  .category-item {
+    border-left: 2px solid transparent;
+    height: 35px;
+    line-height: 35px;
+    padding: 0 10px;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+
+    &:hover {
+      background: #f4f4f4;
+    }
+    &.selected {
+      border-left: 2px solid @color-brand;
+      background: #f4f4f4;
+    }
+    .iconfont {
+      font-size: 12px;
+    }
+  }
+  .publish {
+    padding: 20px 0;
+    text-align: center;
+  }
+}
+
+
 /* 活动创建 */
 .spu-create {
   position: relative;

@@ -8,6 +8,14 @@ var menuList = [{
   },
   subNav: [
     {
+      path: '/product/category',
+      name: '新增商品',
+      icon: 'iconxinzeng',
+      childNav: [
+        '/product/publish'
+      ]
+    },
+    {
       path: '/activity/list',
       name: '活动管理',
       icon: 'iconicon3',
@@ -44,7 +52,9 @@ var menuList = [{
       name: '类目管理',
       icon: 'iconleimu',
       childNav: [
-        '/category/create'
+        '/category/create',
+        '/attribute/list',
+        '/attribute/create'
       ]
     }
   ]
