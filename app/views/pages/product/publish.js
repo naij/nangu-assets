@@ -161,31 +161,6 @@ module.exports = Magix.View.extend({
     me._parseSku()
     me.setView()
   },
-  'addSpuSpec<click>': function(e) {
-    e.preventDefault()
-    var me = this
-    var specValue = $('#J_spec_value').val()
-    if (specValue) {
-      me.data.spuSpec.push(specValue)
-      me.data.skuSpec.push({
-        specValue: specValue,
-        price: '',
-        stock: '',
-        spec: {"套餐": specValue}
-      })
-      me._updateIndexes()
-      me.setView()
-    }
-  },
-  'delSpuSpec<click>': function(e) {
-    e.preventDefault()
-    var me = this
-    var index = e.params.index
-    me.data.spuSpec.splice(index, 1)
-    me.data.deletedSkuSpec.push(me.data.skuSpec.splice(index, 1)[0])
-    me._updateIndexes()
-    me.setView()
-  },
   'bindSkuSpecChange<change>': function(e) {
     var me = this
     var index = e.params.index
@@ -227,103 +202,19 @@ module.exports = Magix.View.extend({
   'submit<click>': function(e) {
     e.preventDefault()
     var me = this
-    var id = me.data.id
-    var formData = $('#spu-create-form').serializeJSON({useIntKeysAsArrayIndex: true})
-    var editorContent = me._getEditorContent()
-    var spuSpec = {'套餐': me.data.spuSpec}
-    var skuSpec = me.data.skuSpec
-    var deletedSkuSpec = me.data.deletedSkuSpec
+    var categoryId = me.param('categoryId')
+    var formData = $('#product-create-form').serializeJSON({useIntKeysAsArrayIndex: true})
 
-    if (!formData.title) {
-      return this.alert('请填写标题！')
-    } else if (me.data.spuSpec.length == 0) {
-      return this.alert('请填写套餐内容！')
-    } else if (!formData.cover) {
-      return this.alert('请选择封面图！')
-    } else if (formData.slide.length == 0) {
-      return this.alert('请选择轮播图！')
-    } 
-
-    formData.spuSpec = JSON.stringify(spuSpec)
-    formData.skuSpec = JSON.stringify(skuSpec)
-    formData.deletedSkuSpec = JSON.stringify(deletedSkuSpec)
-    formData.detail = JSON.stringify(editorContent)
-
-    // 按价格从低到高排序
-    skuSpec.sort(function(a, b) {
-      return a.price - b.price
+    $.extend(formData, {
+      categoryId: categoryId,
+      attributeList: attributeList
     })
 
-    // sku中最低价格
-    formData.price = skuSpec[0].price
-    // 活动发布后就清空草稿
-    formData.draft = ''
-    // 发布后状态设置成 1
-    formData.status = 1
-
-    var modelName
-
-    if (typeof(id) == 'undefined') {
-      modelName = 'roomvoucher_create'
-    } else {
-      formData.id = id
-      modelName = 'roomvoucher_update'
-    }
     me.request().all([{
-      name: modelName,
+      name: 'product_create',
       params: formData
     }], function(e, MesModel) {
-      me.to('/roomvoucher/list')
+      // me.to('/roomvoucher/list')
     })
-  },
-  'draft<click>': function(e) {
-    e.preventDefault()
-    var me = this
-    var id = me.data.id
-    var status = me.data.status || 2
-    var postData = {}
-    var formData = $('#spu-create-form').serializeJSON({useIntKeysAsArrayIndex: true})
-    var editorContent = me._getEditorContent()
-
-    // 上线状态时保存草稿只改变draft字段，其他字段不能动
-    if (status == 1) {
-      postData = me.data
-    } else {
-      postData.status = status
-      formData.detail = editorContent
-      Magix.mix(postData, formData)
-    }
-    
-    postData.draft = JSON.stringify(postData)
-    var modelName
-
-    if (typeof(id) == 'undefined') {
-      modelName = 'roomvoucher_create'
-    } else {
-      postData.id = id
-      modelName = 'roomvoucher_update'
-    }
-
-    me.request().all([{
-      name: modelName,
-      params: postData
-    }], function(e, MesModel) {
-      me.alert('草稿保存成功！')
-      me.data.id = MesModel.get('data').id
-    })
-  },
-  'loaddraft<click>': function(e) {
-    e.preventDefault()
-    var data = this.data
-    this.data = Magix.mix(data, JSON.parse(data.draft))
-    this.data.hasDraft = false
-    this.setView()
-    this._setEditorContent(this.data)
-    this.alert('已用草稿内容覆盖当前内容！')
-  },
-  'canceldraft<click>': function(e) {
-    e.preventDefault()
-    this.data.hasDraft = false
-    this.setView()
   }
 })

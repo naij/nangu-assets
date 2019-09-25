@@ -172,6 +172,36 @@ Service.add([
     method: 'POST'
   },
 
+  // 获取商品列表
+  {
+    name: 'product_list',
+    url: '/api/weixin/product/list.json'
+  },
+  // 获取单个商品
+  {
+    name: 'product_detail',
+    url: '/api/weixin/product/detail.json'
+  },
+  // 创建商品
+  {
+    name: 'product_create',
+    url: '/api/weixin/product/create.json',
+    method: 'POST'
+  },
+  // 更新商品
+  {
+    name: 'product_update',
+    url: '/api/weixin/product/update.json',
+    method: 'POST'
+  },
+  // 删除商品
+  {
+    name: 'product_remove',
+    url: '/api/weixin/product/remove.json',
+    method: 'POST'
+  },
+
+
   // 获取图片列表
   {
     name: 'picture_list',
