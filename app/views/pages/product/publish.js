@@ -2,54 +2,29 @@ var Magix = require('magix')
 var $ = require('jquery')
 var Editor = require('app/coms/editor/editor')
 var Dialog = require('app/mixins/dialog')
+var util = require('app/util/index')
 
 module.exports = Magix.View.extend({
   tmpl: '@publish.html',
   mixins: [Dialog],
   render: function() {
     var me = this
-    var id = me.param('id')
+    var categoryId = me.param('categoryId')
 
-    if (id !== '') {
-      me.request().all([{
-        name: 'roomvoucher_detail',
-        params: {
-          id: id
-        }
-      }], function(e, MesModel) {
-        var data = MesModel.get('data')
-  
-        me.data = data
-        me.data.id = id
-        me.data.spuSpec = me._parseSpuSpec(data.spuSpec)
-        me.data.skuSpec = me._parseSkuSpec(data.spuSpec, data.sku)
-        me.data.deletedSkuSpec = []
-
-        // 在上线状态并且有草稿的情况下显示提示
-        if (data.draft && data.status == 1) {
-          me.data.hasDraft = true
-        }
-        
-        me.setView().then(function() {
-          me._rendered(data)
-        })
-      })
-    } else {
-      me.data = {
-        type: 1,
-        title: '',
-        price: '',
-        cover: '',
-        slide: [],
-        detail: {},
-        spuSpec: me._parseSpuSpec({}),
-        skuSpec: me._parseSkuSpec({}),
-        deletedSkuSpec: []
+    me.request().all([{
+      name: 'attribute_list',
+      params: {
+        categoryId: categoryId,
+        type: 0
       }
-      me.setView().then(function() {
-        me._rendered()
-      })
-    }
+    }], function(e, MesModel) {
+      var data = MesModel.get('data')
+      me.data = {
+        attributeList: data.list,
+        slide: []
+      }
+      me.setView()
+    })
   },
   _rendered: function(data) {
     var me = this
@@ -125,6 +100,66 @@ module.exports = Magix.View.extend({
     me.data.spuSpec.forEach(function(v ,i) {
       me.data.skuSpec[i]['indexes'] = i
     })
+  },
+  // 计算sku排列方式
+  _parseSku: function() {
+    var attributeList = this.data.attributeList
+    var attributeValues = []
+    $.each(attributeList, function ( i, v ) {
+      attributeValues.push(v.attributeValues)
+    })
+    var skuList = util.calcDescartes(attributeValues)
+    this.data.skuList = skuList
+  },
+  'addAttributeValue<click>': function(e) {
+    e.preventDefault()
+    var me = this
+    var attributeId = e.params.attributeId
+    var attributeList = me.data.attributeList
+    var value = $('#J_attr_value_' + attributeId).val()
+    var attributeObject 
+
+    if (value) {
+      $.each(attributeList, function( i, v ) {
+        if (!v.attributeValues) {
+          v.attributeValues = []
+        }
+        if (v.attributeId == attributeId) {
+          attributeObject = v
+        }
+      })
+      var attributeValues = attributeObject.attributeValues
+      attributeValues.push({
+        value: value
+      })
+      $.each(attributeValues, function( i, v ) {
+        v.index = i
+      })
+      attributeObject.attributeValues = attributeValues
+      me._parseSku()
+      me.setView()
+    }
+  },
+  'delAttributeValue<click>': function(e) {
+    e.preventDefault()
+    var me = this
+    var index = e.params.index
+    var attributeId = e.params.attributeId
+    var attributeList = me.data.attributeList
+    var attributeObject 
+    
+    $.each(attributeList, function( i, v ) {
+      if (v.attributeId == attributeId) {
+        attributeObject = v
+      }
+    })
+    var attributeValues = attributeObject.attributeValues
+    attributeValues.splice(index, 1)
+    $.each(attributeValues, function( i, v ) {
+      v.index = i
+    })
+    me._parseSku()
+    me.setView()
   },
   'addSpuSpec<click>': function(e) {
     e.preventDefault()

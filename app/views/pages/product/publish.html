@@ -3,7 +3,7 @@
       <h2 class="title">发布商品</h2>
     </div>
   </div>
-  <div class="page-body spu-create">
+  <div class="page-body product-publish">
     <form id="spu-create-form">
       <input type="hidden" name="category"" value="4">
       <ul class="union-form">
@@ -12,41 +12,53 @@
           <input type="text" class="input" name="title" value="{{title}}">
         </li>
         <li class="field">
-          <p class="field-label2">套餐</p>
-          <div class="spac-add">
-            <input placeholder="请输入自定义套餐标题" class="input mr10" id="J_spec_value">
-            <a href="#" class="btn btn-brand btn-large" mx-click="addSpuSpec()">+添加</a>
-          </div>
-          <div class="spac-container clearfix" t-if="spuSpec.length>0">
-            {{#for(item in spuSpec)}}
-            <div class="spac-item">{{item}}<span class="iconfont iconguanbi close" mx-click="delSpuSpec({index:{{__INDEX__}}})"></span></div>
+          <p class="field-label2">商品规格</p>
+          <div class="attribute-container">
+            {{#for(item in attributeList)}}
+            <div class="attribute-item">
+              <p class="field-label2">{{item.name}}</p>
+              <div>
+                <input placeholder="请输入自定义{{item.name}}名称" class="input mr10" id="J_attr_value_{{item.attributeId}}">
+
+                <button class="btn btn-brand btn-large" mx-click="addAttributeValue({attributeId:{{item.attributeId}}})">+添加</button>
+
+                <div class="attribute-value-container clearfix" t-if="item.attributeValues.length>0">
+                  {{#for(subitem in item.attributeValues)}}
+                  <div class="attribute-value-item">{{subitem.value}}<span class="iconfont iconguanbi close" mx-click="delAttributeValue({attributeId:{{item.attributeId}},index:{{subitem.index}}})"></span></div>
+                  {{/for}}
+                </div>
+              </div>
+            </div>
             {{/for}}
           </div>
-        </li>
-        <li class="field table-container" t-if="spuSpec.length>0">
-          <p class="field-label2">销售规则</p>
-          <table class="table">
-            <thead>
-              <tr>
-                <th class="left" width="150">套餐</th>
-                <th class="left" width="150">价格</th>
-                <th class="left" width="150">数量</th>
-              </tr>
-            </thead>
-            <tbody>
-              {{#for(item in skuSpec)}}
-              <tr>
-                <td class="left">{{item.specValue}}</td>
-                <td class="left">
-                  <input placeholder="套餐价格" type="number" class="input input-narrow" value="{{item.price}}" mx-change="bindSkuSpecChange({index:{{__INDEX__}},field:'price'})">
-                </td>
-                <td class="left">
-                  <input placeholder="数量" type="number" class="input input-narrow" value="{{item.stock}}" mx-change="bindSkuSpecChange({index:{{__INDEX__}},field:'stock'})">
-                </td>
-              </tr>
-              {{/for}}
-            </tbody>
-          </table>
+          <div class="sku-container table-container" t-if="skuList.length>0">
+            <table class="table">
+              <thead>
+                <tr>
+                  {{#for(item in attributeList)}}
+                  <th class="left" width="150">{{item.name}}</th>
+                  {{/for}}
+                  <th class="left" width="150">价格</th>
+                  <th class="left" width="150">数量</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#for(item in skuList)}}
+                <tr>
+                  {{#for(subitem in item)}}
+                  <td class="left">{{subitem.value}}</td>
+                  {{/for}}
+                  <td class="left">
+                    <input placeholder="价格" type="number" class="input input-narrow" value="{{item.price}}" mx-change="bindSkuSpecChange({index:{{__INDEX__}},field:'price'})">
+                  </td>
+                  <td class="left">
+                    <input placeholder="库存" type="number" class="input input-narrow" value="{{item.stock}}" mx-change="bindSkuSpecChange({index:{{__INDEX__}},field:'stock'})">
+                  </td>
+                </tr>
+                {{/for}}
+              </tbody>
+            </table>
+          </div>
         </li>
         <li class="field">
           <p class="field-label2">封面图</p>
