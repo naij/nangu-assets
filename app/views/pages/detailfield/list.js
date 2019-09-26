@@ -10,26 +10,19 @@ module.exports = Magix.View.extend({
   },
   render: function() {
     var me = this
-    var pageNo = me.param('pageNo') || 1
-    var pageSize = 10
     var categoryId = me.param('categoryId')
 
     me.request().all([{
       name: 'detailfield_list',
       params: {
-        categoryId: categoryId,
-        pageNo: pageNo,
-        pageSize: pageSize
+        categoryId: categoryId
       }
     }], function(e, MesModel) {
       var data = MesModel.get('data')
 
       me.data = {
         categoryId: categoryId,
-        list: data.list,
-        pageNo: pageNo,
-        pageSize: pageSize,
-        totalCount: data.totalCount
+        list: data.list
       }
       me.setView()
     })
@@ -48,9 +41,6 @@ module.exports = Magix.View.extend({
         me.render()
       })
     })
-  },
-  'pageChange<change>': function(e) {
-    this.to({pageNo: e.state.page})
   },
   filters: {
     formatFieldType: function(value) {

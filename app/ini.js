@@ -8,6 +8,7 @@ var routeMap = {
     {path: '/product/category', needLogin: true},
     {path: '/product/publish', needLogin: true},
     {path: '/product/successful', needLogin: true},
+    {path: '/product/recyclebin', needLogin: true},
     {path: '/activity/list', needLogin: true},
     {path: '/activity/recyclebin', needLogin: true},
     {path: '/activity/create', needLogin: true},

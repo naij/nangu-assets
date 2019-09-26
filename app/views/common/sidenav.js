@@ -55,9 +55,16 @@ var menuList = [{
       childNav: [
         '/category/create',
         '/attribute/list',
-        '/attribute/create'
+        '/attribute/create',
+        '/detailfield/list',
+        '/detailfield/create'
       ]
-    }
+    },
+    {
+      path: '/product/recyclebin',
+      name: '回收站',
+      icon: 'iconhuishouzhan'
+    },
   ]
 }, {
   mainNav: {

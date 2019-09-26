@@ -98,14 +98,24 @@
             {{/if}}
           </div>
         </li>
-        <li class="field">
-          <p class="field-label2">产品说明</p>
-          <div id="description-editor"></div>
-        </li>
-        <li class="field">
-          <p class="field-label2">使用规则</p>
-          <div id="usage-editor"></div>
-        </li>
+        {{#for(item in detailfieldList)}}
+          {{#if(item.fieldType == 0)}}
+          <li class="field">
+            <p class="field-label2">{{item.fieldLabel}}</p>
+            <div id="{{item.fieldName}}-editor"></div>
+          </li>
+          {{/if}}
+          {{#if(item.fieldType == 1)}}
+          <li class="field">
+            <p class="field-label2">地理位置地址</p>
+            <input type="text" class="input" name="location" value="{{location}}">
+          </li>
+          <li class="field">
+            <p class="field-label2">地理位置经纬度</p>
+            <input type="text" class="input" name="locationPointer" value="{{locationPointer}}">
+          </li>
+          {{/if}}
+        {{/for}}
         <li class="field">
           <a href="#" class="btn btn-brand btn-large mr10" mx-click="submit()">发布</a>
         </li>

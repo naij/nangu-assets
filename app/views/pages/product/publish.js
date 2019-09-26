@@ -17,34 +17,34 @@ module.exports = Magix.View.extend({
         categoryId: categoryId,
         type: 0
       }
-    }], function(e, MesModel) {
-      var data = MesModel.get('data')
+    }, {
+      name: 'detailfield_list',
+      params: {
+        categoryId: categoryId
+      }
+    }], function(e, AttributeModel, DetailfieldModel) {
       me.data = {
-        attributeList: data.list,
+        attributeList: AttributeModel.get('data').list,
+        detailfieldList: DetailfieldModel.get('data').list,
         slide: []
       }
-      me.setView()
+      me.setView().then(function() {
+        me._rendered()
+      })
     })
   },
   _rendered: function(data) {
     var me = this
-    var usageEditor = new Editor('#usage-editor')
-    this._customInsertImg(usageEditor)
-    usageEditor.create()
-    var descriptionEditor = new Editor('#description-editor')
-    this._customInsertImg(descriptionEditor)
-    descriptionEditor.create()
+    var detailfieldList = me.data.detailfieldList
 
-    this.usageEditor = usageEditor
-    this.descriptionEditor = descriptionEditor
-
-    if (data) {
-      this._setEditorContent(data)
-    }
-  },
-  _setEditorContent: function(data) {
-    this.usageEditor.txt.html(data.detail.usage)
-    this.descriptionEditor.txt.html(data.detail.description)
+    $.each(detailfieldList, function(i, v) {
+      if (v.fieldType == 0) {
+        var editor = new Editor('#' + v.fieldName + '-editor')
+        me._customInsertImg(editor)
+        editor.create()
+        me[v.fieldName + 'Editor'] = editor
+      }
+    })
   },
   // 自定义图片插入
   _customInsertImg: function(editorInstance) {
@@ -59,11 +59,17 @@ module.exports = Magix.View.extend({
       })
     }
   },
+  // 获取文本编辑器内容
   _getEditorContent: function() {
     var me = this
     var editorContent = {}
-    editorContent.usage = me.usageEditor.txt.html().replace(/[\r\n]/g, "").replace(/<style(([\s\S])*?)<\/style>/g, '').replace(/\<img/gi, '<img style="width:100%;height:auto" ').replace(/<p>/ig, '<p class="p_class">')
-    editorContent.description = me.descriptionEditor.txt.html().replace(/[\r\n]/g, "").replace(/<style(([\s\S])*?)<\/style>/g, '').replace(/\<img/gi, '<img style="width:100%;height:auto" ').replace(/<p>/ig, '<p class="p_class">')
+    var detailfieldList = me.data.detailfieldList
+    $.each(detailfieldList, function(i, v) {
+      if (v.fieldType == 0) {
+        var editor = me[v.fieldName + 'Editor']
+        editorContent[v.fieldName] = editor.txt.html().replace(/[\r\n]/g, "").replace(/<style(([\s\S])*?)<\/style>/g, '').replace(/\<img/gi, '<img style="width:100%;height:auto" ').replace(/<p>/ig, '<p class="p_class">')
+      }
+    })
     return editorContent
   },
   // 计算sku排列方式
@@ -192,11 +198,20 @@ module.exports = Magix.View.extend({
     var attributeList = me.data.attributeList
     var skuList = me.data.skuList
     var formData = $('#product-create-form').serializeJSON({useIntKeysAsArrayIndex: true})
+    var detail = me._getEditorContent()
+
+    if (formData.location) {
+      $.extend(detail, {
+        location: formData.location,
+        locationPointer: formData.locationPointer
+      })
+    }
 
     $.extend(formData, {
       categoryId: categoryId,
       attributeList: attributeList,
-      skuList: skuList
+      skuList: skuList,
+      detail: detail
     })
 
     me.request().all([{

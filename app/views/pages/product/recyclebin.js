@@ -14,9 +14,8 @@ module.exports = Magix.View.extend({
     var pageSize = 10
 
     me.request().all([{
-      name: 'roomvoucher_list',
+      name: 'product_list',
       params: {
-        category: '4',
         status: '0',
         pageNo: pageNo,
         pageSize: pageSize
@@ -38,7 +37,7 @@ module.exports = Magix.View.extend({
     var id = e.params.id
     var me = this
     me.request().all([{
-      name: 'roomvoucher_offline',
+      name: 'product_offline',
       params: {
         id: id
       }
@@ -50,9 +49,9 @@ module.exports = Magix.View.extend({
     e.preventDefault()
     var id = e.params.id
     var me = this
-    me.confirm('确定要删除此房券？彻底删除后不可复原！', function() {
+    me.confirm('确定要删除此商品？彻底删除后不可复原！', function() {
       me.request().all([{
-        name: 'roomvoucher_remove_complete',
+        name: 'product_remove_complete',
         params: {
           id: id
         }
