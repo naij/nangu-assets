@@ -38,21 +38,22 @@
                   <th class="left" width="150">{{item.name}}</th>
                   {{/for}}
                   <th class="left" width="150">价格</th>
-                  <th class="left" width="150">数量</th>
+                  <th class="left" width="150">库存</th>
                 </tr>
               </thead>
               <tbody>
-                {{#for(item in skuList)}}
+                {{#for((index,item) in skuList)}}
                 <tr>
                   {{#for(subitem in item)}}
-                  <td class="left">{{subitem.value}}</td>
+                  <td class="left">
+                    {{#if(subitem.input)}}
+                      <input placeholder="{{subitem.fieldLabel}}" type="number" class="input input-narrow" value="{{subitem.fieldValue}}" mx-change="skuFieldChange({index:{{index}},field:'{{subitem.fieldName}}'})">
+                    {{/if(subitem.input)}}
+                    {{^if(subitem.input)}}
+                      {{subitem.value}}
+                    {{/if(subitem.input)}}
+                  </td>
                   {{/for}}
-                  <td class="left">
-                    <input placeholder="价格" type="number" class="input input-narrow" value="{{item.price}}" mx-change="bindSkuSpecChange({index:{{__INDEX__}},field:'price'})">
-                  </td>
-                  <td class="left">
-                    <input placeholder="库存" type="number" class="input input-narrow" value="{{item.stock}}" mx-change="bindSkuSpecChange({index:{{__INDEX__}},field:'stock'})">
-                  </td>
                 </tr>
                 {{/for}}
               </tbody>

@@ -109,6 +109,20 @@ module.exports = Magix.View.extend({
       attributeValues.push(v.attributeValues)
     })
     var skuList = util.calcDescartes(attributeValues)
+    $.each(skuList, function (i, v) {
+      v.push({
+        fieldName: 'price',
+        fieldLabel: '价格',
+        fieldValue: '',
+        input: true
+      })
+      v.push({
+        fieldName: 'stock',
+        fieldLabel: '库存',
+        fieldValue: '',
+        input: true
+      })
+    })
     this.data.skuList = skuList
   },
   'addAttributeValue<click>': function(e) {
@@ -130,6 +144,7 @@ module.exports = Magix.View.extend({
       })
       var attributeValues = attributeObject.attributeValues
       attributeValues.push({
+        attributeId: attributeId,
         value: value
       })
       $.each(attributeValues, function( i, v ) {
@@ -161,12 +176,18 @@ module.exports = Magix.View.extend({
     me._parseSku()
     me.setView()
   },
-  'bindSkuSpecChange<change>': function(e) {
+  'skuFieldChange<change>': function(e) {
     var me = this
     var index = e.params.index
     var field = e.params.field
     var input = $(e.eventTarget)
-    me.data.skuSpec[index][field] = input.val()
+    var curSku = me.data.skuList[index]
+
+    $.each(curSku, function (i, v) {
+      if (v.fieldName == field) {
+        v.fieldValue = input.val()
+      }
+    })
   },
   'pickCover<click>': function(e) {
     e.preventDefault()
@@ -203,11 +224,14 @@ module.exports = Magix.View.extend({
     e.preventDefault()
     var me = this
     var categoryId = me.param('categoryId')
+    var attributeList = me.data.attributeList
+    var skuList = me.data.skuList
     var formData = $('#product-create-form').serializeJSON({useIntKeysAsArrayIndex: true})
 
     $.extend(formData, {
       categoryId: categoryId,
-      attributeList: attributeList
+      attributeList: attributeList,
+      skuList: skuList
     })
 
     me.request().all([{
