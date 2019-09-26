@@ -46,35 +46,6 @@ module.exports = Magix.View.extend({
     this.usageEditor.txt.html(data.detail.usage)
     this.descriptionEditor.txt.html(data.detail.description)
   },
-  _parseSpuSpec: function(spec) {
-    if ($.isEmptyObject(spec)) {
-      return []
-    } else {
-      return spec['套餐']
-    }
-  },
-  _parseSkuSpec: function (spuSpec, sku) {
-    if ($.isEmptyObject(spuSpec)) {
-      return []
-    } else {
-      var skuSpec = []
-      spuSpec.forEach(function(v, i) {
-        sku.forEach(function(subv, subi) {
-          if (subv.indexes == i) {
-            skuSpec.push({
-              skuSn: subv.skuSn,
-              specValue: v,
-              price: subv.price,
-              stock: subv.stock,
-              indexes: i,
-              spec: {"套餐": v}
-            })
-          }
-        })
-      })
-      return skuSpec
-    }
-  },
   // 自定义图片插入
   _customInsertImg: function(editorInstance) {
     var me = this
@@ -94,12 +65,6 @@ module.exports = Magix.View.extend({
     editorContent.usage = me.usageEditor.txt.html().replace(/[\r\n]/g, "").replace(/<style(([\s\S])*?)<\/style>/g, '').replace(/\<img/gi, '<img style="width:100%;height:auto" ').replace(/<p>/ig, '<p class="p_class">')
     editorContent.description = me.descriptionEditor.txt.html().replace(/[\r\n]/g, "").replace(/<style(([\s\S])*?)<\/style>/g, '').replace(/\<img/gi, '<img style="width:100%;height:auto" ').replace(/<p>/ig, '<p class="p_class">')
     return editorContent
-  },
-  _updateIndexes: function () {
-    var me = this
-    me.data.spuSpec.forEach(function(v ,i) {
-      me.data.skuSpec[i]['indexes'] = i
-    })
   },
   // 计算sku排列方式
   _parseSku: function() {
@@ -131,7 +96,7 @@ module.exports = Magix.View.extend({
     var attributeId = e.params.attributeId
     var attributeList = me.data.attributeList
     var value = $('#J_attr_value_' + attributeId).val()
-    var attributeObject 
+    var attributeObject
 
     if (value) {
       $.each(attributeList, function( i, v ) {
@@ -238,7 +203,7 @@ module.exports = Magix.View.extend({
       name: 'product_create',
       params: formData
     }], function(e, MesModel) {
-      // me.to('/roomvoucher/list')
+      me.to('/product/successful')
     })
   }
 })

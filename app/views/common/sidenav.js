@@ -12,7 +12,8 @@ var menuList = [{
       name: '新增商品',
       icon: 'iconxinzeng',
       childNav: [
-        '/product/publish'
+        '/product/publish',
+        '/product/successful'
       ]
     },
     {

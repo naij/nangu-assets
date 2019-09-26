@@ -171,7 +171,34 @@ Service.add([
     url: '/api/weixin/attribute/remove.json',
     method: 'POST'
   },
-
+  // 获取详情字段列表
+  {
+    name: 'detailfield_list',
+    url: '/api/weixin/detailfield/list.json'
+  },
+  // 获取单个详情字段
+  {
+    name: 'detailfield_detail',
+    url: '/api/weixin/detailfield/detail.json'
+  },
+  // 创建详情字段
+  {
+    name: 'detailfield_create',
+    url: '/api/weixin/detailfield/create.json',
+    method: 'POST'
+  },
+  // 更新详情字段
+  {
+    name: 'detailfield_update',
+    url: '/api/weixin/detailfield/update.json',
+    method: 'POST'
+  },
+  // 删除详情字段
+  {
+    name: 'detailfield_remove',
+    url: '/api/weixin/detailfield/remove.json',
+    method: 'POST'
+  },
   // 获取商品列表
   {
     name: 'product_list',

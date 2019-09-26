@@ -3,7 +3,14 @@ var _ = require('underscore')
 var format = require('app/util/format/format')
 var exp = {
   calcDescartes: function (array) {
-    if (array.length < 2) return array[0] || []
+    if (array.length < 2) {
+      var res = []
+      array[0].forEach(function (v) {
+        res.push(Array(v))
+      })
+      return res
+    }
+    
     return [].reduce.call(array, function (col, set) {
       var res = []
       col.forEach(function (c) {
