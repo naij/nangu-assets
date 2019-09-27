@@ -13,6 +13,7 @@ var menuList = [{
       icon: 'iconxinzeng',
       childNav: [
         '/product/publish',
+        '/product/update',
         '/product/successful'
       ]
     },

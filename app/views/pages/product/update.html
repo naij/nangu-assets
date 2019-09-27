@@ -1,6 +1,6 @@
 <div class="page-header clearfix">
   <div class="title-bar">
-    <h2 class="title">发布商品</h2>
+    <h2 class="title">更新商品</h2>
   </div>
 </div>
 <div class="page-body product-publish">
@@ -8,11 +8,11 @@
     <ul class="union-form">
       <li class="field">
         <p class="field-label2">标题</p>
-        <input type="text" class="input" name="title">
+        <input type="text" class="input" name="title" value="{{title}}" />
       </li>
       <li class="field">
         <p class="field-label2">价格</p>
-        <input type="number" class="input" name="price">
+        <input type="number" class="input" name="price" value="{{price}}" />
       </li>
       <li class="field">
         <p class="field-label2">商品规格</p>
@@ -121,7 +121,7 @@
         {{/if}}
       {{/for}}
       <li class="field">
-        <a href="#" class="btn btn-brand btn-large mr10" mx-click="submit()">发布</a>
+        <a href="#" class="btn btn-brand btn-large mr10" mx-click="submit()">保存</a>
       </li>
     </ul>
   </form>
