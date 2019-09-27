@@ -18,6 +18,7 @@ module.exports = Magix.View.extend({
       }
     }], function(e, ProductModel) {
       var productData = ProductModel.get('data')
+      productData.skuList = me._preparseSku(productData)
       me.data = productData
       me.setView().then(function() {
         me._rendered()
@@ -65,26 +66,77 @@ module.exports = Magix.View.extend({
     })
     return editorContent
   },
+  _preparseSku: function (data) {
+    var originSkuList = data.skuList
+    var attributeList = data.attributeList
+    var skuList = []
+    originSkuList.forEach(function(v, i) {
+      var properties = v.properties.split(';')
+      properties.shift()
+      var skuItem = []
+      properties.forEach(function(v2, i2) {
+        var propertie = v2.split(':')
+        attributeList.forEach(function(v3, i3) {
+          if (v3.attributeId == propertie[0]) {
+            v3.attributeValueList.forEach(function (v4, i4) {
+              if (v4.attributeValueId == propertie[1]) {
+                skuItem.push(v4)
+              }
+            })
+          }
+        })
+      })
+      skuItem.push({
+        fieldName: 'price',
+        fieldLabel: '价格',
+        fieldValue: v.price,
+        input: true
+      })
+      skuItem.push({
+        fieldName: 'stock',
+        fieldLabel: '库存',
+        fieldValue: v.stock,
+        input: true
+      })
+      skuList.push(skuItem)
+    })
+    return skuList
+  },
   // 计算sku排列方式
   _parseSku: function() {
     var attributeList = this.data.attributeList
-    var attributeValues = []
+    var attributeValueList = []
     $.each(attributeList, function ( i, v ) {
-      attributeValues.push(v.attributeValues)
+      attributeValueList.push(v.attributeValueList)
     })
-    var skuList = util.calcDescartes(attributeValues)
+    var skuList = util.calcDescartes(attributeValueList)
+    var originSkuList = this.data.skuList
     $.each(skuList, function (i, v) {
+      var skuItemString = JSON.stringify(v)
+      skuItemString = skuItemString.substr(0, skuItemString.length - 1)
+      
       v.push({
         fieldName: 'price',
         fieldLabel: '价格',
         fieldValue: '',
         input: true
-      })
-      v.push({
+      }, {
         fieldName: 'stock',
         fieldLabel: '库存',
         fieldValue: '',
         input: true
+      })
+      
+      $.each(originSkuList, function(i2, v2) {
+        var originSkuItemString = JSON.stringify(v2)
+        if (!v2.input) {
+          // 用字符串判断这条数据的属性值是否被改动
+          // 如果没有改动则需要保持价格和库存的数据不被清空
+          if (originSkuItemString.indexOf(skuItemString) != -1) {
+            v[v.length - 2].fieldValue = v2[v2.length - 2].fieldValue
+            v[v.length - 1].fieldValue = v2[v2.length - 1].fieldValue
+          }
+        }
       })
     })
     this.data.skuList = skuList
@@ -99,22 +151,19 @@ module.exports = Magix.View.extend({
 
     if (value) {
       $.each(attributeList, function( i, v ) {
-        if (!v.attributeValues) {
-          v.attributeValues = []
+        if (!v.attributeValueList) {
+          v.attributeValueList = []
         }
         if (v.attributeId == attributeId) {
           attributeObject = v
         }
       })
-      var attributeValues = attributeObject.attributeValues
-      attributeValues.push({
+      var attributeValueList = attributeObject.attributeValueList
+      attributeValueList.push({
         attributeId: attributeId,
         value: value
       })
-      $.each(attributeValues, function( i, v ) {
-        v.index = i
-      })
-      attributeObject.attributeValues = attributeValues
+      attributeObject.attributeValueList = attributeValueList
       me._parseSku()
       me.setView()
     }
@@ -132,11 +181,8 @@ module.exports = Magix.View.extend({
         attributeObject = v
       }
     })
-    var attributeValues = attributeObject.attributeValues
-    attributeValues.splice(index, 1)
-    $.each(attributeValues, function( i, v ) {
-      v.index = i
-    })
+    var attributeValueList = attributeObject.attributeValueList
+    attributeValueList.splice(index, 1)
     me._parseSku()
     me.setView()
   },

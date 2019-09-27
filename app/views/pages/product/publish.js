@@ -75,11 +75,11 @@ module.exports = Magix.View.extend({
   // 计算sku排列方式
   _parseSku: function() {
     var attributeList = this.data.attributeList
-    var attributeValues = []
+    var attributeValueList = []
     $.each(attributeList, function ( i, v ) {
-      attributeValues.push(v.attributeValues)
+      attributeValueList.push(v.attributeValueList)
     })
-    var skuList = util.calcDescartes(attributeValues)
+    var skuList = util.calcDescartes(attributeValueList)
     $.each(skuList, function (i, v) {
       v.push({
         fieldName: 'price',
@@ -106,22 +106,22 @@ module.exports = Magix.View.extend({
 
     if (value) {
       $.each(attributeList, function( i, v ) {
-        if (!v.attributeValues) {
-          v.attributeValues = []
+        if (!v.attributeValueList) {
+          v.attributeValueList = []
         }
         if (v.attributeId == attributeId) {
           attributeObject = v
         }
       })
-      var attributeValues = attributeObject.attributeValues
-      attributeValues.push({
+      var attributeValueList = attributeObject.attributeValueList
+      attributeValueList.push({
         attributeId: attributeId,
         value: value
       })
-      $.each(attributeValues, function( i, v ) {
+      $.each(attributeValueList, function( i, v ) {
         v.index = i
       })
-      attributeObject.attributeValues = attributeValues
+      attributeObject.attributeValueList = attributeValueList
       me._parseSku()
       me.setView()
     }
@@ -139,9 +139,9 @@ module.exports = Magix.View.extend({
         attributeObject = v
       }
     })
-    var attributeValues = attributeObject.attributeValues
-    attributeValues.splice(index, 1)
-    $.each(attributeValues, function( i, v ) {
+    var attributeValueList = attributeObject.attributeValueList
+    attributeValueList.splice(index, 1)
+    $.each(attributeValueList, function( i, v ) {
       v.index = i
     })
     me._parseSku()
