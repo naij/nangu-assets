@@ -221,10 +221,28 @@ Service.add([
     url: '/api/weixin/product/update.json',
     method: 'POST'
   },
+  // 设置商品上线
+  {
+    name: 'product_online',
+    url: '/api/weixin/product/online.json',
+    method: 'POST'
+  },
+  // 设置商品下线
+  {
+    name: 'product_offline',
+    url: '/api/weixin/product/offline.json',
+    method: 'POST'
+  },
   // 删除商品
   {
     name: 'product_remove',
     url: '/api/weixin/product/remove.json',
+    method: 'POST'
+  },
+  // 彻底删除商品
+  {
+    name: 'product_remove_complete',
+    url: '/api/weixin/product/remove_complete.json',
     method: 'POST'
   },
 

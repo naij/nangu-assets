@@ -34,12 +34,12 @@ module.exports = Magix.View.extend({
   },
   'restore<click>': function(e) {
     e.preventDefault()
-    var id = e.params.id
     var me = this
+    var productSn = e.params.productSn
     me.request().all([{
       name: 'product_offline',
       params: {
-        id: id
+        productSn: productSn
       }
     }], function(e, MesModel) {
       me.render()
@@ -47,13 +47,13 @@ module.exports = Magix.View.extend({
   },
   'removeComplete<click>': function(e) {
     e.preventDefault()
-    var id = e.params.id
     var me = this
+    var productSn = e.params.productSn
     me.confirm('确定要删除此商品？彻底删除后不可复原！', function() {
       me.request().all([{
         name: 'product_remove_complete',
         params: {
-          id: id
+          productSn: productSn
         }
       }], function(e, MesModel) {
         me.render()

@@ -40,7 +40,7 @@ module.exports = Magix.View.extend({
     e.preventDefault()
     var categoryId = e.params.categoryId
     var me = this
-    me.confirm('确定要删除此类目？彻底删除后不可复原！', function() {
+    me.confirm('确定要删除此类目？类目删除后不可复原！', function() {
       me.request().all([{
         name: 'category_remove',
         params: {

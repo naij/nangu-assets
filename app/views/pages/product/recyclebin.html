@@ -24,8 +24,8 @@
           <td class="left">{{item.updatedAt|formatDate}}</td>
           <td class="left">回收站存储</td>
           <td class="center">
-            <a href="#" mx-click="restore({id:{{item.id}}})" class="color-blue mr10">还原</a>
-            <a href="#" mx-click="removeComplete({id:{{item.id}}})" class="color-blue">彻底删除</a>
+            <a href="#" mx-click="restore({productSn:{{item.productSn}}})" class="color-blue mr10">还原</a>
+            <a href="#" mx-click="removeComplete({productSn:{{item.productSn}}})" class="color-blue">彻底删除</a>
           </td>
         </tr>
         {{/for}}

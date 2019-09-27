@@ -12,16 +12,15 @@ module.exports = Magix.View.extend({
     var pageSize = 10
 
     me.request().all([{
-      name: 'activity_list',
+      name: 'product_list',
       params: {
-        type: [1, 2],
-        status: [1, 2],
+        categoryId: '10001',
+        status: '1,2',
         pageNo: pageNo,
         pageSize: pageSize
       }
     }], function(e, MesModel) {
       var data = MesModel.get('data')
-
       me.data = {
         list: data.list,
         pageNo: pageNo,
@@ -33,12 +32,12 @@ module.exports = Magix.View.extend({
   },
   'online<click>': function(e) {
     e.preventDefault()
-    var id = e.params.id
+    var productSn = e.params.productSn
     var me = this
     me.request().all([{
-      name: 'activity_online',
+      name: 'product_online',
       params: {
-        id: id
+        productSn: productSn
       }
     }], function(e, MesModel) {
       me.render()
@@ -46,12 +45,12 @@ module.exports = Magix.View.extend({
   },
   'offline<click>': function(e) {
     e.preventDefault()
-    var id = e.params.id
+    var productSn = e.params.productSn
     var me = this
     me.request().all([{
-      name: 'activity_offline',
+      name: 'product_offline',
       params: {
-        id: id
+        productSn: productSn
       }
     }], function(e, MesModel) {
       me.render()
@@ -59,12 +58,12 @@ module.exports = Magix.View.extend({
   },
   'remove<click>': function(e) {
     e.preventDefault()
-    var id = e.params.id
+    var productSn = e.params.productSn
     var me = this
     me.request().all([{
-      name: 'activity_remove',
+      name: 'product_remove',
       params: {
-        id: id
+        productSn: productSn
       }
     }], function(e, MesModel) {
       me.render()
