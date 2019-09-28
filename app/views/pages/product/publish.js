@@ -218,7 +218,7 @@ module.exports = Magix.View.extend({
       name: 'product_create',
       params: formData
     }], function(e, MesModel) {
-      me.to('/product/successful')
+      me.to('/product/successful?type=publish')
     })
   }
 })

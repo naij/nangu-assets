@@ -4,7 +4,12 @@
       <span class="iconfont iconchenggong"></span>
     </div>
     <div class="row">
+      {{#if(type=="update")}}
+      <span class="congratulation">恭喜，商品更新成功！</span>
+      {{/if}}
+      {{#if(type=="publish")}}
       <span class="congratulation">恭喜，商品发布成功！</span>
+      {{/if}}
     </div>
   </div>
   <div class="btn-container">

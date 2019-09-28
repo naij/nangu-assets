@@ -18,7 +18,10 @@ module.exports = Magix.View.extend({
       }
     }], function(e, ProductModel) {
       var productData = ProductModel.get('data')
+      productData.originSkuList = productData.skuList
       productData.skuList = me._preparseSku(productData)
+      productData.deletedAttributeValueList = []
+      productData.deletedSkuList = []
       me.data = productData
       me.setView().then(function() {
         me._rendered()
@@ -67,7 +70,7 @@ module.exports = Magix.View.extend({
     return editorContent
   },
   _preparseSku: function (data) {
-    var originSkuList = data.skuList
+    var originSkuList = data.originSkuList
     var attributeList = data.attributeList
     var skuList = []
     originSkuList.forEach(function(v, i) {
@@ -91,12 +94,13 @@ module.exports = Magix.View.extend({
         fieldLabel: '价格',
         fieldValue: v.price,
         input: true
-      })
-      skuItem.push({
+      }, {
         fieldName: 'stock',
         fieldLabel: '库存',
         fieldValue: v.stock,
         input: true
+      }, {
+        skuSn: v.skuSn
       })
       skuList.push(skuItem)
     })
@@ -114,7 +118,7 @@ module.exports = Magix.View.extend({
     $.each(skuList, function (i, v) {
       var skuItemString = JSON.stringify(v)
       skuItemString = skuItemString.substr(0, skuItemString.length - 1)
-      
+
       v.push({
         fieldName: 'price',
         fieldLabel: '价格',
@@ -125,6 +129,8 @@ module.exports = Magix.View.extend({
         fieldLabel: '库存',
         fieldValue: '',
         input: true
+      }, {
+        skuSn: ''
       })
       
       $.each(originSkuList, function(i2, v2) {
@@ -133,8 +139,9 @@ module.exports = Magix.View.extend({
           // 用字符串判断这条数据的属性值是否被改动
           // 如果没有改动则需要保持价格和库存的数据不被清空
           if (originSkuItemString.indexOf(skuItemString) != -1) {
+            v[v.length - 3].fieldValue = v2[v2.length - 3].fieldValue
             v[v.length - 2].fieldValue = v2[v2.length - 2].fieldValue
-            v[v.length - 1].fieldValue = v2[v2.length - 1].fieldValue
+            v[v.length - 1].skuSn = v2[v2.length - 1].skuSn
           }
         }
       })
@@ -174,6 +181,7 @@ module.exports = Magix.View.extend({
     var index = e.params.index
     var attributeId = e.params.attributeId
     var attributeList = me.data.attributeList
+    var originSkuList = me.data.originSkuList
     var attributeObject 
     
     $.each(attributeList, function( i, v ) {
@@ -182,7 +190,21 @@ module.exports = Magix.View.extend({
       }
     })
     var attributeValueList = attributeObject.attributeValueList
-    attributeValueList.splice(index, 1)
+    var deletedAttributeValue = attributeValueList.splice(index, 1)[0]
+    var deletedAttributeValueList = []
+    if (deletedAttributeValue.attributeValueId) {
+      deletedAttributeValueList.push(deletedAttributeValue.attributeValueId)
+    }
+    me.data.deletedAttributeValueList = deletedAttributeValueList
+
+    var deletedSkuList = []
+    $.each(originSkuList, function( i, v ) {
+      if (v.properties.indexOf(deletedAttributeValue.attributeValueId) != -1) {
+        deletedSkuList.push(v.skuSn)
+      }
+    })
+    me.data.deletedSkuList = deletedSkuList
+
     me._parseSku()
     me.setView()
   },
@@ -233,8 +255,10 @@ module.exports = Magix.View.extend({
   'submit<click>': function(e) {
     e.preventDefault()
     var me = this
-    var categoryId = me.param('categoryId')
+    var productSn = me.param('productSn')
     var attributeList = me.data.attributeList
+    var deletedAttributeValueList = me.data.deletedAttributeValueList
+    var deletedSkuList = me.data.deletedSkuList
     var skuList = me.data.skuList
     var formData = $('#product-create-form').serializeJSON({useIntKeysAsArrayIndex: true})
     var detail = me._getEditorContent()
@@ -247,8 +271,10 @@ module.exports = Magix.View.extend({
     }
 
     $.extend(formData, {
-      categoryId: categoryId,
+      productSn: productSn,
       attributeList: attributeList,
+      deletedAttributeValueList: deletedAttributeValueList,
+      deletedSkuList: deletedSkuList,
       skuList: skuList,
       detail: detail
     })
@@ -257,7 +283,7 @@ module.exports = Magix.View.extend({
       name: 'product_update',
       params: formData
     }], function(e, MesModel) {
-      me.to('/product/successful')
+      me.to('/product/successful?type=update')
     })
   }
 })

@@ -48,15 +48,17 @@
             <tbody>
               {{#for((index,item) in skuList)}}
               <tr>
-                {{#for(subitem in item)}}
-                <td class="left">
-                  {{#if(subitem.input)}}
-                    <input placeholder="{{subitem.fieldLabel}}" type="number" class="input input-narrow" value="{{subitem.fieldValue}}" mx-change="skuFieldChange({index:{{index}},field:'{{subitem.fieldName}}'})">
-                  {{/if(subitem.input)}}
-                  {{^if(subitem.input)}}
-                    {{subitem.value}}
-                  {{/if(subitem.input)}}
-                </td>
+                {{#for((subindex,subitem) in item)}}
+                  {{#if(subindex!=(item.length - 1))}}
+                  <td class="left">
+                    {{#if(subitem.input)}}
+                      <input placeholder="{{subitem.fieldLabel}}" type="number" class="input input-narrow" value="{{subitem.fieldValue}}" mx-change="skuFieldChange({index:{{index}},field:'{{subitem.fieldName}}'})">
+                    {{/if(subitem.input)}}
+                    {{^if(subitem.input)}}
+                      {{subitem.value}}
+                    {{/if(subitem.input)}}
+                  </td>
+                  {{/if}}
                 {{/for}}
               </tr>
               {{/for}}
