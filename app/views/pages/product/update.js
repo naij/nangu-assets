@@ -252,6 +252,10 @@ module.exports = Magix.View.extend({
       }
     })
   },
+  'switchRecommandStatus<click>': function (e) {
+    this.data.recommandStatus = e.params.value
+    this.setView()
+  },
   'submit<click>': function(e) {
     e.preventDefault()
     var me = this

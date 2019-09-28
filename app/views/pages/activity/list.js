@@ -96,6 +96,18 @@ module.exports = Magix.View.extend({
           break
       }
       return status
+    },
+    formatRecommandStatus: function(value) {
+      var status
+      switch(value) {
+        case 0 :
+          status = '<span class="color-l">不推荐</span>'
+          break
+        case 1 :
+          status = '<span class="color-green">推荐</span>'
+          break
+      }
+      return status
     }
   }
 })

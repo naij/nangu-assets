@@ -26,7 +26,8 @@ module.exports = Magix.View.extend({
       me.data = {
         attributeList: AttributeModel.get('data').list,
         detailfieldList: DetailfieldModel.get('data').list,
-        slide: []
+        slide: [],
+        recommandStatus: 0
       }
       me.setView().then(function() {
         me._rendered()
@@ -80,18 +81,33 @@ module.exports = Magix.View.extend({
       attributeValueList.push(v.attributeValueList)
     })
     var skuList = util.calcDescartes(attributeValueList)
+    var originSkuList = this.data.skuList
     $.each(skuList, function (i, v) {
+      var skuItemString = JSON.stringify(v)
+      skuItemString = skuItemString.substr(0, skuItemString.length - 1)
+
       v.push({
         fieldName: 'price',
         fieldLabel: '价格',
         fieldValue: '',
         input: true
-      })
-      v.push({
+      }, {
         fieldName: 'stock',
         fieldLabel: '库存',
         fieldValue: '',
         input: true
+      })
+
+      $.each(originSkuList, function(i2, v2) {
+        var originSkuItemString = JSON.stringify(v2)
+        if (!v2.input) {
+          // 用字符串判断这条数据的属性值是否被改动
+          // 如果没有改动则需要保持价格和库存的数据不被清空
+          if (originSkuItemString.indexOf(skuItemString) != -1) {
+            v[v.length - 2].fieldValue = v2[v2.length - 2].fieldValue
+            v[v.length - 1].fieldValue = v2[v2.length - 1].fieldValue
+          }
+        }
       })
     })
     this.data.skuList = skuList
@@ -190,6 +206,10 @@ module.exports = Magix.View.extend({
         me.setView()
       }
     })
+  },
+  'switchRecommandStatus<click>': function (e) {
+    this.data.recommandStatus = e.params.value
+    this.setView()
   },
   'submit<click>': function(e) {
     e.preventDefault()

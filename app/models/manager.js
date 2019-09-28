@@ -252,6 +252,12 @@ Service.add([
     name: 'picture_list',
     url: '/api/tool/pic/list.json'
   },
+  // 删除图片
+  {
+    name: 'picture_remove',
+    url: '/api/tool/pic/remove.json',
+    method: 'POST'
+  },
   // 获取静态资源发布列表
   {
     name: 'assets_list',

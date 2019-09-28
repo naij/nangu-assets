@@ -15,6 +15,17 @@
         <input type="number" class="input" name="price">
       </li>
       <li class="field">
+        <p class="field-label2">设置推荐</p>
+        <label class="mr10" mx-click="switchRecommandStatus({value:0})">
+          <input name="recommandStatus" class="mr10" checked="{{recommandStatus==0}}" type="radio" value="0" />
+          <span>不推荐</span>
+        </label>
+        <label mx-click="switchRecommandStatus({value:1})">
+          <input name="recommandStatus" class="mr10" checked="{{recommandStatus==1}}" type="radio" value="1" />
+          <span>推荐</span>
+        </label>
+      </li>
+      <li class="field">
         <p class="field-label2">商品规格</p>
         <div class="attribute-container">
           {{#for(item in attributeList)}}
