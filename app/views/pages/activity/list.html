@@ -32,7 +32,7 @@
         <td class="center">
           <a href="#" mx-click="online({productSn:{{item.productSn}}})" class="color-blue mr10" t-if="item.status==2">上线</a>
           <a href="#" mx-click="offline({productSn:{{item.productSn}}})" class="color-blue mr10" t-if="item.status==1">下线</a>
-          <a href="/activity/create?productSn={{item.productSn}}" class="color-blue mr10">编辑</a>
+          <a href="/product/update?productSn={{item.productSn}}" class="color-blue mr10">编辑</a>
           <a href="#" mx-click="remove({productSn:{{item.productSn}}})" class="color-blue">删除</a>
         </td>
       </tr>
