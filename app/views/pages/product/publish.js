@@ -27,7 +27,8 @@ module.exports = Magix.View.extend({
         attributeList: AttributeModel.get('data').list,
         detailfieldList: DetailfieldModel.get('data').list,
         slide: [],
-        recommandStatus: 0
+        recommandStatus: 0,
+        ticketGenType: 0
       }
       me.setView().then(function() {
         me._rendered()
@@ -209,6 +210,10 @@ module.exports = Magix.View.extend({
   },
   'switchRecommandStatus<click>': function (e) {
     this.data.recommandStatus = e.params.value
+    this.setView()
+  },
+  'switchTicketGenType<click>': function (e) {
+    this.data.ticketGenType = e.params.value
     this.setView()
   },
   'submit<click>': function(e) {

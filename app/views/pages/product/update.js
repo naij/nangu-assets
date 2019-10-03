@@ -256,6 +256,10 @@ module.exports = Magix.View.extend({
     this.data.recommandStatus = e.params.value
     this.setView()
   },
+  'switchTicketGenType<click>': function (e) {
+    this.data.ticketGenType = e.params.value
+    this.setView()
+  },
   'submit<click>': function(e) {
     e.preventDefault()
     var me = this

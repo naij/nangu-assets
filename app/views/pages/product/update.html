@@ -15,15 +15,64 @@
         <input type="number" class="input" name="price" value="{{price}}" />
       </li>
       <li class="field">
-        <p class="field-label2">设置推荐</p>
+        <p class="field-label2">推荐设置</p>
         <label class="mr10" mx-click="switchRecommandStatus({value:0})">
           <input name="recommandStatus" class="mr10" checked="{{recommandStatus==0}}" type="radio" value="0" />
-          <span>不推荐</span>
+          <span>不设置成推荐</span>
         </label>
         <label mx-click="switchRecommandStatus({value:1})">
           <input name="recommandStatus" class="mr10" checked="{{recommandStatus==1}}" type="radio" value="1" />
-          <span>推荐</span>
+          <span>设置成推荐</span>
         </label>
+      </li>
+      <li class="field">
+        <p class="field-label2">出票设置</p>
+        <label class="mr10" mx-click="switchTicketGenType({value:0})">
+          <input name="ticketGenType" class="mr10" checked="{{ticketGenType==0}}" type="radio" value="0" />
+          <span>自动出票</span>
+        </label>
+        <label mx-click="switchTicketGenType({value:1})">
+          <input name="ticketGenType" class="mr10" checked="{{ticketGenType==1}}" type="radio" value="1" />
+          <span>手动出票</span>
+        </label>
+      </li>
+      <li class="field">
+        <p class="field-label2">封面图</p>
+        <div class="cover clearfix">
+          {{^if(cover)}}
+          <div class="img-placeholder" mx-click="pickCover()">
+            <span class="iconfont iconhao"></span>
+            <div>添加封面</div>
+          </div>
+          {{/if}}
+          {{#if(cover)}}
+          <div class="img-container">
+            <div class="mask" mx-click="pickCover()">重新选择图片</div>
+            <img src="{{cover}}" class="img">
+            <input type="hidden" name="cover" value="{{cover}}">
+          </div>
+          {{/if}}
+        </div>
+      </li>
+      <li class="field">
+        <p class="field-label2">轮播图</p>
+        <div class="slide clearfix">
+          {{#if(slide.length > 0)}}
+            {{#for(item in slide)}}
+            <div class="img-container">
+              <div class="mask" mx-click="pickSlide({index:{{__INDEX__}}})">重新选择图片</div>
+              <img src="{{item}}" class="img">
+              <input type="hidden" name="slide[{{__INDEX__}}]" value="{{item}}">
+            </div>
+            {{/for}}
+          {{/if}}
+          {{^if(slide.length >= 2)}}
+          <div class="img-placeholder" mx-click="pickSlide()">
+            <span class="iconfont iconhao"></span>
+            <div>添加轮播图</div>
+          </div>
+          {{/if}}
+        </div>
       </li>
       <li class="field">
         <p class="field-label2">商品规格</p>
@@ -75,44 +124,6 @@
               {{/for}}
             </tbody>
           </table>
-        </div>
-      </li>
-      <li class="field">
-        <p class="field-label2">封面图</p>
-        <div class="cover clearfix">
-          {{^if(cover)}}
-          <div class="img-placeholder" mx-click="pickCover()">
-            <span class="iconfont iconhao"></span>
-            <div>添加封面</div>
-          </div>
-          {{/if}}
-          {{#if(cover)}}
-          <div class="img-container">
-            <div class="mask" mx-click="pickCover()">重新选择图片</div>
-            <img src="{{cover}}" class="img">
-            <input type="hidden" name="cover" value="{{cover}}">
-          </div>
-          {{/if}}
-        </div>
-      </li>
-      <li class="field">
-        <p class="field-label2">轮播图</p>
-        <div class="slide clearfix">
-          {{#if(slide.length > 0)}}
-            {{#for(item in slide)}}
-            <div class="img-container">
-              <div class="mask" mx-click="pickSlide({index:{{__INDEX__}}})">重新选择图片</div>
-              <img src="{{item}}" class="img">
-              <input type="hidden" name="slide[{{__INDEX__}}]" value="{{item}}">
-            </div>
-            {{/for}}
-          {{/if}}
-          {{^if(slide.length >= 2)}}
-          <div class="img-placeholder" mx-click="pickSlide()">
-            <span class="iconfont iconhao"></span>
-            <div>添加轮播图</div>
-          </div>
-          {{/if}}
         </div>
       </li>
       {{#for(item in detailfieldList)}}
