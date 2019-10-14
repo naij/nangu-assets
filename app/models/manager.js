@@ -25,227 +25,154 @@ Service.add([
   // 获取活动列表
   {
     name: 'activity_list',
-    url: '/api/weixin/activity/list.json'
-  },
-  // 获取单个活动
-  {
-    name: 'activity_detail',
-    url: '/api/weixin/activity/detail.json'
-  },
-  // 设置活动上线
-  {
-    name: 'activity_online',
-    url: '/api/weixin/activity/online.json',
-    method: 'POST'
-  },
-  // 设置活动下线
-  {
-    name: 'activity_offline',
-    url: '/api/weixin/activity/offline.json',
-    method: 'POST'
-  },
-  // 获取活动列表
-  {
-    name: 'activity_create',
-    url: '/api/weixin/activity/create.json',
-    method: 'POST'
-  },
-  // 更新活动
-  {
-    name: 'activity_update',
-    url: '/api/weixin/activity/update.json',
-    method: 'POST'
-  },
-  // 删除活动
-  {
-    name: 'activity_remove',
-    url: '/api/weixin/activity/remove.json',
-    method: 'POST'
-  },
-  // 彻底删除活动
-  {
-    name: 'activity_remove_complete',
-    url: '/api/weixin/activity/remove_complete.json',
-    method: 'POST'
+    url: '/api/wxapp/activity/list.json'
   },
   // 获取房券列表
   {
     name: 'roomvoucher_list',
-    url: '/api/weixin/roomvoucher/list.json'
-  },
-  // 获取单个房券
-  {
-    name: 'roomvoucher_detail',
-    url: '/api/weixin/roomvoucher/detail.json'
-  },
-  // 设置房券上线
-  {
-    name: 'roomvoucher_online',
-    url: '/api/weixin/roomvoucher/online.json',
-    method: 'POST'
-  },
-  // 设置房券下线
-  {
-    name: 'roomvoucher_offline',
-    url: '/api/weixin/roomvoucher/offline.json',
-    method: 'POST'
-  },
-  // 创建房券
-  {
-    name: 'roomvoucher_create',
-    url: '/api/weixin/roomvoucher/create.json',
-    method: 'POST'
-  },
-  // 更新房券
-  {
-    name: 'roomvoucher_update',
-    url: '/api/weixin/roomvoucher/update.json',
-    method: 'POST'
-  },
-  // 删除房券
-  {
-    name: 'roomvoucher_remove',
-    url: '/api/weixin/roomvoucher/remove.json',
-    method: 'POST'
-  },
-  // 彻底删除房券
-  {
-    name: 'roomvoucher_remove_complete',
-    url: '/api/weixin/roomvoucher/remove_complete.json',
-    method: 'POST'
+    url: '/api/wxapp/roomvoucher/list.json'
   },
   // 获取类目列表
   {
     name: 'category_list',
-    url: '/api/weixin/category/list.json'
+    url: '/api/wxapp/category/list.json'
   },
   // 获取单个类目
   {
     name: 'category_detail',
-    url: '/api/weixin/category/detail.json'
+    url: '/api/wxapp/category/detail.json'
   },
   // 创建类目
   {
     name: 'category_create',
-    url: '/api/weixin/category/create.json',
+    url: '/api/wxapp/category/create.json',
     method: 'POST'
   },
   // 更新类目
   {
     name: 'category_update',
-    url: '/api/weixin/category/update.json',
+    url: '/api/wxapp/category/update.json',
     method: 'POST'
   },
   // 删除类目
   {
     name: 'category_remove',
-    url: '/api/weixin/category/remove.json',
+    url: '/api/wxapp/category/remove.json',
     method: 'POST'
   },
 
   // 获取属性列表
   {
     name: 'attribute_list',
-    url: '/api/weixin/attribute/list.json'
+    url: '/api/wxapp/attribute/list.json'
   },
   // 获取单个属性
   {
     name: 'attribute_detail',
-    url: '/api/weixin/attribute/detail.json'
+    url: '/api/wxapp/attribute/detail.json'
   },
   // 创建属性
   {
     name: 'attribute_create',
-    url: '/api/weixin/attribute/create.json',
+    url: '/api/wxapp/attribute/create.json',
     method: 'POST'
   },
   // 更新属性
   {
     name: 'attribute_update',
-    url: '/api/weixin/attribute/update.json',
+    url: '/api/wxapp/attribute/update.json',
     method: 'POST'
   },
   // 删除属性
   {
     name: 'attribute_remove',
-    url: '/api/weixin/attribute/remove.json',
+    url: '/api/wxapp/attribute/remove.json',
     method: 'POST'
   },
   // 获取详情字段列表
   {
     name: 'detailfield_list',
-    url: '/api/weixin/detailfield/list.json'
+    url: '/api/wxapp/detailfield/list.json'
   },
   // 获取单个详情字段
   {
     name: 'detailfield_detail',
-    url: '/api/weixin/detailfield/detail.json'
+    url: '/api/wxapp/detailfield/detail.json'
   },
   // 创建详情字段
   {
     name: 'detailfield_create',
-    url: '/api/weixin/detailfield/create.json',
+    url: '/api/wxapp/detailfield/create.json',
     method: 'POST'
   },
   // 更新详情字段
   {
     name: 'detailfield_update',
-    url: '/api/weixin/detailfield/update.json',
+    url: '/api/wxapp/detailfield/update.json',
     method: 'POST'
   },
   // 删除详情字段
   {
     name: 'detailfield_remove',
-    url: '/api/weixin/detailfield/remove.json',
+    url: '/api/wxapp/detailfield/remove.json',
     method: 'POST'
   },
   // 获取商品列表
   {
     name: 'product_list',
-    url: '/api/weixin/product/list.json'
+    url: '/api/wxapp/product/list.json'
   },
   // 获取单个商品
   {
     name: 'product_detail',
-    url: '/api/weixin/product/detail.json'
+    url: '/api/wxapp/product/detail.json'
   },
   // 创建商品
   {
     name: 'product_create',
-    url: '/api/weixin/product/create.json',
+    url: '/api/wxapp/product/create.json',
     method: 'POST'
   },
   // 更新商品
   {
     name: 'product_update',
-    url: '/api/weixin/product/update.json',
+    url: '/api/wxapp/product/update.json',
     method: 'POST'
   },
   // 设置商品上线
   {
     name: 'product_online',
-    url: '/api/weixin/product/online.json',
+    url: '/api/wxapp/product/online.json',
     method: 'POST'
   },
   // 设置商品下线
   {
     name: 'product_offline',
-    url: '/api/weixin/product/offline.json',
+    url: '/api/wxapp/product/offline.json',
     method: 'POST'
   },
   // 删除商品
   {
     name: 'product_remove',
-    url: '/api/weixin/product/remove.json',
+    url: '/api/wxapp/product/remove.json',
     method: 'POST'
   },
   // 彻底删除商品
   {
     name: 'product_remove_complete',
-    url: '/api/weixin/product/remove_complete.json',
+    url: '/api/wxapp/product/remove_complete.json',
     method: 'POST'
   },
-
+  // 获取订单列表
+  {
+    name: 'order_list',
+    url: '/api/wxapp/order/list.json'
+  },
+  // 获取订单退款列表
+  {
+    name: 'refund_list',
+    url: '/api/wxapp/order/refund_list.json'
+  },
 
   // 获取图片列表
   {

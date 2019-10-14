@@ -1,0 +1,65 @@
+<div class="page-header clearfix">
+  <div class="title-bar">
+    <h2 class="title">订单列表</h2>
+  </div>
+</div>
+<div class="page-body table-container">
+  <table class="table">
+    <thead>
+      <tr t-class:no-data="list.length == 0">
+        <th class="left">商品信息</th>
+        <th class="left" width="80">单价</th>
+        <th class="left" width="80">数量</th>
+        <th class="left" width="80">实收款</th>
+        <th class="left" width="100">买家昵称</th>
+        <th class="left" width="80">售后</th>
+        <th class="left" width="80">交易状态</th>
+        <th class="center" width="100">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#for(item in list)}}
+      <tr class="purple">
+        <td class="left" colspan="8">
+          <span class="mr20">订单编号：{{item.orderSn}}</span>
+          <span>创建时间：{{item.createdAt|formatDate}}</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="left">
+          <div class="order-product-info">
+            <img class="img" src="{{item.productInfo.productCover}}">
+            <div class="attr">
+              <div class="title">{{item.productInfo.productTitle}}</div>
+              <div class="properties">{{item.productInfo.productPropertiesName}}</div>
+            </div>
+          </div> 
+        </td>
+        <td class="left">￥{{item.productInfo.productPrice}}</td>
+        <td class="left">{{item.productQuantity}}</td>
+        <td class="left">￥{{item.paymentAmount}}</td>
+        <td class="left">{{item.memberNickname}}</td>
+        <td class="left">
+          {{#if(item.refundInfo)}}
+            {{{item.refundInfo.status|formatRefundStatus}}}
+          {{/if}}
+        </td>
+        <td class="left">{{{item.orderStatus|formatStatus}}}</td>
+        <td class="center">
+          <a href="/order/detail?orderSn={{item.orderSn}}" class="color-blue mr10">查看订单</a>
+        </td>
+      </tr>
+      {{/for}}
+      {{#if(list.length == 0)}}
+      <tr class="none">
+        <td class="center" colspan="8">
+          暂无数据
+        </td>
+      </tr>
+      {{/if}}
+    </tbody>
+  </table>
+  <div class="tfoot">
+    <div class="pager-container" mx-view="app/coms/pagination/pagination?total={{totalCount}}&size={{pageSize}}&page={{pageNo}}" mx-change="pageChange()"></div>
+  </div>
+</div>

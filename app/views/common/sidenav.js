@@ -77,6 +77,16 @@ var menuList = [{
       path: '/custom/list',
       name: '定制管理',
       icon: 'iconziyuan'
+    },
+    {
+      path: '/order/list',
+      name: '订单列表',
+      icon: 'iconorder'
+    },
+    {
+      path: '/refund/list',
+      name: '退款列表',
+      icon: 'icontuikuan'
     }
   ]
 }, {
