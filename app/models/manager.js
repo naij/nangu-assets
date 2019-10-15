@@ -173,10 +173,15 @@ Service.add([
     name: 'order_detail',
     url: '/api/wxapp/order/detail.json'
   },
-  // 获取订单退款列表
+  // 获取订单退款详情
   {
-    name: 'refund_list',
-    url: '/api/wxapp/order/refund_list.json'
+    name: 'order_refund_detail',
+    url: '/api/wxapp/order/refund_detail.json'
+  },
+  // 获取订单退款详情
+  {
+    name: 'order_refund_create',
+    url: '/api/wxapp/order/refund_create.json'
   },
 
   // 获取图片列表

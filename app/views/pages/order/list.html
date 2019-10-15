@@ -41,7 +41,7 @@
         <td class="left">{{item.memberNickname}}</td>
         <td class="left">
           {{#if(item.refundInfo)}}
-            {{{item.refundInfo.status|formatRefundStatus}}}
+          <a href="/order/refund_detail?id={{item.refundInfo.id}}" class="color-blue mr10">{{{item.refundInfo.status|formatRefundStatus}}}</a>
           {{/if}}
         </td>
         <td class="left">{{{item.orderStatus|formatStatus}}}</td>
