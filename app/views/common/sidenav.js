@@ -81,12 +81,11 @@ var menuList = [{
     {
       path: '/order/list',
       name: '订单列表',
-      icon: 'iconorder'
-    },
-    {
-      path: '/refund/list',
-      name: '退款列表',
-      icon: 'icontuikuan'
+      icon: 'iconorder',
+      childNav: [
+        '/order/detail',
+        '/order/refund_detail'
+      ]
     }
   ]
 }, {

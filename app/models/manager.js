@@ -168,6 +168,11 @@ Service.add([
     name: 'order_list',
     url: '/api/wxapp/order/list.json'
   },
+  // 获取订单详情
+  {
+    name: 'order_detail',
+    url: '/api/wxapp/order/detail.json'
+  },
   // 获取订单退款列表
   {
     name: 'refund_list',

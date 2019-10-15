@@ -1,0 +1,89 @@
+<div class="page-header clearfix">
+  <div class="title-bar">
+    <h2 class="title">订单详情</h2>
+  </div>
+</div>
+<div class="page-body order-detail">
+  <div class="order-status">
+
+  </div>
+  <div class="order-info">
+    <div class="hd">
+      基本信息
+    </div>
+    <div class="table-container">
+      <table class="table">
+        <thead>
+          <tr t-class:no-data="list.length == 0">
+            <th class="left">订单编号</th>
+            <th class="left">支付编号</th>
+            <th class="left">创建时间</th>
+            <th class="left">支付时间</th>
+            <th class="left">出票类型</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="left">{{order.orderSn}}</td>
+            <td class="left">{{order.outTradeNo}}</td>
+            <td class="left">{{order.createdAt|formatDate}}</td>
+            <td class="left">{{order.payedAt|formatDate}}</td>
+            <td class="left">{{order.ticketGenType|formatTicketGenType}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="contact-info">
+    <div class="hd">
+      联系人信息
+    </div>
+    <div class="table-container">
+      <table class="table">
+        <thead>
+          <tr t-class:no-data="list.length == 0">
+            <th class="left">姓名</th>
+            <th class="left">手机号</th>
+            <th class="left">身份证号</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="left">{{order.receiverName}}</td>
+            <td class="left">{{order.receiverPhoneNumber}}</td>
+            <td class="left">{{order.receiverIDNumber}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="product-info">
+    <div class="hd">
+      商品信息
+    </div>
+    <div class="table-container">
+      <table class="table">
+        <thead>
+          <tr t-class:no-data="list.length == 0">
+            <th class="left">图片</th>
+            <th class="left">名称</th>
+            <th class="left">属性</th>
+            <th class="left">价格</th>
+            <th class="left">数量</th>
+            <th class="left">总计</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="left"><img src="{{orderProduct.productCover}}"></td>
+            <td class="left">{{orderProduct.productTitle}}</td>
+            <td class="left">{{orderProduct.productPropertiesName}}</td>
+            <td class="left">{{orderProduct.productPrice}}</td>
+            <td class="left">{{order.productQuantity}}</td>
+            <td class="left">￥{{order.paymentAmount}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -22,6 +22,8 @@ var routeMap = {
     {path: '/picture/list', needLogin: true},
     {path: '/custom/list', needLogin: true},
     {path: '/order/list', needLogin: true},
+    {path: '/order/detail', needLogin: true},
+    {path: '/order/refund_detail', needLogin: true},
     {path: '/refund/list', needLogin: true},
     {path: '/member/list', needLogin: true},
     {path: '/assets/list', needLogin: true},
