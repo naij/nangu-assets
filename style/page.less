@@ -217,6 +217,13 @@
 
 /* 订单详情 */
 .order-detail {
+  .order-status {
+    background-color: #FFF7EB;
+    border: 1px solid #F58B0F;
+    padding: 15px;
+    margin-bottom: 30px;
+    font-size: 14px;
+  }
   .order-info,
   .contact-info,
   .product-info {
@@ -231,8 +238,15 @@
 
 /* 订单退款详情 */
 .order-refund-detail {
+  .refund-status {
+    background-color: #FFF7EB;
+    border: 1px solid #F58B0F;
+    padding: 15px;
+    margin-bottom: 30px;
+  }
   .product-info,
-  .refund-info {
+  .refund-info,
+  .handle-info {
     margin-bottom: 30px;
 
     .hd {
@@ -240,7 +254,8 @@
       margin-bottom: 10px;
     }
   }
-  .refund-info {
+  .refund-info,
+  .handle-info {
     .bd {
       background-color: #fff;
       padding: 15px;
@@ -248,7 +263,18 @@
       li {
         padding: 10px 0;
       }
+      .label {
+        color: @color-m;
+      }
     }
+  }
+}
+
+/* 退款拒绝 */
+.order-refund-refuse {
+  .textarea {
+    width: 646px;
+    height: 100px;
   }
 }
 

@@ -5,7 +5,7 @@
   </div>
   <div class="page-body order-refund-detail">
     <div class="refund-status">
-  
+      退款状态：{{{status|formatRefundStatus}}}
     </div>
     <div class="product-info">
       <div class="hd">
@@ -69,8 +69,29 @@
         </ul>
       </div>
     </div>
-    <div class="operate">
+    <div class="handle-info" t-if="handleMan">
+      <div class="hd">
+        处理信息
+      </div>
+      <div class="bd">
+        <ul>
+          <li>
+            <span class="label">处理人员：</span>
+            <span class="value">{{handleMan}}</span>
+          </li>
+          <li>
+            <span class="label">处理时间：</span>
+            <span class="value">{{handledAt|formatDate}}</span>
+          </li>
+          <li>
+            <span class="label">处理备注：</span>
+            <span class="value">{{handleNote}}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="operate" t-if="status==1">
       <a href="#" class="btn btn-brand btn-large mr10" mx-click="submit()">确认退款</a>
-      <a href="#" class="btn btn-common btn-large" mx-click="submit()">拒绝退款</a>
+      <a href="#" class="btn btn-common btn-large" mx-click="refuse()">拒绝退款</a>
     </div>
   </div>

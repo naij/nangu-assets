@@ -178,11 +178,19 @@ Service.add([
     name: 'order_refund_detail',
     url: '/api/wxapp/order/refund_detail.json'
   },
-  // 获取订单退款详情
+  // 提交退款处理
   {
-    name: 'order_refund_create',
-    url: '/api/wxapp/order/refund_create.json'
+    name: 'order_refund',
+    url: '/api/wxapp/payment/refund.json',
+    method: 'POST'
   },
+  // 退款拒绝
+  {
+    name: 'order_refund_refuse',
+    url: '/api/wxapp/order/refund_refuse.json',
+    method: 'POST'
+  },
+
 
   // 获取图片列表
   {

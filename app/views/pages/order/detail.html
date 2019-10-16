@@ -5,7 +5,7 @@
 </div>
 <div class="page-body order-detail">
   <div class="order-status">
-
+    {{order.orderStatus|formatStatus}}
   </div>
   <div class="order-info">
     <div class="hd">
@@ -78,9 +78,9 @@
             <td class="left"><img src="{{orderProduct.productCover}}"></td>
             <td class="left">{{orderProduct.productTitle}}</td>
             <td class="left">{{orderProduct.productPropertiesName}}</td>
-            <td class="left">{{orderProduct.productPrice}}</td>
+            <td class="left">￥{{orderProduct.productPrice}}</td>
             <td class="left">{{order.productQuantity}}</td>
-            <td class="left">￥{{order.paymentAmount}}</td>
+            <td class="left"><span class="color-red">￥{{order.paymentAmount}}</span></td>
           </tr>
         </tbody>
       </table>

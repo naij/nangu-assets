@@ -35,19 +35,19 @@ module.exports = Magix.View.extend({
       var status
       switch(value) {
         case 0 :
-          status = '<span class="color-m">已关闭</span>'
+          status = '已关闭'
           break
         case 1 :
-          status = '<span class="color-orange">待付款</span>'
+          status = '待付款'
           break
         case 2 :
-          status = '<span class="color-orange">待处理</span>'
+          status = '待处理'
           break
         case 3 :
-          status = '<span class="color-green">已付款</span>'
+          status = '已付款'
           break
         case 4 :
-          status = '<span class="color-green">已完成</span>'
+          status = '已完成'
           break
       }
       return status

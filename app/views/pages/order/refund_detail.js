@@ -1,8 +1,10 @@
 var Magix = require('magix')
 var $ = require('jquery')
+var Dialog = require('app/mixins/dialog')
 
 module.exports = Magix.View.extend({
   tmpl: '@refund_detail.html',
+  mixins: [Dialog],
   render: function() {
     var me = this
     var id = me.param('id')
@@ -19,15 +21,28 @@ module.exports = Magix.View.extend({
     })
   },
   'submit<click>': function(e) {
+    e.preventDefault()
     var me = this
     var id = me.param('id')
     me.request().all([{
-      name: 'order_refund_create',
+      name: 'order_refund',
       params: {
         id: id
       }
     }], function(e, MesModel) {
       me.render()
+    })
+  },
+  'refuse<click>': function(e) {
+    e.preventDefault()
+    var me = this
+    var id = me.param('id')
+    me.mxDialog('app/views/pages/order/refund_refuse', {
+      width: 700,
+      id: id,
+      callback: function() {
+        me.render()
+      }
     })
   },
   filters: {
@@ -38,7 +53,7 @@ module.exports = Magix.View.extend({
           status = '<span class="color-m">退款拒绝</span>'
           break
         case 1 :
-          status = '<span class="color-orange">退款处理</span>'
+          status = '<span class="color-orange">退款待处理</span>'
           break
         case 2 :
           status = '<span class="color-orange">退款中</span>'
