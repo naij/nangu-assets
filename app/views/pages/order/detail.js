@@ -59,10 +59,10 @@ module.exports = Magix.View.extend({
           status = '<span class="color-m">退款拒绝</span>'
           break
         case 1 :
-          status = '<span class="color-orange">退款处理</span>'
+          status = '<span class="color-red">退款待处理</span>'
           break
         case 2 :
-          status = '<span class="color-orange">退款中</span>'
+          status = '<span class="color-red">退款中</span>'
           break
         case 3 :
           status = '<span class="color-green">退款成功</span>'

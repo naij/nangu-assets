@@ -197,6 +197,13 @@
 }
 
 /* 订单商品信息 */
+.order-list {
+  .filter {
+    background-color: #fff;
+    padding: 20px 15px;
+    margin-bottom: 20px;
+  }
+}
 .order-product-info {
   display: flex;
 
@@ -217,12 +224,22 @@
 
 /* 订单详情 */
 .order-detail {
-  .order-status {
-    background-color: #FFF7EB;
-    border: 1px solid #F58B0F;
+  .status-wrapper {
+    background-color: rgb(253, 249, 242);
+    border: 1px solid rgb(250, 175, 89);
     padding: 15px;
     margin-bottom: 30px;
     font-size: 14px;
+  }
+  .order-status {
+    font-weight: bold;
+  }
+  .refund-status {
+    border: 1px solid #ee4848;
+    border-radius: 3px;
+    padding: 2px 5px;
+    margin-top: 15px;
+    display: inline-block;
   }
   .order-info,
   .contact-info,
@@ -239,8 +256,8 @@
 /* 订单退款详情 */
 .order-refund-detail {
   .refund-status {
-    background-color: #FFF7EB;
-    border: 1px solid #F58B0F;
+    background-color: rgb(253, 249, 242);
+    border: 1px solid rgb(250, 175, 89);
     padding: 15px;
     margin-bottom: 30px;
   }

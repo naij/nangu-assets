@@ -24,6 +24,14 @@ module.exports = Magix.View.extend({
     e.preventDefault()
     var me = this
     var id = me.param('id')
+    var curNode = $(e.eventTarget)
+    if (curNode.hasClass('btn-disabled')) {
+      return
+    }
+
+    me.data.submit = true
+    me.setView()
+
     me.request().all([{
       name: 'order_refund',
       params: {

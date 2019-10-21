@@ -173,6 +173,12 @@ Service.add([
     name: 'order_detail',
     url: '/api/wxapp/order/detail.json'
   },
+  // 更新订单状态
+  {
+    name: 'order_update_status',
+    url: '/api/wxapp/order/update_status.json',
+    method: 'POST'
+  },
   // 获取订单退款详情
   {
     name: 'order_refund_detail',

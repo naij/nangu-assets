@@ -463,12 +463,16 @@
     position: relative;
     // padding-left: 65px;
     zoom: 1;
-  }
-  .field:after {
-    content: '\20';
-    display: block;
-    height: 0;
-    clear: both;
+
+    &:after {
+      content: '\20';
+      display: block;
+      height: 0;
+      clear: both;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
   .field-extra {
     padding-left: 0;

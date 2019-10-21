@@ -91,7 +91,7 @@
       </div>
     </div>
     <div class="operate" t-if="status==1">
-      <a href="#" class="btn btn-brand btn-large mr10" mx-click="submit()">确认退款</a>
+      <a href="#" class="btn btn-brand btn-large mr10" t-class:btn-disabled="submit" mx-click="submit()">确认退款</a>
       <a href="#" class="btn btn-common btn-large" mx-click="refuse()">拒绝退款</a>
     </div>
   </div>

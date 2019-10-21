@@ -4,8 +4,9 @@
   </div>
 </div>
 <div class="page-body order-detail">
-  <div class="order-status">
-    {{order.orderStatus|formatStatus}}
+  <div class="status-wrapper">
+    <div class="order-status">订单状态：{{order.orderStatus|formatStatus}}</div>
+    <a href="/order/refund_detail?id={{orderRefund.id}}" class="refund-status" t-if="orderRefund">{{{orderRefund.status|formatRefundStatus}}}</a>
   </div>
   <div class="order-info">
     <div class="hd">

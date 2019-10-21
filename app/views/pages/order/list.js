@@ -1,8 +1,10 @@
 var Magix = require('magix')
 var $ = require('jquery')
+var Dialog = require('app/mixins/dialog')
 
 module.exports = Magix.View.extend({
   tmpl: '@list.html',
+  mixins: [Dialog],
   ctor: function() {
     this.observe(['pageNo'])
   },
@@ -30,6 +32,22 @@ module.exports = Magix.View.extend({
   },
   'pageChange<change>': function(e) {
     this.to({pageNo: e.state.page})
+  },
+  'verification<click>': function(e) {
+    e.preventDefault()
+    var me = this
+    var orderSn = e.params.orderSn
+    me.confirm('确定要核销此商品吗？', function() {
+      me.request().all([{
+        name: 'order_update_status',
+        params: {
+          orderSn: orderSn,
+          orderStatus: 4
+        }
+      }], function(e, MesModel) {
+        me.render()
+      })
+    })
   },
   filters: {
     formatStatus: function(value) {
