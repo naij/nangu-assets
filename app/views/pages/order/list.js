@@ -6,16 +6,20 @@ module.exports = Magix.View.extend({
   tmpl: '@list.html',
   mixins: [Dialog],
   ctor: function() {
-    this.observe(['pageNo'])
+    this.observe(['pageNo', 'productTitle', 'memberNickname', 'orderSn'])
   },
   render: function() {
     var me = this
     var pageNo = me.param('pageNo') || 1
     var pageSize = 10
+    var memberNickname = me.param('memberNickname')
+    var orderSn = me.param('orderSn')
 
     me.request().all([{
       name: 'order_list',
       params: {
+        memberNickname: memberNickname,
+        orderSn: orderSn,
         pageNo: pageNo,
         pageSize: pageSize
       }
@@ -23,12 +27,19 @@ module.exports = Magix.View.extend({
       var data = MesModel.get('data')
       me.data = {
         list: data.list,
+        orderSn: orderSn,
+        memberNickname: memberNickname,
         pageNo: pageNo,
         pageSize: pageSize,
         totalCount: data.totalCount
       }
       me.setView()
     })
+  },
+  'search<click>': function(e) {
+    e.preventDefault()
+    var formData = $('#filter-form').serializeJSON()
+    this.to(formData)
   },
   'pageChange<change>': function(e) {
     this.to({pageNo: e.state.page})

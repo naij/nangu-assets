@@ -5,22 +5,18 @@
 </div>
 <div class="page-body order-list">
   <div class="filter">
-    <form class="union-form">
+    <form class="union-form" id="filter-form">
       <div class="col">
         <div class="field">
-          <span class="label">商品名称：</span>
-          <input type="text" class="input">
-        </div>
-        <div class="field">
           <span class="label">买家昵称：</span>
-          <input type="text" class="input">
+          <input type="text" class="input" name="memberNickname" value="{{memberNickname}}">
         </div>
         <div class="field">
           <span class="label">订单编号：</span>
-          <input type="text" class="input">
+          <input type="text" class="input" name="orderSn" value="{{orderSn}}">
         </div>
         <div class="field">
-          <button class="btn btn-brand"">搜索订单</button>
+          <button class="btn btn-brand" mx-click="search()">搜索订单</button>
         </div>
       </div>
       <div class="col"></div>
