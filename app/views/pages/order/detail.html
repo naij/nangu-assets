@@ -18,6 +18,7 @@
           <tr>
             <th class="left">订单编号</th>
             <th class="left">支付编号</th>
+            <th class="left">微信支付订单号</th>
             <th class="left">创建时间</th>
             <th class="left">支付时间</th>
             <th class="left">出票类型</th>
@@ -27,6 +28,7 @@
           <tr>
             <td class="left">{{order.orderSn}}</td>
             <td class="left">{{order.outTradeNo}}</td>
+            <td class="left">{{order.transactionId}}</td>
             <td class="left">{{order.createdAt|formatDate}}</td>
             <td class="left">{{order.payedAt|formatDate}}</td>
             <td class="left">{{order.ticketGenType|formatTicketGenType}}</td>

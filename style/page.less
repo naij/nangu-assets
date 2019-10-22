@@ -203,6 +203,21 @@
     padding: 20px 15px;
     margin-bottom: 20px;
   }
+  .tabbar {
+    // border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+    li {
+      float: left;
+      padding: 10px 15px;
+      background-color: #fcfcfc;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+    li.active {
+      color: #fff;
+      background-color: @color-brand;
+    }
+  }
 }
 .order-product-info {
   display: flex;
@@ -235,9 +250,6 @@
     font-weight: bold;
   }
   .refund-status {
-    border: 1px solid #ee4848;
-    border-radius: 3px;
-    padding: 2px 5px;
     margin-top: 15px;
     display: inline-block;
   }

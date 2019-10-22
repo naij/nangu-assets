@@ -49,6 +49,9 @@ module.exports = Magix.View.extend({
         case 4 :
           status = '已完成'
           break
+        case 99 :
+          status = '用户删除'
+          break
       }
       return status
     },

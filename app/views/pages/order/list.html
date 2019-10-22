@@ -23,6 +23,15 @@
     </form>
   </div>
   <div class="table-container">
+    <div class="tabbar">
+      <ul class="clearfix">
+        <li t-class:active="status==''" mx-click="status({status:''})">全部订单</li>
+        <li t-class:active="status==1" mx-click="status({status:1})">待付款</li>
+        <li t-class:active="status==2" mx-click="status({status:2})">处理中</li>
+        <li t-class:active="status==3" mx-click="status({status:3})">已付款</li>
+        <li t-class:active="status==4" mx-click="status({status:4})">已完成</li>
+      </ul>
+    </div>
     <table class="table">
       <thead>
         <tr t-class:no-data="list.length == 0">
@@ -66,7 +75,7 @@
           <td class="left">{{{item.orderStatus|formatStatus}}}</td>
           <td class="center">
             <p><a href="/order/detail?orderSn={{item.orderSn}}" class="color-blue mr10">查看订单</a></p>
-            <p t-if="item.orderStatus==3 && !item.refundInfo"><a href="#" class="color-blue mr10" mx-click="verification({orderSn:{{item.orderSn}}})">核销订单</a></p>
+            <p t-if="item.orderStatus==3 && !item.refundInfo"><a href="#" class="color-blue mr10" mx-click="verification({orderSn:'{{item.orderSn}}'})">核销订单</a></p>
           </td>
         </tr>
         {{/for}}

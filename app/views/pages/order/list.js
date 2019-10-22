@@ -6,7 +6,7 @@ module.exports = Magix.View.extend({
   tmpl: '@list.html',
   mixins: [Dialog],
   ctor: function() {
-    this.observe(['pageNo', 'productTitle', 'memberNickname', 'orderSn'])
+    this.observe(['pageNo', 'productTitle', 'memberNickname', 'orderSn', 'status'])
   },
   render: function() {
     var me = this
@@ -14,12 +14,14 @@ module.exports = Magix.View.extend({
     var pageSize = 10
     var memberNickname = me.param('memberNickname')
     var orderSn = me.param('orderSn')
+    var status = me.param('status')
 
     me.request().all([{
       name: 'order_list',
       params: {
         memberNickname: memberNickname,
         orderSn: orderSn,
+        status: status,
         pageNo: pageNo,
         pageSize: pageSize
       }
@@ -29,6 +31,7 @@ module.exports = Magix.View.extend({
         list: data.list,
         orderSn: orderSn,
         memberNickname: memberNickname,
+        status: status,
         pageNo: pageNo,
         pageSize: pageSize,
         totalCount: data.totalCount
@@ -40,6 +43,9 @@ module.exports = Magix.View.extend({
     e.preventDefault()
     var formData = $('#filter-form').serializeJSON()
     this.to(formData)
+  },
+  'status<click>': function(e) {
+    this.to({status: e.params.status})
   },
   'pageChange<change>': function(e) {
     this.to({pageNo: e.state.page})
@@ -78,6 +84,9 @@ module.exports = Magix.View.extend({
           break
         case 4 :
           status = '<span class="color-green">已完成</span>'
+          break
+        case 99 :
+          status = '<span class="color-m">用户删除</span>'
           break
       }
       return status
