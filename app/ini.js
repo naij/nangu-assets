@@ -24,7 +24,8 @@ var routeMap = {
     {path: '/order/list', needLogin: true},
     {path: '/order/detail', needLogin: true},
     {path: '/order/refund_detail', needLogin: true},
-    {path: '/refund/list', needLogin: true},
+    {path: '/order/refund_reason_list', needLogin: true},
+    {path: '/order/refund_reason_create', needLogin: true},
     {path: '/member/list', needLogin: true},
     {path: '/assets/list', needLogin: true},
     {path: '/assets/detail', needLogin: true}

@@ -196,6 +196,34 @@ Service.add([
     url: '/api/wxapp/order/refund_refuse.json',
     method: 'POST'
   },
+  // 获取订单退款原因列表
+  {
+    name: 'order_refund_reason_list',
+    url: '/api/wxapp/order/refund_reason_list.json'
+  },
+  // 获取订单退款原因详情
+  {
+    name: 'order_refund_reason_detail',
+    url: '/api/wxapp/order/refund_reason_detail.json'
+  },
+  // 创建订单退款原因
+  {
+    name: 'order_refund_reason_create',
+    url: '/api/wxapp/order/refund_reason_create.json',
+    method: 'POST'
+  },
+  // 更新订单退款原因
+  {
+    name: 'order_refund_reason_update',
+    url: '/api/wxapp/order/refund_reason_update.json',
+    method: 'POST'
+  },
+  // 删除订单退款原因
+  {
+    name: 'order_refund_reason_remove',
+    url: '/api/wxapp/order/refund_reason_remove.json',
+    method: 'POST'
+  },
 
 
   // 获取图片列表

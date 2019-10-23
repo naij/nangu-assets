@@ -1,0 +1,34 @@
+<div class="page-header clearfix">
+  <div class="title-bar">
+    <h2 class="title" t-if="id">编辑退款原因</h2>
+    <h2 class="title" t-if="!id">新增退款原因</h2>
+  </div>
+</div>
+<div class="page-body">
+  <form id="refund-reason-create-form">
+    <ul class="union-form">
+      <li class="field">
+        <p class="field-label2">名称</p>
+        <input type="text" class="input" name="name" value="{{name}}">
+      </li>
+      <li class="field">
+        <p class="field-label2">状态</p>
+        <label class="mr10" mx-click="switchStatus({value:0})">
+          <input name="status" class="mr10" checked="{{status==0}}" type="radio" value="0" />
+          <span>不启用</span>
+        </label>
+        <label mx-click="switchStatus({value:1})">
+          <input name="status" class="mr10" checked="{{status==1}}" type="radio" value="1" />
+          <span>启用</span>
+        </label>
+      </li>
+      <li class="field">
+        <p class="field-label2">排序</p>
+        <input type="number"" class="input" name="sort" value="{{sort}}">
+      </li>
+      <li class="field">
+        <a href="#" class="btn btn-brand btn-large" mx-click="submit()">提交</a>
+      </li>
+    </ul>
+  </form>
+</div>

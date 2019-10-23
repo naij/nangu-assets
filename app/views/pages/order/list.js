@@ -45,7 +45,7 @@ module.exports = Magix.View.extend({
     this.to(formData)
   },
   'status<click>': function(e) {
-    this.to({status: e.params.status})
+    this.to({status: e.params.status, pageNo: 1})
   },
   'pageChange<change>': function(e) {
     this.to({pageNo: e.state.page})

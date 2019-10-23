@@ -3,7 +3,7 @@ var $ = require('jquery')
 var Router = Magix.Router
 var menuList = [{
   mainNav: {
-    name: '内容管理',
+    name: '商品',
     icon: 'iconsucai'
   },
   subNav: [
@@ -69,7 +69,7 @@ var menuList = [{
   ]
 }, {
   mainNav: {
-    name: '订单管理',
+    name: '订单',
     icon: 'iconorder'
   },
   subNav: [
@@ -86,11 +86,19 @@ var menuList = [{
         '/order/detail',
         '/order/refund_detail'
       ]
-    }
+    },
+    {
+      path: '/order/refund_reason_list',
+      name: '退款原因设置',
+      icon: 'iconzhipinyuanyin',
+      childNav: [
+        '/order/refund_reason_create',
+      ]
+    },
   ]
 }, {
   mainNav: {
-    name: '用户管理',
+    name: '用户',
     icon: 'iconyonghu'
   },
   subNav: [
@@ -102,7 +110,7 @@ var menuList = [{
   ]
 }, {
   mainNav: {
-    name: '代码管理',
+    name: '代码',
     icon: 'icondaima'
   },
   subNav: [
