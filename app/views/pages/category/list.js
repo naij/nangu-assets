@@ -3,21 +3,22 @@ var $ = require('jquery')
 var Dialog = require('app/mixins/dialog')
 
 module.exports = Magix.View.extend({
-  tmpl: '@recyclebin.html',
+  tmpl: '@list.html',
   mixins: [Dialog],
   ctor: function() {
-    this.observe(['pageNo'])
+    this.observe(['pageNo', 'parentId'])
   },
   render: function() {
     var me = this
     var pageNo = me.param('pageNo') || 1
     var pageSize = 10
+    var parentId = me.param('parentId')
+    var parentName = me.param('parentName')
 
     me.request().all([{
-      name: 'roomvoucher_list',
+      name: 'category_list',
       params: {
-        category: '4',
-        status: '0',
+        parentId: parentId,
         pageNo: pageNo,
         pageSize: pageSize
       }
@@ -25,6 +26,8 @@ module.exports = Magix.View.extend({
       var data = MesModel.get('data')
 
       me.data = {
+        parentId: parentId,
+        parentName: parentName,
         list: data.list,
         pageNo: pageNo,
         pageSize: pageSize,
@@ -33,28 +36,15 @@ module.exports = Magix.View.extend({
       me.setView()
     })
   },
-  'restore<click>': function(e) {
+  'remove<click>': function(e) {
     e.preventDefault()
-    var id = e.params.id
+    var categoryId = e.params.categoryId
     var me = this
-    me.request().all([{
-      name: 'roomvoucher_offline',
-      params: {
-        id: id
-      }
-    }], function(e, MesModel) {
-      me.render()
-    })
-  },
-  'removeComplete<click>': function(e) {
-    e.preventDefault()
-    var id = e.params.id
-    var me = this
-    me.confirm('确定要删除此房券？彻底删除后不可复原！', function() {
+    me.confirm('确定要删除此类目？类目删除后不可复原！', function() {
       me.request().all([{
-        name: 'roomvoucher_remove_complete',
+        name: 'category_remove',
         params: {
-          id: id
+          categoryId: categoryId
         }
       }], function(e, MesModel) {
         me.render()
@@ -63,5 +53,19 @@ module.exports = Magix.View.extend({
   },
   'pageChange<change>': function(e) {
     this.to({pageNo: e.state.page})
+  },
+  filters: {
+    formatLevel: function(value) {
+      var status
+      switch(value) {
+        case 0 :
+          status = '一级类目'
+          break
+        case 1 :
+          status = '二级类目'
+          break
+      }
+      return status
+    }
   }
 })

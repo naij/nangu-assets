@@ -14,10 +14,9 @@ module.exports = Magix.View.extend({
     var pageSize = 10
 
     me.request().all([{
-      name: 'activity_list',
+      name: 'product_list',
       params: {
-        type: [1, 2],
-        status: [0],
+        status: '0',
         pageNo: pageNo,
         pageSize: pageSize
       }
@@ -35,12 +34,12 @@ module.exports = Magix.View.extend({
   },
   'restore<click>': function(e) {
     e.preventDefault()
-    var id = e.params.id
     var me = this
+    var productSn = e.params.productSn
     me.request().all([{
-      name: 'activity_offline',
+      name: 'product_offline',
       params: {
-        id: id
+        productSn: productSn
       }
     }], function(e, MesModel) {
       me.render()
@@ -48,13 +47,13 @@ module.exports = Magix.View.extend({
   },
   'removeComplete<click>': function(e) {
     e.preventDefault()
-    var id = e.params.id
     var me = this
-    me.confirm('确定要删除此活动？彻底删除后不可复原！', function() {
+    var productSn = e.params.productSn
+    me.confirm('确定要删除此商品？彻底删除后不可复原！', function() {
       me.request().all([{
-        name: 'activity_remove_complete',
+        name: 'product_remove_complete',
         params: {
-          id: id
+          productSn: productSn
         }
       }], function(e, MesModel) {
         me.render()
@@ -63,19 +62,5 @@ module.exports = Magix.View.extend({
   },
   'pageChange<change>': function(e) {
     this.to({pageNo: e.state.page})
-  },
-  filters: {
-    formatType: function(value) {
-      var type
-      switch(value) {
-        case 1 :
-          type = '<span class="color-orange"><i class="iconfont iconhezuo-copy"></i>合作活动</span>'
-          break
-        case 2 :
-          type = '<span class="color-green"><i class="iconfont iconziying"></i>自营活动</span>'
-          break
-      }
-      return type
-    }
   }
 })

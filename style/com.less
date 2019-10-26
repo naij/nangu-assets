@@ -107,20 +107,20 @@
 .btn-disabled {
   color: #ccc;
   cursor: not-allowed;
-  background-color: #f4f4f4;
+  background-color: #e4e4e4;
   &:hover,
   &.hover,
   &:focus,
   &.focus,
   &:active,
   &.active {
-    background-color: #f4f4f4;
+    background-color: #e4e4e4;
     color: #ccc;
   }
 }
 .btn-disabled.btn-brand {
-  background-color: #FFD4BE;
-  color: #fff;
+  background-color: #e4e4e4;
+  color: #ccc;
 }
 .btn-disabled.btn-white{
   background-color: #fff;
@@ -233,13 +233,24 @@
       td.center {
         text-align: center;
       }
-      tr{
+      tr {
         background-color: #FFFFFF;
         //border: #FFFFFF 1px solid;
       }
       tr:nth-child(2n) {
         background-color: #fcfcfc;
         //border: #FAFAFA 1px solid;
+      }
+      tr.purple {
+        background-color: #f4f4fd;
+
+        &:hover {
+          outline: none;
+
+          td {
+            box-shadow: none;
+          }
+        }
       }
       tr.grey {
         background-color: #fcfcfc;
@@ -452,12 +463,16 @@
     position: relative;
     // padding-left: 65px;
     zoom: 1;
-  }
-  .field:after {
-    content: '\20';
-    display: block;
-    height: 0;
-    clear: both;
+
+    &:after {
+      content: '\20';
+      display: block;
+      height: 0;
+      clear: both;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
   .field-extra {
     padding-left: 0;

@@ -1,9 +1,23 @@
 <h1 class="title"><a href="/">南谷小程序后台</a></h1>
-<dl class="nav">
+
+<ul class="main-nav">
+  {{#for(item in mainNav)}}
+  <li t-class:active="item.active" mx-click="switchMainNav({index:{{__INDEX__}}})">
+    <span class="iconfont {{item.icon}}"></span>
+    <span>{{item.name}}</span>
+  </li>
+  {{/for}}
+</ul>
+<ul class="sub-nav">
+  {{#for(item in subNav)}}
+  <li t-class:active="item.active"><a href="{{item.path}}"><span class="iconfont {{item.icon}}"></span>{{item.name}}</a></li>
+  {{/for}}
+</ul>
+<!-- <dl class="nav">
   {{#for(item in menuList)}}
   <dt>{{item.mainCat}}</dt>
   {{#for(subitem in item.subCat)}}
   <dd t-class:active="subitem.active"><a href="{{subitem.path}}"><span class="iconfont {{subitem.icon}}"></span>{{subitem.name}}</a></dd>
   {{/for}}
   {{/for}}
-</dl>
+</dl> -->

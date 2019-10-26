@@ -1,0 +1,40 @@
+<div class="page-header clearfix">
+  <div class="title-bar">
+    <h2 class="title" t-if="attributeId">编辑属性</h2>
+    <h2 class="title" t-if="!attributeId">新增属性</h2>
+  </div>
+</div>
+<div class="page-body spu-create">
+  <form id="attribute-create-form">
+    <input type="hidden" name="categoryId" value="{{categoryId}}">
+    <input type="hidden" name="type" value="{{type}}">
+    <ul class="union-form">
+      <li class="field">
+        <p class="field-label2">属性名称</p>
+        <input type="text" class="input" name="name" value="{{name}}">
+      </li>
+      <li class="field">
+        <p class="field-label2">属性值的录入方式</p>
+        <label class="mr10" mx-click="switchInputType({value:0})">
+          <input name="inputType" class="mr10" checked="{{inputType==0}}" type="radio" value="0" />
+          <span>手工录入</span>
+        </label>
+        <label mx-click="switchInputType({value:1})">
+          <input name="inputType" class="mr10" checked="{{inputType==1}}" type="radio" value="1" />
+          <span>从下面列表中选择</span>
+        </label>
+      </li>
+      <li class="field" t-if="inputType==1">
+        <p class="field-label2">属性值可选值列表</p>
+        <textarea name="inputList" class="textarea">{{inputList|formatInputList}}</textarea>
+      </li>
+      <li class="field">
+        <p class="field-label2">排序</p>
+        <input type="number"" class="input" name="sort" value="{{sort}}">
+      </li>
+      <li class="field">
+        <a href="#" class="btn btn-brand btn-large" mx-click="submit()">提交</a>
+      </li>
+    </ul>
+  </form>
+</div>

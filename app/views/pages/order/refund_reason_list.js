@@ -3,7 +3,7 @@ var $ = require('jquery')
 var Dialog = require('app/mixins/dialog')
 
 module.exports = Magix.View.extend({
-  tmpl: '@recyclebin.html',
+  tmpl: '@refund_reason_list.html',
   mixins: [Dialog],
   ctor: function() {
     this.observe(['pageNo'])
@@ -14,10 +14,8 @@ module.exports = Magix.View.extend({
     var pageSize = 10
 
     me.request().all([{
-      name: 'activity_list',
+      name: 'order_refund_reason_list',
       params: {
-        type: [3],
-        status: [0],
         pageNo: pageNo,
         pageSize: pageSize
       }
@@ -33,26 +31,13 @@ module.exports = Magix.View.extend({
       me.setView()
     })
   },
-  'restore<click>': function(e) {
+  'remove<click>': function(e) {
     e.preventDefault()
     var id = e.params.id
     var me = this
-    me.request().all([{
-      name: 'activity_offline',
-      params: {
-        id: id
-      }
-    }], function(e, MesModel) {
-      me.render()
-    })
-  },
-  'removeComplete<click>': function(e) {
-    e.preventDefault()
-    var id = e.params.id
-    var me = this
-    me.confirm('确定要删除此活动？彻底删除后不可复原！', function() {
+    me.confirm('确定要删除此退款原因？彻底删除后不可复原！', function() {
       me.request().all([{
-        name: 'activity_remove_complete',
+        name: 'order_refund_reason_remove',
         params: {
           id: id
         }
@@ -63,5 +48,19 @@ module.exports = Magix.View.extend({
   },
   'pageChange<change>': function(e) {
     this.to({pageNo: e.state.page})
+  },
+  filters: {
+    formatStatus: function(value) {
+      var status
+      switch(value) {
+        case 0 :
+          status = '不启用'
+          break
+        case 1 :
+          status = '启用'
+          break
+      }
+      return status
+    }
   }
 })

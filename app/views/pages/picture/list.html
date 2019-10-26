@@ -14,6 +14,7 @@
           <th class="left" width="150">图片名称</th>
           <th class="left">图片地址</th>
           <th class="left" width="150">上传时间</th>
+          <th class="center" width="100">操作</th>
         </tr>
       </thead>
       <tbody>
@@ -29,11 +30,14 @@
             <textarea class="textarea" onclick="select()">{{item.picPath}}</textarea>
           </td>
           <td class="left">{{item.createdAt|formatDate}}</td>
+          <td class="center">
+            <a href="#" mx-click="remove({id:{{item.id}}})" class="color-blue">删除</a>
+          </td>
         </tr>
         {{/for}}
         {{#if(list.length == 0)}}
         <tr class="none">
-          <td class="center" colspan="4">
+          <td class="center" colspan="5">
             暂无数据
           </td>
         </tr>

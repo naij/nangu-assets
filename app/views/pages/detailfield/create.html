@@ -1,0 +1,39 @@
+<div class="page-header clearfix">
+    <div class="title-bar">
+      <h2 class="title" t-if="id">编辑详情字段</h2>
+      <h2 class="title" t-if="!id">新增详情字段</h2>
+    </div>
+  </div>
+  <div class="page-body spu-create">
+    <form id="detailfield-create-form">
+      <input type="hidden" name="categoryId" value="{{categoryId}}">
+      <ul class="union-form">
+        <li class="field">
+          <p class="field-label2">字段名</p>
+          <input type="text" class="input" name="fieldName" value="{{fieldName}}">
+        </li>
+        <li class="field">
+          <p class="field-label2">字段标注</p>
+          <input type="text" class="input" name="fieldLabel" value="{{fieldLabel}}">
+        </li>
+        <li class="field">
+          <p class="field-label2">字段类型</p>
+          <label class="mr10" mx-click="switchFieldType({value:0})">
+            <input name="fieldType" class="mr10" checked="{{fieldType==0}}" type="radio" value="0" />
+            <span>文本</span>
+          </label>
+          <label mx-click="switchFieldType({value:1})">
+            <input name="fieldType" class="mr10" checked="{{fieldType==1}}" type="radio" value="1" />
+            <span>地址</span>
+          </label>
+        </li>
+        <li class="field">
+          <p class="field-label2">排序</p>
+          <input type="number"" class="input" name="sort" value="{{sort}}">
+        </li>
+        <li class="field">
+          <a href="#" class="btn btn-brand btn-large" mx-click="submit()">提交</a>
+        </li>
+      </ul>
+    </form>
+  </div>

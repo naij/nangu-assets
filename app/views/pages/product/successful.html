@@ -1,0 +1,18 @@
+<div class="product-publish-successful">
+  <div class="text-container">
+    <div class="row">
+      <span class="iconfont iconchenggong"></span>
+    </div>
+    <div class="row">
+      {{#if(type=="update")}}
+      <span class="congratulation">恭喜，商品更新成功！</span>
+      {{/if}}
+      {{#if(type=="publish")}}
+      <span class="congratulation">恭喜，商品发布成功！</span>
+      {{/if}}
+    </div>
+  </div>
+  <div class="btn-container">
+    <a href="/product/category" class="btn btn-brand btn-large">再发一条</a>
+  </div>
+</div>

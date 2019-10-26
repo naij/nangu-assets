@@ -16,6 +16,7 @@ module.exports = Magix.View.extend({
     me.request().all([{
       name: 'picture_list',
       params: {
+        status: 1,
         pageNo: pageNo,
         pageSize: pageSize
       }
@@ -39,6 +40,21 @@ module.exports = Magix.View.extend({
       callback: function() {
         me.render()
       }
+    })
+  },
+  'remove<click>': function(e) {
+    e.preventDefault()
+    var me = this
+    var id = e.params.id
+    me.confirm('确定要删这条数据？', function() {
+      me.request().all([{
+        name: 'picture_remove',
+        params: {
+          id: id
+        }
+      }], function(e, MesModel) {
+        me.render()
+      })
     })
   },
   'pageChange<change>': function(e) {

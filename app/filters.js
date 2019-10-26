@@ -3,7 +3,7 @@ var Util = require('app/util/index')
 
 module.exports = {
   formatDate: function(value) {
-    return Moment(value).format('YYYY-MM-DD HH:mm:ss')
+    return value ? Moment(value).format('YYYY-MM-DD HH:mm:ss') : '--'
   },
   adaptImg100: function(value) {
     return this.adaptImg(value, window.devicePixelRatio > 1 ? '200x200' : '100x100')

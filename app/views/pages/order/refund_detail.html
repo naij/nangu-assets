@@ -1,0 +1,97 @@
+<div class="page-header clearfix">
+    <div class="title-bar">
+      <h2 class="title">退款详情</h2>
+    </div>
+  </div>
+  <div class="page-body order-refund-detail">
+    <div class="refund-status">
+      退款状态：{{{status|formatRefundStatus}}}
+    </div>
+    <div class="product-info">
+      <div class="hd">
+        退款商品
+      </div>
+      <div class="table-container">
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="left">图片</th>
+              <th class="left">名称</th>
+              <th class="left">属性</th>
+              <th class="left">价格</th>
+              <th class="left">数量</th>
+              <th class="left">总计</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="left"><img src="{{productCover}}"></td>
+              <td class="left">{{productTitle}}</td>
+              <td class="left">{{productPropertiesName}}</td>
+              <td class="left">￥{{productPrice}}</td>
+              <td class="left">{{productQuantity}}</td>
+              <td class="left">￥{{refundAmount}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="refund-info">
+      <div class="hd">
+        退款信息
+      </div>
+      <div class="bd">
+        <ul>
+          <li>
+            <span class="label">订单编号：</span>
+            <span class="value">{{orderSn}}</span>
+          </li>
+          <li>
+            <span class="label">申请时间：</span>
+            <span class="value">{{createdAt|formatDate}}</span>
+          </li>
+          <li>
+            <span class="label">会员昵称：</span>
+            <span class="value">{{memberNickname}}</span>
+          </li>
+          <li>
+            <span class="label">退货原因：</span>
+            <span class="value">{{reason}}</span>
+          </li>
+          <li>
+            <span class="label">问题描述：</span>
+            <span class="value">{{description}}</span>
+          </li>
+          <li>
+            <span class="label">退款金额：</span>
+            <span class="value">￥{{refundAmount}}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="handle-info" t-if="handleMan">
+      <div class="hd">
+        处理信息
+      </div>
+      <div class="bd">
+        <ul>
+          <li>
+            <span class="label">处理人员：</span>
+            <span class="value">{{handleMan}}</span>
+          </li>
+          <li>
+            <span class="label">处理时间：</span>
+            <span class="value">{{handledAt|formatDate}}</span>
+          </li>
+          <li>
+            <span class="label">处理备注：</span>
+            <span class="value">{{handleNote}}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="operate" t-if="status==1">
+      <a href="#" class="btn btn-brand btn-large mr10" t-class:btn-disabled="submit" mx-click="submit()">确认退款</a>
+      <a href="#" class="btn btn-common btn-large" mx-click="refuse()">拒绝退款</a>
+    </div>
+  </div>

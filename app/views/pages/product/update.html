@@ -1,0 +1,152 @@
+<div class="page-header clearfix">
+  <div class="title-bar">
+    <h2 class="title">更新商品</h2>
+  </div>
+</div>
+<div class="page-body product-publish">
+  <form id="product-create-form">
+    <ul class="union-form">
+      <li class="field">
+        <p class="field-label2">标题</p>
+        <input type="text" class="input" name="title" value="{{title}}" />
+      </li>
+      <li class="field">
+        <p class="field-label2">价格</p>
+        <input type="number" class="input" name="price" value="{{price}}" />
+      </li>
+      <li class="field">
+        <p class="field-label2">推荐设置</p>
+        <label class="mr10" mx-click="switchRecommandStatus({value:0})">
+          <input name="recommandStatus" class="mr10" checked="{{recommandStatus==0}}" type="radio" value="0" />
+          <span>不设置成推荐</span>
+        </label>
+        <label mx-click="switchRecommandStatus({value:1})">
+          <input name="recommandStatus" class="mr10" checked="{{recommandStatus==1}}" type="radio" value="1" />
+          <span>设置成推荐</span>
+        </label>
+      </li>
+      <li class="field">
+        <p class="field-label2">出票设置</p>
+        <label class="mr10" mx-click="switchTicketGenType({value:0})">
+          <input name="ticketGenType" class="mr10" checked="{{ticketGenType==0}}" type="radio" value="0" />
+          <span>自动出票</span>
+        </label>
+        <label mx-click="switchTicketGenType({value:1})">
+          <input name="ticketGenType" class="mr10" checked="{{ticketGenType==1}}" type="radio" value="1" />
+          <span>手动出票</span>
+        </label>
+      </li>
+      <li class="field">
+        <p class="field-label2">封面图</p>
+        <div class="cover clearfix">
+          {{^if(cover)}}
+          <div class="img-placeholder" mx-click="pickCover()">
+            <span class="iconfont iconhao"></span>
+            <div>添加封面</div>
+          </div>
+          {{/if}}
+          {{#if(cover)}}
+          <div class="img-container">
+            <div class="mask" mx-click="pickCover()">重新选择图片</div>
+            <img src="{{cover}}" class="img">
+            <input type="hidden" name="cover" value="{{cover}}">
+          </div>
+          {{/if}}
+        </div>
+      </li>
+      <li class="field">
+        <p class="field-label2">轮播图</p>
+        <div class="slide clearfix">
+          {{#if(slide.length > 0)}}
+            {{#for(item in slide)}}
+            <div class="img-container">
+              <div class="mask" mx-click="pickSlide({index:{{__INDEX__}}})">重新选择图片</div>
+              <img src="{{item}}" class="img">
+              <input type="hidden" name="slide[{{__INDEX__}}]" value="{{item}}">
+            </div>
+            {{/for}}
+          {{/if}}
+          {{^if(slide.length >= 2)}}
+          <div class="img-placeholder" mx-click="pickSlide()">
+            <span class="iconfont iconhao"></span>
+            <div>添加轮播图</div>
+          </div>
+          {{/if}}
+        </div>
+      </li>
+      <li class="field">
+        <p class="field-label2">商品规格</p>
+        <div class="attribute-container">
+          {{#for(item in attributeList)}}
+          <div class="attribute-item">
+            <p class="field-label2">{{item.name}}</p>
+            <div>
+              <input placeholder="请输入自定义{{item.name}}名称" class="input mr10" id="J_attr_value_{{item.attributeId}}">
+
+              <button class="btn btn-brand btn-large" mx-click="addAttributeValue({attributeId:{{item.attributeId}}})">+添加</button>
+
+              <div class="attribute-value-container clearfix" t-if="item.attributeValueList.length>0">
+                {{#for((index, subitem) in item.attributeValueList)}}
+                <div class="attribute-value-item">{{subitem.value}}<span class="iconfont iconguanbi close" mx-click="delAttributeValue({attributeId:{{item.attributeId}},index:{{index}}})"></span></div>
+                {{/for}}
+              </div>
+            </div>
+          </div>
+          {{/for}}
+        </div>
+        <div class="sku-container table-container" t-if="skuList.length>0">
+          <table class="table">
+            <thead>
+              <tr>
+                {{#for(item in attributeList)}}
+                <th class="left" width="150">{{item.name}}</th>
+                {{/for}}
+                <th class="left" width="150">价格</th>
+                <th class="left" width="150">库存</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#for((index,item) in skuList)}}
+              <tr>
+                {{#for((subindex,subitem) in item)}}
+                  {{#if(subindex!=(item.length - 1))}}
+                  <td class="left">
+                    {{#if(subitem.input)}}
+                      <input placeholder="{{subitem.fieldLabel}}" type="number" class="input input-narrow" value="{{subitem.fieldValue}}" mx-change="skuFieldChange({index:{{index}},field:'{{subitem.fieldName}}'})">
+                    {{/if(subitem.input)}}
+                    {{^if(subitem.input)}}
+                      {{subitem.value}}
+                    {{/if(subitem.input)}}
+                  </td>
+                  {{/if}}
+                {{/for}}
+              </tr>
+              {{/for}}
+            </tbody>
+          </table>
+        </div>
+      </li>
+      {{#for(item in detailfieldList)}}
+        {{#if(item.fieldType == 0)}}
+        <li class="field">
+          <p class="field-label2">{{item.fieldLabel}}</p>
+          <div id="{{item.fieldName}}-editor"></div>
+        </li>
+        {{/if}}
+        {{#if(item.fieldType == 1)}}
+        <li class="field">
+          <p class="field-label2">地理位置地址</p>
+          <input type="text" class="input" name="location" value="{{detail.location}}">
+        </li>
+        <li class="field">
+          <p class="field-label2">地理位置经纬度</p>
+          <input type="text" class="input" name="locationPointer" value="{{detail.locationPointer}}">
+        </li>
+        {{/if}}
+      {{/for}}
+      <li class="field">
+        <a href="#" class="btn btn-brand btn-large mr10" mx-click="submit()">保存</a>
+      </li>
+    </ul>
+  </form>
+</div>

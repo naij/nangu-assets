@@ -2,13 +2,26 @@ var Magix = require('magix')
 var $ = require('jquery')
 var Router = Magix.Router
 var menuList = [{
-  mainCat: '内容管理',
-  subCat: [
+  mainNav: {
+    name: '商品',
+    icon: 'iconsucai'
+  },
+  subNav: [
+    {
+      path: '/product/category',
+      name: '新增商品',
+      icon: 'iconxinzeng',
+      childNav: [
+        '/product/publish',
+        '/product/update',
+        '/product/successful'
+      ]
+    },
     {
       path: '/activity/list',
       name: '活动管理',
       icon: 'iconicon3',
-      childCat: [
+      childNav: [
         '/activity/create',
         '/activity/recyclebin'
       ]
@@ -17,7 +30,7 @@ var menuList = [{
       path: '/roomvoucher/list',
       name: '房券管理',
       icon: 'iconyouhuiquan',
-      childCat: [
+      childNav: [
         '/roomvoucher/create',
         '/roomvoucher/recyclebin'
       ]
@@ -26,7 +39,7 @@ var menuList = [{
       path: '/photograph/list',
       name: '旅拍管理',
       icon: 'iconpaizhao',
-      childCat: [
+      childNav: [
         '/photograph/create',
         '/photograph/recyclebin'
       ]
@@ -35,20 +48,60 @@ var menuList = [{
       path: '/picture/list',
       name: '图片管理',
       icon: 'icontupian'
-    }
+    },
+    {
+      path: '/category/list',
+      name: '类目管理',
+      icon: 'iconleimu',
+      childNav: [
+        '/category/create',
+        '/attribute/list',
+        '/attribute/create',
+        '/detailfield/list',
+        '/detailfield/create'
+      ]
+    },
+    {
+      path: '/product/recyclebin',
+      name: '回收站',
+      icon: 'iconhuishouzhan'
+    },
   ]
 }, {
-  mainCat: '订单管理',
-  subCat: [
+  mainNav: {
+    name: '订单',
+    icon: 'iconorder'
+  },
+  subNav: [
     {
       path: '/custom/list',
       name: '定制管理',
       icon: 'iconziyuan'
-    }
+    },
+    {
+      path: '/order/list',
+      name: '订单列表',
+      icon: 'iconorder',
+      childNav: [
+        '/order/detail',
+        '/order/refund_detail'
+      ]
+    },
+    {
+      path: '/order/refund_reason_list',
+      name: '退款原因设置',
+      icon: 'iconzhipinyuanyin',
+      childNav: [
+        '/order/refund_reason_create',
+      ]
+    },
   ]
 }, {
-  mainCat: '用户管理',
-  subCat: [
+  mainNav: {
+    name: '用户',
+    icon: 'iconyonghu'
+  },
+  subNav: [
     {
       path: '/member/list',
       name: '注册用户',
@@ -56,13 +109,16 @@ var menuList = [{
     }
   ]
 }, {
-  mainCat: '代码管理',
-  subCat: [
+  mainNav: {
+    name: '代码',
+    icon: 'icondaima'
+  },
+  subNav: [
     {
       path: '/assets/list',
       name: '发布列表',
-      icon: 'icondaima',
-      childCat: [
+      icon: 'iconfabu',
+      childNav: [
         '/assets/detail'
       ]
     }
@@ -78,41 +134,60 @@ module.exports = Magix.View.extend({
     var me = this
     var loc = Router.parse()
     var path = loc.path
-    var i, menu, finded
-
-
-    // for (i = 0; (menu = menuList[i]) != null; i++) {
-    //   menu.active = false
-
-    //   if (menu.sub && $.inArray(path, menu.sub) != -1) {
-    //     menu.active = true
-    //     finded = true
-    //   } else if (path === menu.path) {
-    //     menu.active = true
-    //     finded = true
-    //   }
-    // }
+    var mainNav = [], subNav, finded
 
     $.each(menuList, function(index, value) {
-      $.each(value.subCat, function(subIndex, subValue) {
+      value.mainNav.active = false
+      mainNav.push(value.mainNav)
+      $.each(value.subNav, function(subIndex, subValue) {
         subValue.active = false
-        if (subValue.childCat && $.inArray(path, subValue.childCat) != -1) {
+        if (subValue.childNav && $.inArray(path, subValue.childNav) != -1) {
           subValue.active = true
           finded = true
+          subNav = value.subNav
+          value.mainNav.active = true
         } else if (path === subValue.path) {
           subValue.active = true
           finded = true
+          subNav = value.subNav
+          value.mainNav.active = true
         }
       })
     })
 
     //找不到就选中第一个
     if (!finded) {
-      menuList[0].subCat[0].active = true
+      subNav = menuList[0].subNav
+      subNav[0].active = true
     }
 
     me.data = {
-      menuList: menuList
+      mainNav: mainNav,
+      subNav: subNav
+    }
+    me.setView()
+  },
+  'switchMainNav<click>': function (e) {
+    var me = this
+    var index = e.params.index
+    var mainNav = me.data.mainNav
+    var subNav
+    $.each(mainNav, function(i, v) {
+      v.active = false
+      if (index == i) {
+        v.active = true
+      }
+    })
+
+    $.each(menuList, function(i, v) {
+      if (index == i) {
+        subNav = v.subNav
+      }
+    })
+
+    me.data = {
+      mainNav: mainNav,
+      subNav: subNav
     }
     me.setView()
   }

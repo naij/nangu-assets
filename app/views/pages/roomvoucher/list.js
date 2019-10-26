@@ -12,16 +12,15 @@ module.exports = Magix.View.extend({
     var pageSize = 10
 
     me.request().all([{
-      name: 'roomvoucher_list',
+      name: 'product_list',
       params: {
-        category: '4',
+        categoryId: '10000',
         status: '1,2',
         pageNo: pageNo,
         pageSize: pageSize
       }
     }], function(e, MesModel) {
       var data = MesModel.get('data')
-
       me.data = {
         list: data.list,
         pageNo: pageNo,
@@ -33,12 +32,12 @@ module.exports = Magix.View.extend({
   },
   'online<click>': function(e) {
     e.preventDefault()
-    var id = e.params.id
     var me = this
+    var productSn = e.params.productSn
     me.request().all([{
-      name: 'roomvoucher_online',
+      name: 'product_online',
       params: {
-        id: id
+        productSn: productSn
       }
     }], function(e, MesModel) {
       me.render()
@@ -46,12 +45,12 @@ module.exports = Magix.View.extend({
   },
   'offline<click>': function(e) {
     e.preventDefault()
-    var id = e.params.id
     var me = this
+    var productSn = e.params.productSn
     me.request().all([{
-      name: 'roomvoucher_offline',
+      name: 'product_offline',
       params: {
-        id: id
+        productSn: productSn
       }
     }], function(e, MesModel) {
       me.render()
@@ -59,12 +58,12 @@ module.exports = Magix.View.extend({
   },
   'remove<click>': function(e) {
     e.preventDefault()
-    var id = e.params.id
     var me = this
+    var productSn = e.params.productSn
     me.request().all([{
-      name: 'roomvoucher_remove',
+      name: 'product_remove',
       params: {
-        id: id
+        productSn: productSn
       }
     }], function(e, MesModel) {
       me.render()
@@ -82,6 +81,18 @@ module.exports = Magix.View.extend({
           break
         case 2 :
           status = '<span class="color-l">已下线</span>'
+          break
+      }
+      return status
+    },
+    formatRecommandStatus: function(value) {
+      var status
+      switch(value) {
+        case 0 :
+          status = '<span class="color-l">不推荐</span>'
+          break
+        case 1 :
+          status = '<span class="color-green">推荐</span>'
           break
       }
       return status
