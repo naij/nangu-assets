@@ -34,7 +34,7 @@
           <td class="center">
             <a href="/category/list?parentId={{item.categoryId}}&parentName={{item.name}}" class="color-blue mr10" t-if="item.level==0">查看下级</a>
             <a href="/category/create?categoryId={{item.categoryId}}&parentId={{item.parentId}}" class="color-blue mr10">编辑</a>
-            <a href="#" mx-click="remove({categoryId:{{item.categoryId}}})" class="color-blue" t-if="item.level==1">删除</a>
+            <!-- <a href="#" mx-click="remove({categoryId:{{item.categoryId}}})" class="color-blue" t-if="item.level==1">删除</a> -->
           </td>
         </tr>
         {{/for}}

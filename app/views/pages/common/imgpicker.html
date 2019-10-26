@@ -17,6 +17,7 @@
       </li>
       {{/for}}
     </ul>
+    <div class="pager-container" mx-view="app/coms/pagination/pagination?total={{totalCount}}&size={{pageSize}}&page={{pageNo}}" mx-change="pageChange()"></div>
   </div>
   <div class="dialog-ft">
     <a href="javascript:;" class="btn btn-brand btn-large mr10" mx-click="submit()" t-if="selectedList.length > 0">确定</a>

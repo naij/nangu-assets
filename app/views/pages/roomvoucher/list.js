@@ -14,7 +14,7 @@ module.exports = Magix.View.extend({
     me.request().all([{
       name: 'product_list',
       params: {
-        categoryId: '10000',
+        categoryId: '10014',
         status: '1,2',
         pageNo: pageNo,
         pageSize: pageSize
