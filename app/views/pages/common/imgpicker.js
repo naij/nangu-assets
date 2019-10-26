@@ -10,14 +10,23 @@ module.exports = Magix.View.extend({
   },
   render: function() {
     var me = this
+    var pageNo = me.pageNo || 1
+    var pageSize = 10
     me.request().all([{
-      name: 'picture_list'
+      name: 'picture_list',
+      params: {
+        pageNo: pageNo,
+        pageSize: pageSize
+      }
     }], function(e, MesModel) {
       var data = MesModel.get('data')
 
       me.data = {
         list: data.list,
-        selectedList: []
+        selectedList: [],
+        pageNo: pageNo,
+        pageSize: pageSize,
+        totalCount: data.totalCount
       }
       me.setView()
     })
@@ -69,6 +78,11 @@ module.exports = Magix.View.extend({
         me.render()
       }
     })
+  },
+  'pageChange<change>': function(e) {
+    this.pageNo = e.state.page
+    this.data.selectedList = []
+    this.render()
   },
   'submit<click>': function (e) {
     e.preventDefault()
