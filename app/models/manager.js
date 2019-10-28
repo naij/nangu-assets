@@ -246,7 +246,36 @@ Service.add([
   {
     name: 'assets_detail',
     url: '/api/tool/assets/detail.json'
-  }
+  },
+
+  // 获取设置菜单列表
+  {
+    name: 'setting_menu_list',
+    url: '/api/setting/menu/list.json'
+  },
+  // 获取设置菜单详情
+  {
+    name: 'setting_menu_detail',
+    url: '/api/setting/menu/detail.json'
+  },
+  // 创建菜单
+  {
+    name: 'setting_menu_create',
+    url: '/api/setting/menu/create.json',
+    method: 'POST'
+  },
+  // 更新菜单
+  {
+    name: 'setting_menu_update',
+    url: '/api/setting/menu/update.json',
+    method: 'POST'
+  },
+  // 删除菜单
+  {
+    name: 'setting_menu_remove',
+    url: '/api/setting/menu/remove.json',
+    method: 'POST'
+  },
 ])
 
 module.exports = Service

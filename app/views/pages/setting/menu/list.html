@@ -1,0 +1,49 @@
+<div class="page-header clearfix">
+  <div class="title-bar">
+    <h2 class="title">菜单项列表</h2>
+  </div>
+</div>
+<div class="page-body table-container">
+  <div class="toolbar clearfix">
+    <a href="/setting/menu/list" class="btn btn-brand btn-large mr10" t-if="parentId!=0">返回上级菜单项</a>
+    <a href="/setting/menu/create" class="btn btn-brand btn-large">新增菜单项</a>
+  </div>
+  <table class="table">
+    <thead>
+      <tr t-class:no-data="list.length == 0">
+        <th class="left" width="150">菜单项编号</th>
+        <th class="left">菜单项名称</th>
+        <th class="left" t-if="parentId!=0">父级菜单项名称</th>
+        <th class="left" width="150">级别</th>
+        <th class="left" width="150">排序</th>
+        <th class="center" width="150">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#for(item in list)}}
+      <tr>
+        <td class="left">{{item.id}}</td>
+        <td class="left"><span class="iconfont {{item.icon}} mr10"></span>{{item.name}}</td>
+        <td class="left" t-if="item.level==1">{{parentName}}</td>
+        <td class="left">{{item.level|formatLevel}}</td>
+        <td class="left">{{item.sort}}</td>
+        <td class="center">
+          <a href="/setting/menu/list?parentId={{item.id}}&parentName={{item.name}}" class="color-blue mr10" t-if="item.level==0">查看下级</a>
+          <a href="/setting/menu/create?id={{item.id}}&parentId={{item.parentId}}" class="color-blue mr10">编辑</a>
+          <a href="#" mx-click="remove({id:{{item.id}}})" class="color-blue">删除</a>
+        </td>
+      </tr>
+      {{/for}}
+      {{#if(list.length == 0)}}
+      <tr class="none">
+        <td class="center" colspan="{{parentId!=0 ? 5 : 4}}">
+          暂无数据
+        </td>
+      </tr>
+      {{/if}}
+    </tbody>
+  </table>
+  <div class="tfoot">
+    <div class="pager-container" mx-view="app/coms/pagination/pagination?total={{totalCount}}&size={{pageSize}}&page={{pageNo}}" mx-change="pageChange()"></div>
+  </div>
+</div>

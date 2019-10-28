@@ -5,8 +5,8 @@
   </div>
   <div class="page-body table-container">
     <div class="toolbar clearfix">
-        <a href="/category/list" class="btn btn-brand btn-large mr10" t-if="parentId!=0">返回上级类目</a>
-      <a href="/category/create" class="btn btn-brand btn-large">新增类目</a>
+        <a href="/product/category/list" class="btn btn-brand btn-large mr10" t-if="parentId!=0">返回上级类目</a>
+      <a href="/product/category/create" class="btn btn-brand btn-large">新增类目</a>
     </div>
     <table class="table">
       <thead>
@@ -27,13 +27,13 @@
           <td class="left" t-if="item.level==1">{{parentName}}</td>
           <td class="left">{{item.level|formatLevel}}</td>
           <td class="center" t-if="item.level==1">
-              <a href="/attribute/list?categoryId={{item.categoryId}}&type=0" class="color-blue mr10">规则列表</a>
-              <a href="/attribute/list?categoryId={{item.categoryId}}&type=1" class="color-blue mr10">参数列表</a>
-              <a href="/detailfield/list?categoryId={{item.categoryId}}" class="color-blue">详情列表</a>
+              <a href="/product/attribute/list?categoryId={{item.categoryId}}&type=0" class="color-blue mr10">规则列表</a>
+              <a href="/product/attribute/list?categoryId={{item.categoryId}}&type=1" class="color-blue mr10">参数列表</a>
+              <a href="/product/detailfield/list?categoryId={{item.categoryId}}" class="color-blue">详情列表</a>
           </td>
           <td class="center">
-            <a href="/category/list?parentId={{item.categoryId}}&parentName={{item.name}}" class="color-blue mr10" t-if="item.level==0">查看下级</a>
-            <a href="/category/create?categoryId={{item.categoryId}}&parentId={{item.parentId}}" class="color-blue mr10">编辑</a>
+            <a href="/product/category/list?parentId={{item.categoryId}}&parentName={{item.name}}" class="color-blue mr10" t-if="item.level==0">查看下级</a>
+            <a href="/product/category/create?categoryId={{item.categoryId}}&parentId={{item.parentId}}" class="color-blue mr10">编辑</a>
             <!-- <a href="#" mx-click="remove({categoryId:{{item.categoryId}}})" class="color-blue" t-if="item.level==1">删除</a> -->
           </td>
         </tr>

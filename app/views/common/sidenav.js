@@ -3,6 +3,18 @@ var $ = require('jquery')
 var Router = Magix.Router
 var menuList = [{
   mainNav: {
+    name: '首页',
+    icon: 'iconshouye'
+  },
+  subNav: [
+    {
+      path: '/home/overview',
+      name: '概览',
+      icon: 'icongailan'
+    }
+  ]
+},{
+  mainNav: {
     name: '商品',
     icon: 'iconsucai'
   },
@@ -18,31 +30,19 @@ var menuList = [{
       ]
     },
     {
-      path: '/activity/list',
+      path: '/product/activity/list',
       name: '活动管理',
-      icon: 'iconicon3',
-      childNav: [
-        '/activity/create',
-        '/activity/recyclebin'
-      ]
+      icon: 'iconhuodong'
     },
     {
-      path: '/roomvoucher/list',
+      path: '/product/roomvoucher/list',
       name: '房券管理',
-      icon: 'iconyouhuiquan',
-      childNav: [
-        '/roomvoucher/create',
-        '/roomvoucher/recyclebin'
-      ]
+      icon: 'iconyouhuiquan'
     },
     {
-      path: '/photograph/list',
+      path: '/product/photograph/list',
       name: '旅拍管理',
-      icon: 'iconpaizhao',
-      childNav: [
-        '/photograph/create',
-        '/photograph/recyclebin'
-      ]
+      icon: 'iconpaizhao'
     },
     {
       path: '/picture/list',
@@ -50,15 +50,15 @@ var menuList = [{
       icon: 'icontupian'
     },
     {
-      path: '/category/list',
+      path: '/product/category/list',
       name: '类目管理',
       icon: 'iconleimu',
       childNav: [
-        '/category/create',
-        '/attribute/list',
-        '/attribute/create',
-        '/detailfield/list',
-        '/detailfield/create'
+        '/product/category/create',
+        '/product/attribute/list',
+        '/product/attribute/create',
+        '/product/detailfield/list',
+        '/product/detailfield/create'
       ]
     },
     {
@@ -74,9 +74,9 @@ var menuList = [{
   },
   subNav: [
     {
-      path: '/custom/list',
+      path: '/order/custom/list',
       name: '定制管理',
-      icon: 'iconziyuan'
+      icon: 'icondingzhi'
     },
     {
       path: '/order/list',
@@ -90,7 +90,7 @@ var menuList = [{
     {
       path: '/order/refund_reason_list',
       name: '退款原因设置',
-      icon: 'iconzhipinyuanyin',
+      icon: 'iconyuanyin',
       childNav: [
         '/order/refund_reason_create',
       ]
@@ -120,6 +120,29 @@ var menuList = [{
       icon: 'iconfabu',
       childNav: [
         '/assets/detail'
+      ]
+    }
+  ]
+}, {
+  mainNav: {
+    name: '设置',
+    icon: 'iconshezhi'
+  },
+  subNav: [
+    {
+      path: '/setting/menu/list',
+      name: '菜单管理',
+      icon: 'iconcaidan',
+      childNav: [
+        '/setting/menu/create'
+      ]
+    },
+    {
+      path: '/setting/admin/list',
+      name: '成员管理',
+      icon: 'iconguanliyuan',
+      childNav: [
+        '/setting/admin/permission'
       ]
     }
   ]

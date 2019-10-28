@@ -12,7 +12,7 @@ module.exports = Magix.View.extend({
     var path = loc.path
 
     if (path === '/') {
-      path = '/activity/list'
+      path = '/home/overview'
     }
 
     me.data = {

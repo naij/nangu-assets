@@ -64,7 +64,7 @@ module.exports = Magix.View.extend({
       name: modelName,
       params: formData
     }], function(e, MesModel) {
-      me.to('/attribute/list?categoryId=' + categoryId + '&type=' + type)
+      me.to('/product/attribute/list?categoryId=' + categoryId + '&type=' + type)
     })
   },
   filters: {

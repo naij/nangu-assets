@@ -83,7 +83,8 @@ module.exports = Magix.View.extend({
       name: modelName,
       params: formData
     }], function(e, MesModel) {
-      me.to('/category/list')
+      // me.to('/product/category/list')
+      window.history.go(-1)
     })
   }
 })

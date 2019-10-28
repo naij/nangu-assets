@@ -1,0 +1,43 @@
+<div class="page-header clearfix">
+  <div class="title-bar">
+    <h2 class="title" t-if="id"">编辑菜单</h2>
+    <h2 class="title" t-if="!id">新增菜单</h2>
+  </div>
+</div>
+<div class="page-body">
+  <form id="menu-create-form">
+    <ul class="union-form">
+      <li class="field">
+        <p class="field-label2">菜单名称</p>
+        <input type="text" class="input" name="name" value="{{name}}">
+      </li>
+      <li class="field">
+        <p class="field-label2">图标</p>
+        <input type="text" class="input" name="icon" value="{{icon}}">
+      </li>
+      <li class="field">
+        <p class="field-label2">路径</p>
+        <input type="text" class="input" name="path" value="{{path}}">
+      </li>
+      <li class="field">
+        <p class="field-label2">关联路径</p>
+        <textarea name="relativePath" class="textarea">{{relativePath|formatRelativePath}}</textarea>
+      </li>
+      <li class="field">
+        <p class="field-label2">排序</p>
+        <input type="text" class="input" name="sort" value="{{sort}}">
+      </li>
+      <li class="field">
+        <p class="field-label2">上级分类</p>
+        <select class="select" name="parentId">
+          {{#for(item in menuList)}}
+          <option value="{{item.id}}" selected="{{item.selected}}">{{item.name}}</option>
+          {{/for}}
+        </select>
+      </li>
+      <li class="field">
+        <a href="#" class="btn btn-brand btn-large" mx-click="submit()">提交</a>
+      </li>
+    </ul>
+  </form>
+</div>
