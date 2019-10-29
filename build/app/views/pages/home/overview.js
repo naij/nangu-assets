@@ -1,0 +1,1 @@
+define("app/views/pages/home/overview",["magix","jquery"],function(e,i,a){{var s=e("magix");e("jquery")}a.exports=s.View.extend({tmpl:'<div class="page-header clearfix"><div class="title-bar"><h2 class="title">\u6982\u89c8</h2></div></div><div class="page-body"></div>',render:function(){var e=this;e.setView()}})});

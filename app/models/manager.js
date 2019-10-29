@@ -229,12 +229,12 @@ Service.add([
   // 获取图片列表
   {
     name: 'picture_list',
-    url: '/api/tool/pic/list.json'
+    url: '/api/tool/picture/list.json'
   },
   // 删除图片
   {
     name: 'picture_remove',
-    url: '/api/tool/pic/remove.json',
+    url: '/api/tool/picture/remove.json',
     method: 'POST'
   },
   // 获取静态资源发布列表
