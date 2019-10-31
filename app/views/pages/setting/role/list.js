@@ -14,7 +14,7 @@ module.exports = Magix.View.extend({
     var pageSize = 10
 
     me.request().all([{
-      name: 'admin_list',
+      name: 'role_list',
       params: {
         pageNo: pageNo,
         pageSize: pageSize

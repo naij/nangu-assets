@@ -17,20 +17,43 @@ Service.add([
     name: 'pubinfo',
     url: '/api/member/admin/pubinfo.json'
   },
+  // 获取成员列表
+  {
+    name: 'admin_list',
+    url: '/api/member/admin/list.json'
+  },
   // 获取注册用户列表
   {
     name: 'member_list',
     url: '/api/member/member/list.json'
   },
-  // 获取活动列表
+  // 获取角色列表
   {
-    name: 'activity_list',
-    url: '/api/wxapp/activity/list.json'
+    name: 'role_list',
+    url: '/api/member/role/list.json'
   },
-  // 获取房券列表
+  // 获取角色详情
   {
-    name: 'roomvoucher_list',
-    url: '/api/wxapp/roomvoucher/list.json'
+    name: 'role_detail',
+    url: '/api/member/role/detail.json'
+  },
+  // 创建角色
+  {
+    name: 'role_create',
+    url: '/api/member/role/create.json',
+    method: 'POST'
+  },
+  // 更新角色
+  {
+    name: 'role_update',
+    url: '/api/member/role/update.json',
+    method: 'POST'
+  },
+  // 删除角色
+  {
+    name: 'role_remove',
+    url: '/api/member/role/remove.json',
+    method: 'POST'
   },
   // 获取类目列表
   {
@@ -248,34 +271,34 @@ Service.add([
     url: '/api/tool/assets/detail.json'
   },
 
-  // 获取设置菜单列表
+  // 获取菜单列表
   {
-    name: 'setting_menu_list',
+    name: 'menu_list',
     url: '/api/setting/menu/list.json'
   },
-  // 获取设置菜单详情
+  // 获取菜单详情
   {
-    name: 'setting_menu_detail',
+    name: 'menu_detail',
     url: '/api/setting/menu/detail.json'
   },
   // 创建菜单
   {
-    name: 'setting_menu_create',
+    name: 'menu_create',
     url: '/api/setting/menu/create.json',
     method: 'POST'
   },
   // 更新菜单
   {
-    name: 'setting_menu_update',
+    name: 'menu_update',
     url: '/api/setting/menu/update.json',
     method: 'POST'
   },
   // 删除菜单
   {
-    name: 'setting_menu_remove',
+    name: 'menu_remove',
     url: '/api/setting/menu/remove.json',
     method: 'POST'
-  },
+  }
 ])
 
 module.exports = Service

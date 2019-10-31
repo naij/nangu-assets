@@ -142,7 +142,15 @@ var menuList = [{
       name: '成员管理',
       icon: 'iconguanliyuan',
       childNav: [
-        '/setting/admin/permission'
+        '/setting/admin/create'
+      ]
+    },
+    {
+      path: '/setting/role/list',
+      name: '角色管理',
+      icon: 'icongangweiguanli',
+      childNav: [
+        '/setting/role/create'
       ]
     }
   ]

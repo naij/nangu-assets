@@ -19,7 +19,7 @@ module.exports = Magix.View.extend({
       params: formData
     }], function(e, MesModel) {
       Magix.config({'isLogined': true})
-      me.to('/activity/list')
+      me.to('/home/overview')
     })
   }
 })

@@ -12,7 +12,7 @@ module.exports = Magix.View.extend({
 
     if (id) {
       me.request().all([{
-        name: 'menu_detail',
+        name: 'role_detail',
         params: {
           id: id
         }
@@ -51,7 +51,7 @@ module.exports = Magix.View.extend({
       })
     } else {
       me.request().all([{
-        name: 'menu_list'
+        name: 'setting_menu_list'
       }], function(e, MesModel) {
         var data = MesModel.get('data')
 
@@ -85,10 +85,10 @@ module.exports = Magix.View.extend({
     }
 
     if (!id) {
-      modelName = 'menu_create'
+      modelName = 'setting_menu_create'
     } else {
       formData.id = id
-      modelName = 'menu_update'
+      modelName = 'setting_menu_update'
     }
 
     me.request().all([{

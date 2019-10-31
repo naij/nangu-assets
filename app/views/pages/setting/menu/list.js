@@ -16,7 +16,7 @@ module.exports = Magix.View.extend({
     var parentName = me.param('parentName')
 
     me.request().all([{
-      name: 'setting_menu_list',
+      name: 'menu_list',
       params: {
         parentId: parentId,
         pageNo: pageNo,

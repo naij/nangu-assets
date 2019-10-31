@@ -1,18 +1,17 @@
 <div class="page-header clearfix">
   <div class="title-bar">
-    <h2 class="title">成员列表</h2>
+    <h2 class="title">角色列表</h2>
   </div>
 </div>
 <div class="page-body table-container">
   <div class="toolbar clearfix">
-    <a href="/setting/admin/create" class="btn btn-brand btn-large">新增成员</a>
+    <a href="/setting/role/create" class="btn btn-brand btn-large">新增角色</a>
   </div>
   <table class="table">
     <thead>
       <tr t-class:no-data="list.length == 0">
         <th class="left" width="150">编号</th>
-        <th class="left">用户名</th>
-        <th class="left" width="150">角色</th>
+        <th class="left">角色名称</th>
         <th class="left" width="150">状态</th>
         <th class="center" width="150">操作</th>
       </tr>
@@ -21,18 +20,17 @@
       {{#for(item in list)}}
       <tr>
         <td class="left">{{item.id}}</td>
-        <td class="left">{{item.username}}</td>
-        <td class="left">{{item.role}}</td>
+        <td class="left">{{item.name}}</td>
         <td class="left">{{item.status|formatStatus}}</td>
         <td class="center">
-          <a href="/setting/admin/create?id={{item.id}}" class="color-blue mr10">编辑</a>
+          <a href="/setting/role/create?id={{item.id}}" class="color-blue mr10">编辑</a>
           <a href="#" mx-click="disable({id:{{item.id}}})" class="color-blue">停用</a>
         </td>
       </tr>
       {{/for}}
       {{#if(list.length == 0)}}
       <tr class="none">
-        <td class="center" colspan="{{parentId!=0 ? 5 : 4}}">
+        <td class="center" colspan="4">
           暂无数据
         </td>
       </tr>
