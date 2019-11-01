@@ -8,7 +8,6 @@ module.exports = Magix.View.extend({
   render: function() {
     var me = this
     var id = me.param('id')
-    var parentId = me.param('parentId')
 
     if (id) {
       me.request().all([{
@@ -17,53 +16,40 @@ module.exports = Magix.View.extend({
           id: id
         }
       }, {
-        name: 'menu_list'
+        name: 'menu_full_list'
       }], function(e, DetailModel, ListModel) {
         var detailData = DetailModel.get('data')
         var listData = ListModel.get('data')
-
         var menuList = listData.list
-        menuList.push({
-          id: '0',
-          name: '无上级分类',
-          selected: true
-        })
+        var menuPermission = detailData.menuPermission
 
-        if (parentId !== 0) {
-          $.each(menuList, function (i, v) {
-            v.selected = false
-            if (v.id == parentId) {
-              v.selected = true
+        $.each(menuList, function(i, v) {
+          if (menuPermission['m' + v.id]) {
+            v.selected = true
+          }
+          $.each(v.subMenuList, function(i2, v2) {
+            if (menuPermission['m' + v2.id]) {
+              v2.selected = true
             }
           })
-        }
+        })
 
         me.data = {
           id: id,
           name: detailData.name,
-          icon: detailData.icon,
-          path: detailData.path,
-          relativePath: detailData.relativePath,
-          sort: detailData.sort,
+          status: detailData.status,
           menuList: menuList
         }
         me.setView()
       })
     } else {
       me.request().all([{
-        name: 'setting_menu_list'
+        name: 'menu_full_list'
       }], function(e, MesModel) {
         var data = MesModel.get('data')
-
-        var menuList = data.list
-        menuList.push({
-          id: '0',
-          name: '无上级分类',
-          selected: true
-        })
-
         me.data = {
-          menuList: menuList
+          status: 1,
+          menuList: data.list
         }
         me.setView()
       })
@@ -73,22 +59,14 @@ module.exports = Magix.View.extend({
     e.preventDefault()
     var me = this
     var id = me.data.id
-    var formData = $('#menu-create-form').serializeJSON({useIntKeysAsArrayIndex: true})
+    var formData = $('#role-create-form').serializeJSON({useIntKeysAsArrayIndex: true})
     var modelName
 
-    var relativePath = formData.relativePath
-    if (relativePath) {
-      relativePath = relativePath.split(/[(\r\n)\r\n]+/)
-      formData.relativePath = relativePath.join()
-    } else {
-      formData.relativePath = ''
-    }
-
     if (!id) {
-      modelName = 'setting_menu_create'
+      modelName = 'role_create'
     } else {
       formData.id = id
-      modelName = 'setting_menu_update'
+      modelName = 'role_update'
     }
 
     me.request().all([{
@@ -98,10 +76,5 @@ module.exports = Magix.View.extend({
       // me.to('/setting/menu/list')
       window.history.go(-1)
     })
-  },
-  filters: {
-    formatRelativePath: function(value) {
-      return value ? value.split(',').join('\r\n') : ''
-    }
   }
 })

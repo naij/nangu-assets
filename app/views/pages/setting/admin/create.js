@@ -11,12 +11,12 @@ module.exports = Magix.View.extend({
 
     if (id) {
       me.request().all([{
-        name: 'setting_admin_detail',
+        name: 'admin_detail',
         params: {
           id: id
         }
       }, {
-        name: 'setting_role_list'
+        name: 'role_list'
       }], function(e, DetailModel, ListModel) {
         var detailData = DetailModel.get('data')
         var listData = ListModel.get('data')
@@ -25,7 +25,7 @@ module.exports = Magix.View.extend({
         if (id !== 0) {
           $.each(roleList, function (i, v) {
             v.selected = false
-            if (v.id == id) {
+            if (v.id == detailData.roleId) {
               v.selected = true
             }
           })
@@ -35,11 +35,12 @@ module.exports = Magix.View.extend({
       })
     } else {
       me.request().all([{
-        name: 'setting_role_list'
+        name: 'role_list'
       }], function(e, MesModel) {
         var data = MesModel.get('data')
         var roleList = data.list
         me.data = {
+          status: 1,
           roleList: roleList
         }
         me.setView()
@@ -51,13 +52,16 @@ module.exports = Magix.View.extend({
     var me = this
     var id = me.data.id
     var formData = $('#admin-create-form').serializeJSON({useIntKeysAsArrayIndex: true})
+    var roleData = formData.role.split(',')
+    formData.roleId = roleData[0]
+    formData.roleName = roleData[1]
     var modelName
 
     if (!id) {
-      modelName = 'setting_admin_create'
+      modelName = 'admin_create'
     } else {
       formData.id = id
-      modelName = 'setting_admin_update'
+      modelName = 'admin_update'
     }
 
     me.request().all([{

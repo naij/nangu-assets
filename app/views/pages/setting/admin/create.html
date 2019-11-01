@@ -15,7 +15,7 @@
         <p class="field-label2">角色</p>
         <select class="select" name="role">
           {{#for(item in roleList)}}
-          <option value="{{item.id}}" selected="{{item.selected}}">{{item.name}}</option>
+          <option value="{{item.id}},{{item.name}}" selected="{{item.selected}}">{{item.name}}</option>
           {{/for}}
         </select>
       </li>

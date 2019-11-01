@@ -33,5 +33,19 @@ module.exports = Magix.View.extend({
   },
   'pageChange<change>': function(e) {
     this.to({pageNo: e.state.page})
+  },
+  filters: {
+    formatStatus: function(value) {
+      var status
+      switch(value) {
+        case 1 :
+          status = '正常'
+          break
+        case 2 :
+          status = '禁用'
+          break
+      }
+      return status
+    }
   }
 })

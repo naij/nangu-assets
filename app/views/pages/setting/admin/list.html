@@ -22,11 +22,13 @@
       <tr>
         <td class="left">{{item.id}}</td>
         <td class="left">{{item.username}}</td>
-        <td class="left">{{item.role}}</td>
-        <td class="left">{{item.status|formatStatus}}</td>
+        <td class="left">{{item.roleName}}</td>
+        <td class="left">{{{item.status|formatStatus}}}</td>
         <td class="center">
           <a href="/setting/admin/create?id={{item.id}}" class="color-blue mr10">编辑</a>
-          <a href="#" mx-click="disable({id:{{item.id}}})" class="color-blue">停用</a>
+          <a href="#" mx-click="disable({id:{{item.id}}})" class="color-blue mr10" t-if="item.status==1">禁用</a>
+          <a href="#" mx-click="enable({id:{{item.id}}})" class="color-blue mr10" t-if="item.status==2">启用</a>
+          <a href="#" mx-click="resetPassword({id:{{item.id}}})" class="color-blue">重置密码</a>
         </td>
       </tr>
       {{/for}}

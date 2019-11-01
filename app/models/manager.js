@@ -22,6 +22,35 @@ Service.add([
     name: 'admin_list',
     url: '/api/member/admin/list.json'
   },
+  // 获取成员详情
+  {
+    name: 'admin_detail',
+    url: '/api/member/admin/detail.json'
+  },
+  // 创建成员信息
+  {
+    name: 'admin_create',
+    url: '/api/member/admin/create.json',
+    method: 'POST'
+  },
+  // 更新成员信息
+  {
+    name: 'admin_update',
+    url: '/api/member/admin/update.json',
+    method: 'POST'
+  },
+  // 更新成员状态
+  {
+    name: 'admin_update_status',
+    url: '/api/member/admin/update_status.json',
+    method: 'POST'
+  },
+  // 重置成员密码
+  {
+    name: 'admin_reset_password_to_origin',
+    url: '/api/member/admin/reset_password_to_origin.json',
+    method: 'POST'
+  },
   // 获取注册用户列表
   {
     name: 'member_list',
@@ -275,6 +304,11 @@ Service.add([
   {
     name: 'menu_list',
     url: '/api/setting/menu/list.json'
+  },
+  // 获取菜单列表
+  {
+    name: 'menu_full_list',
+    url: '/api/setting/menu/full_list.json'
   },
   // 获取菜单详情
   {
