@@ -51,6 +51,12 @@ Service.add([
     url: '/api/member/admin/reset_password_to_origin.json',
     method: 'POST'
   },
+  // 重置成员密码
+  {
+    name: 'admin_reset_password',
+    url: '/api/member/admin/reset_password.json',
+    method: 'POST'
+  },
   // 获取注册用户列表
   {
     name: 'member_list',
@@ -76,6 +82,12 @@ Service.add([
   {
     name: 'role_update',
     url: '/api/member/role/update.json',
+    method: 'POST'
+  },
+  // 更新角色状态
+  {
+    name: 'role_update_status',
+    url: '/api/member/role/update_status.json',
     method: 'POST'
   },
   // 删除角色

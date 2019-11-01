@@ -35,6 +35,7 @@ seajs.use(['magix', 'jquery'], function(Magix, $) {
       var resp = $.parseJSON(xhr.responseText)
       Magix.config({'isLogined': resp.data.isLogined})
       Magix.config({'csrf': resp.data.csrf})
+      Magix.config({'username': resp.data.username})
 
       Magix.boot({
         ini: 'app/ini'

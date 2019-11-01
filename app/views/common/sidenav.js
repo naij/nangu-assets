@@ -152,6 +152,11 @@ var menuList = [{
       childNav: [
         '/setting/role/create'
       ]
+    },
+    {
+      path: '/setting/admin/reset_password',
+      name: '重置密码',
+      icon: 'iconzhongzhimima'
     }
   ]
 }]

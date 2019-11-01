@@ -34,6 +34,7 @@ var routeMap = {
     {path: '/setting/menu/create', needLogin: true},
     {path: '/setting/admin/list', needLogin: true},
     {path: '/setting/admin/create', needLogin: true},
+    {path: '/setting/admin/reset_password', needLogin: true},
     {path: '/setting/role/list', needLogin: true},
     {path: '/setting/role/create', needLogin: true},
   ],

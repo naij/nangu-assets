@@ -22,6 +22,9 @@ module.exports = Magix.View.extend({
     //   }
     //   me.setView()
     // })
+    me.data = {
+      username: Magix.config('username')
+    }
     me.setView()
   }
 })
