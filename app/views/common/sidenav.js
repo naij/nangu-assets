@@ -2,47 +2,43 @@ var Magix = require('magix')
 var $ = require('jquery')
 var Router = Magix.Router
 var menuList = [{
-  mainNav: {
-    name: '商品',
-    icon: 'iconsucai'
-  },
-  subNav: [
+  name: '首页',
+  icon: 'iconshouye',
+  subMenuList: [
+    {
+      path: '/home/overview',
+      name: '概览',
+      icon: 'icongailan'
+    }
+  ]
+}, {
+  name: '商品',
+  icon: 'iconsucai',
+  subMenuList: [
     {
       path: '/product/category',
       name: '新增商品',
       icon: 'iconxinzeng',
-      childNav: [
+      relativePath: [
         '/product/publish',
         '/product/update',
         '/product/successful'
       ]
     },
     {
-      path: '/activity/list',
+      path: '/product/activity/list',
       name: '活动管理',
-      icon: 'iconicon3',
-      childNav: [
-        '/activity/create',
-        '/activity/recyclebin'
-      ]
+      icon: 'iconhuodong'
     },
     {
-      path: '/roomvoucher/list',
+      path: '/product/roomvoucher/list',
       name: '房券管理',
-      icon: 'iconyouhuiquan',
-      childNav: [
-        '/roomvoucher/create',
-        '/roomvoucher/recyclebin'
-      ]
+      icon: 'iconyouhuiquan'
     },
     {
-      path: '/photograph/list',
+      path: '/product/photograph/list',
       name: '旅拍管理',
-      icon: 'iconpaizhao',
-      childNav: [
-        '/photograph/create',
-        '/photograph/recyclebin'
-      ]
+      icon: 'iconpaizhao'
     },
     {
       path: '/picture/list',
@@ -50,15 +46,15 @@ var menuList = [{
       icon: 'icontupian'
     },
     {
-      path: '/category/list',
+      path: '/product/category/list',
       name: '类目管理',
       icon: 'iconleimu',
-      childNav: [
-        '/category/create',
-        '/attribute/list',
-        '/attribute/create',
-        '/detailfield/list',
-        '/detailfield/create'
+      relativePath: [
+        '/product/category/create',
+        '/product/attribute/list',
+        '/product/attribute/create',
+        '/product/detailfield/list',
+        '/product/detailfield/create'
       ]
     },
     {
@@ -68,21 +64,19 @@ var menuList = [{
     },
   ]
 }, {
-  mainNav: {
-    name: '订单',
-    icon: 'iconorder'
-  },
-  subNav: [
+  name: '订单',
+  icon: 'iconorder',
+  subMenuList: [
     {
-      path: '/custom/list',
+      path: '/order/custom/list',
       name: '定制管理',
-      icon: 'iconziyuan'
+      icon: 'icondingzhi'
     },
     {
       path: '/order/list',
       name: '订单列表',
       icon: 'iconorder',
-      childNav: [
+      relativePath: [
         '/order/detail',
         '/order/refund_detail'
       ]
@@ -90,18 +84,16 @@ var menuList = [{
     {
       path: '/order/refund_reason_list',
       name: '退款原因设置',
-      icon: 'iconzhipinyuanyin',
-      childNav: [
+      icon: 'iconyuanyin',
+      relativePath: [
         '/order/refund_reason_create',
       ]
     },
   ]
 }, {
-  mainNav: {
-    name: '用户',
-    icon: 'iconyonghu'
-  },
-  subNav: [
+  name: '用户',
+  icon: 'iconyonghu',
+  subMenuList: [
     {
       path: '/member/list',
       name: '注册用户',
@@ -109,18 +101,50 @@ var menuList = [{
     }
   ]
 }, {
-  mainNav: {
-    name: '代码',
-    icon: 'icondaima'
-  },
-  subNav: [
+  name: '代码',
+  icon: 'icondaima',
+  subMenuList: [
     {
       path: '/assets/list',
       name: '发布列表',
       icon: 'iconfabu',
-      childNav: [
+      relativePath: [
         '/assets/detail'
       ]
+    }
+  ]
+}, {
+  name: '设置',
+  icon: 'iconshezhi',
+  subMenuList: [
+    {
+      path: '/setting/menu/list',
+      name: '菜单管理',
+      icon: 'iconcaidan',
+      relativePath: [
+        '/setting/menu/create'
+      ]
+    },
+    {
+      path: '/setting/admin/list',
+      name: '成员管理',
+      icon: 'iconguanliyuan',
+      relativePath: [
+        '/setting/admin/create'
+      ]
+    },
+    {
+      path: '/setting/role/list',
+      name: '角色管理',
+      icon: 'icongangweiguanli',
+      relativePath: [
+        '/setting/role/create'
+      ]
+    },
+    {
+      path: '/setting/admin/reset_password',
+      name: '重置密码',
+      icon: 'iconzhongzhimima'
     }
   ]
 }]
@@ -134,45 +158,44 @@ module.exports = Magix.View.extend({
     var me = this
     var loc = Router.parse()
     var path = loc.path
-    var mainNav = [], subNav, finded
+    var subMenuList, finded
 
     $.each(menuList, function(index, value) {
-      value.mainNav.active = false
-      mainNav.push(value.mainNav)
-      $.each(value.subNav, function(subIndex, subValue) {
+      value.active = false
+      $.each(value.subMenuList, function(subIndex, subValue) {
         subValue.active = false
-        if (subValue.childNav && $.inArray(path, subValue.childNav) != -1) {
+        if (subValue.relativePath && $.inArray(path, subValue.relativePath) != -1) {
           subValue.active = true
           finded = true
-          subNav = value.subNav
-          value.mainNav.active = true
+          subMenuList = value.subMenuList
+          value.active = true
         } else if (path === subValue.path) {
           subValue.active = true
           finded = true
-          subNav = value.subNav
-          value.mainNav.active = true
+          subMenuList = value.subMenuList
+          value.active = true
         }
       })
     })
 
     //找不到就选中第一个
     if (!finded) {
-      subNav = menuList[0].subNav
-      subNav[0].active = true
+      subMenuList = menuList[0].subMenuList
+      subMenuList[0].active = true
     }
 
     me.data = {
-      mainNav: mainNav,
-      subNav: subNav
+      menuList: menuList,
+      subMenuList: subMenuList
     }
     me.setView()
   },
-  'switchMainNav<click>': function (e) {
+  'switchMainMenu<click>': function (e) {
     var me = this
     var index = e.params.index
-    var mainNav = me.data.mainNav
-    var subNav
-    $.each(mainNav, function(i, v) {
+    var menuList = me.data.menuList
+    var subMenuList
+    $.each(menuList, function(i, v) {
       v.active = false
       if (index == i) {
         v.active = true
@@ -181,13 +204,13 @@ module.exports = Magix.View.extend({
 
     $.each(menuList, function(i, v) {
       if (index == i) {
-        subNav = v.subNav
+        subMenuList = v.subMenuList
       }
     })
 
     me.data = {
-      mainNav: mainNav,
-      subNav: subNav
+      menuList: menuList,
+      subMenuList: subMenuList
     }
     me.setView()
   }

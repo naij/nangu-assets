@@ -1,0 +1,47 @@
+<div class="page-header clearfix">
+  <div class="title-bar">
+    <h2 class="title">成员列表</h2>
+  </div>
+</div>
+<div class="page-body table-container">
+  <div class="toolbar clearfix">
+    <a href="/setting/admin/create" class="btn btn-brand btn-large">新增成员</a>
+  </div>
+  <table class="table">
+    <thead>
+      <tr t-class:no-data="list.length == 0">
+        <th class="left" width="150">编号</th>
+        <th class="left">用户名</th>
+        <th class="left" width="150">角色</th>
+        <th class="left" width="150">状态</th>
+        <th class="center" width="150">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#for(item in list)}}
+      <tr>
+        <td class="left">{{item.id}}</td>
+        <td class="left">{{item.username}}</td>
+        <td class="left">{{item.roleName}}</td>
+        <td class="left">{{{item.status|formatStatus}}}</td>
+        <td class="center">
+          <a href="/setting/admin/create?id={{item.id}}" class="color-blue mr10">编辑</a>
+          <a href="#" mx-click="disable({id:{{item.id}}})" class="color-blue mr10" t-if="item.status==1">禁用</a>
+          <a href="#" mx-click="enable({id:{{item.id}}})" class="color-blue mr10" t-if="item.status==2">启用</a>
+          <a href="#" mx-click="resetPassword({id:{{item.id}}})" class="color-blue">重置密码</a>
+        </td>
+      </tr>
+      {{/for}}
+      {{#if(list.length == 0)}}
+      <tr class="none">
+        <td class="center" colspan="{{parentId!=0 ? 5 : 4}}">
+          暂无数据
+        </td>
+      </tr>
+      {{/if}}
+    </tbody>
+  </table>
+  <div class="tfoot">
+    <div class="pager-container" mx-view="app/coms/pagination/pagination?total={{totalCount}}&size={{pageSize}}&page={{pageNo}}" mx-change="pageChange()"></div>
+  </div>
+</div>

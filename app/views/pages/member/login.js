@@ -18,8 +18,13 @@ module.exports = Magix.View.extend({
       name: 'login',
       params: formData
     }], function(e, MesModel) {
-      Magix.config({'isLogined': true})
-      me.to('/activity/list')
+      if (e && e.msg) {
+        me.data.error = e.msg
+        me.setView()
+      } else {
+        Magix.config({'isLogined': true})
+        me.to('/home/overview')
+      }
     })
   }
 })

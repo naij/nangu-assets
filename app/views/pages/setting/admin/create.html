@@ -1,0 +1,38 @@
+<div class="page-header clearfix">
+  <div class="title-bar">
+    <h2 class="title" t-if="id">编辑成员</h2>
+    <h2 class="title" t-if="!id">新增成员</h2>
+  </div>
+</div>
+<div class="page-body">
+  <form id="admin-create-form">
+    <ul class="union-form">
+      <li class="field">
+        <p class="field-label2">用户名</p>
+        <input type="text" class="input" name="username" value="{{username}}">
+      </li>
+      <li class="field">
+        <p class="field-label2">角色</p>
+        <select class="select" name="role">
+          {{#for(item in roleList)}}
+          <option value="{{item.id}},{{item.name}}" selected="{{item.selected}}">{{item.name}}</option>
+          {{/for}}
+        </select>
+      </li>
+      <li class="field">
+        <p class="field-label2">状态</p>
+        <label class="mr10" mx-click="switchStatus({value:1})">
+          <input name="status" class="mr10" checked="{{status==1}}" type="radio" value="1" />
+          <span>正常</span>
+        </label>
+        <label mx-click="switchStatus({value:2})">
+          <input name="status" class="mr10" checked="{{status==2}}" type="radio" value="2" />
+          <span>禁用</span>
+        </label>
+      </li>
+      <li class="field">
+        <a href="#" class="btn btn-brand btn-large" mx-click="submit()">提交</a>
+      </li>
+    </ul>
+  </form>
+</div>

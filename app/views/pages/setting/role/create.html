@@ -1,0 +1,53 @@
+<div class="page-header clearfix">
+  <div class="title-bar">
+    <h2 class="title" t-if="id">编辑角色</h2>
+    <h2 class="title" t-if="!id">新增角色</h2>
+  </div>
+</div>
+<div class="page-body role-create">
+  <form id="role-create-form">
+    <ul class="union-form">
+      <li class="field">
+        <p class="field-label2">角色名称</p>
+        <input type="text" class="input" name="name" value="{{name}}">
+      </li>
+      <li class="field">
+        <p class="field-label2">状态</p>
+        <label class="mr10" mx-click="switchStatus({value:1})">
+          <input name="status" class="mr10" checked="{{status==1}}" type="radio" value="1" />
+          <span>正常</span>
+        </label>
+        <label mx-click="switchStatus({value:2})">
+          <input name="status" class="mr10" checked="{{status==2}}" type="radio" value="2" />
+          <span>禁用</span>
+        </label>
+      </li>
+      <li class="field">
+        <p class="field-label2">菜单权限</p>
+        <div class="menu">
+          <dl>
+            {{#for(item in menuList)}}
+            <dt>
+              <label>
+                <input type="checkbox" name="menuPermission[]m{{item.id}}" value="{{item.id}}" checked="{{item.selected}}">
+                <span>{{item.name}}</span>
+              </label>
+            </dt>
+              {{#for(subItem in item.subMenuList)}}
+              <dd>
+                <label>
+                  <input type="checkbox" name="menuPermission[]m{{subItem.id}}" value="{{subItem.id}}" checked="{{subItem.selected}}">
+                  <span>{{subItem.name}}</span>
+                </label>
+              </dd>
+              {{/for}}
+            {{/for}}
+          </dl>
+        </div>
+      </li>
+      <li class="field">
+        <a href="#" class="btn btn-brand btn-large" mx-click="submit()">提交</a>
+      </li>
+    </ul>
+  </form>
+</div>
