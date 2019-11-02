@@ -322,6 +322,11 @@ Service.add([
     name: 'menu_full_list',
     url: '/api/setting/menu/full_list.json'
   },
+  // 获取菜单配置
+  {
+    name: 'menu_config',
+    url: '/api/setting/menu/config.json'
+  },
   // 获取菜单详情
   {
     name: 'menu_detail',

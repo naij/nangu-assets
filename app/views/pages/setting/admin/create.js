@@ -68,7 +68,11 @@ module.exports = Magix.View.extend({
       name: modelName,
       params: formData
     }], function(e, MesModel) {
-      window.history.go(-1)
+      if (e && e.msg) {
+        me.alert(e.msg)
+      } else {
+        window.history.go(-1)
+      }
     })
   }
 })
