@@ -28,6 +28,8 @@ var routeMap = {
     {path: '/order/refund_reason_list', needLogin: true},
     {path: '/order/refund_reason_create', needLogin: true},
     {path: '/member/list', needLogin: true},
+    {path: '/member/business/list', needLogin: true},
+    {path: '/member/business/create', needLogin: true},
     {path: '/assets/list', needLogin: true},
     {path: '/assets/detail', needLogin: true},
     {path: '/setting/menu/list', needLogin: true},

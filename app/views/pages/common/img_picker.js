@@ -3,7 +3,7 @@ var $ = require('jquery')
 var Dialog = require('app/mixins/dialog')
 
 module.exports = Magix.View.extend({
-  tmpl: '@imgpicker.html',
+  tmpl: '@img_picker.html',
   mixins: [Dialog],
   init: function(extra) {
     this.extraData = extra

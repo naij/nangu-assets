@@ -1,0 +1,26 @@
+<div class="business-picker">
+  <div class="dialog-hd">
+    <h2 class="dialog-title">选择商户</h2>
+  </div>
+  <div class="dialog-bd">
+    <div class="search">
+      <input type="text" class="input" placeholder="请输入商户名搜索">
+    </div>
+    <ul class="business-container clearfix">
+      {{#for(item in list)}}
+      <li t-class:selected="item.selected" mx-click="pick({id:{{item.id}}})">
+        <div class="name">{{item.name}}</div>
+        <div class="mask"><span class="iconfont iconduigou"></span></div>
+      </li>
+      {{/for}}
+    </ul>
+    <div class="pager-container" mx-view="app/coms/pagination/pagination?total={{totalCount}}&size={{pageSize}}&page={{pageNo}}" mx-change="pageChange()"></div>
+  </div>
+  <div class="dialog-ft">
+    <a href="javascript:;" class="btn btn-brand btn-large mr10" mx-click="submit()" t-if="selectedItem">确定</a>
+    <a href="javascript:;" class="btn btn-disabled btn-large mr10" t-if="!selectedItem">确定</a>
+    <a href="javascript:;" class="btn btn-normal btn-large" mx-click="cancel()">取消</a>
+  </div>
+</div>
+    
+    

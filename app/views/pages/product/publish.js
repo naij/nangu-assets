@@ -52,7 +52,7 @@ module.exports = Magix.View.extend({
   _customInsertImg: function(editorInstance) {
     var me = this
     editorInstance.customConfig.onInsertImg = function (cb) {
-      me.mxDialog('app/views/pages/common/imgpicker', {
+      me.mxDialog('app/views/pages/common/img_picker', {
         width: 700,
         limit: 1,
         callback: function(data) {
@@ -180,7 +180,7 @@ module.exports = Magix.View.extend({
   'pickCover<click>': function(e) {
     e.preventDefault()
     var me = this
-    me.mxDialog('app/views/pages/common/imgpicker', {
+    me.mxDialog('app/views/pages/common/img_picker', {
       width: 700,
       limit: 1,
       callback: function(data) {
@@ -193,7 +193,7 @@ module.exports = Magix.View.extend({
     e.preventDefault()
     var me = this
     var index = e.params.index
-    me.mxDialog('app/views/pages/common/imgpicker', {
+    me.mxDialog('app/views/pages/common/img_picker', {
       width: 700,
       limit: 1,
       callback: function(data) {
@@ -204,6 +204,18 @@ module.exports = Magix.View.extend({
           me.data.slide.push(data[0].picPath)
         }
         
+        me.setView()
+      }
+    })
+  },
+  'pickBusiness<click>': function(e) {
+    e.preventDefault()
+    var me = this
+    me.mxDialog('app/views/pages/common/business_picker', {
+      width: 700,
+      callback: function(data) {
+        me.data.businessId = data.id
+        me.data.businessName = data.name
         me.setView()
       }
     })
