@@ -1,32 +1,36 @@
 <div class="page-header clearfix">
   <div class="title-bar">
-    <h2 class="title">注册用户列表</h2>
+    <h2 class="title">商户列表</h2>
   </div>
 </div>
 <div class="page-body table-container">
+  <div class="toolbar clearfix">
+    <input type="text" class="input fr" value="{{q}}" placeholder="输入商户名称搜索" mx-keydown="search()">
+    <a href="/member/business/create" class="btn btn-brand btn-large">新增商户</a>
+  </div>
   <table class="table member-list">
     <thead>
       <tr t-class:no-data="list.length == 0">
-        <th class="left" width="120">用户头像</th>
-        <th class="left">昵称</th>
+        <th class="left" width="120">商户编号</th>
+        <th class="left">商户名称</th>
         <th class="left" width="150">创建时间</th>
+        <th class="center" width="150">操作</th>
       </tr>
     </thead>
     <tbody>
       {{#for(item in list)}}
       <tr>
-        <td class="left">
-          <div class="pic-cnt">
-            <a href="{{item.avatarUrl}}" target="_blank"><img src="{{item.avatarUrl}}" /></a>
-          </div>
-        </td>
-        <td class="left">{{item.nickName}}</td>
+        <td class="left">{{item.id}}</td>
+        <td class="left">{{item.name}}</td>
         <td class="left">{{item.createdAt|formatDate}}</td>
+        <td class="center">
+          <a href="/member/business/create?id={{item.id}}" class="color-blue mr10">编辑</a>
+        </td>
       </tr>
       {{/for}}
       {{#if(list.length == 0)}}
       <tr class="none">
-        <td class="center" colspan="3">
+        <td class="center" colspan="4">
           暂无数据
         </td>
       </tr>

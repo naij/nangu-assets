@@ -96,6 +96,31 @@ Service.add([
     url: '/api/member/role/remove.json',
     method: 'POST'
   },
+
+  // 获取商户列表
+  {
+    name: 'business_list',
+    url: '/api/member/business/list.json'
+  },
+  // 获取商户详情
+  {
+    name: 'business_detail',
+    url: '/api/member/business/detail.json'
+  },
+  // 创建商户
+  {
+    name: 'business_create',
+    url: '/api/member/business/create.json',
+    method: 'POST'
+  },
+  // 更新商户
+  {
+    name: 'business_update',
+    url: '/api/member/business/update.json',
+    method: 'POST'
+  },
+
+
   // 获取类目列表
   {
     name: 'category_list',

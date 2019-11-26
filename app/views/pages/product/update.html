@@ -75,6 +75,21 @@
         </div>
       </li>
       <li class="field">
+        <p class="field-label2">所属商户</p>
+        {{^if(businessId)}}
+        <div class="business-placeholder" mx-click="pickBusiness()">
+          <div>添加所属商户</div>
+        </div>
+        {{/if}}
+        {{#if(businessId)}}
+        <div class="business-container">
+          <div class="mask" mx-click="pickBusiness()">重新选择商户</div>
+          <div><span class="iconfont iconshanghu color-brand mr5"></span>{{businessName}}</div>
+          <input type="hidden" name="businessId" value="{{businessId}}">
+        </div>
+        {{/if}}
+      </li>
+      <li class="field">
         <p class="field-label2">商品规格</p>
         <div class="attribute-container">
           {{#for(item in attributeList)}}
