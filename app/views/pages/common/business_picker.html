@@ -4,7 +4,7 @@
   </div>
   <div class="dialog-bd">
     <div class="search">
-      <input type="text" class="input" placeholder="请输入商户名搜索">
+      <input type="text" class="input" placeholder="请输入商户名搜索" mx-keydown="search()">
     </div>
     <ul class="business-container clearfix">
       {{#for(item in list)}}

@@ -11,12 +11,15 @@ module.exports = Magix.View.extend({
   render: function() {
     var me = this
     var pageNo = me.pageNo || 1
-    var pageSize = 10
+    var pageSize = 18
+    var q = me.q || ''
+
     me.request().all([{
       name: 'business_list',
       params: {
         pageNo: pageNo,
-        pageSize: pageSize
+        pageSize: pageSize,
+        q: q
       }
     }], function(e, MesModel) {
       var data = MesModel.get('data')
@@ -50,9 +53,15 @@ module.exports = Magix.View.extend({
     }
     me.setView()
   },
+  'search<keydown>': function(e) {
+    if (e.keyCode == '13') {
+      this.q = $(e.eventTarget).val()
+      this.pageNo = 1
+      this.render()
+    }
+  },
   'pageChange<change>': function(e) {
     this.pageNo = e.state.page
-    this.data.selectedList = []
     this.render()
   },
   'submit<click>': function (e) {
