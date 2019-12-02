@@ -13,7 +13,8 @@
       <tr t-class:no-data="list.length == 0">
         <th class="left" width="150">房券封面</th>
         <th class="left">房券标题</th>
-        <th class="left" width="150">推荐状态</th>
+        <th class="left" width="100">类目ID</th>
+        <th class="left" width="120">推荐状态</th>
         <th class="left" width="150">发布时间</th>
         <th class="left" width="100">发布状态</th>
         <th class="center" width="150">操作</th>
@@ -26,6 +27,7 @@
           <img src="{{item.cover}}">
         </td>
         <td class="left">{{item.title}}</td>
+        <td class="left">{{item.categoryId}}</td>
         <td class="left">{{{item.recommandStatus|formatRecommandStatus}}}</td>
         <td class="left">{{item.updatedAt|formatDate}}</td>
         <td class="left">{{{item.status|formatStatus}}}</td>

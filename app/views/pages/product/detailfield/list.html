@@ -5,7 +5,7 @@
   </div>
   <div class="page-body table-container">
     <div class="toolbar clearfix">
-      <a href="/detailfield/create?categoryId={{categoryId}}" class="btn btn-brand btn-large">新增详情字段</a>
+      <a href="/product/detailfield/create?categoryId={{categoryId}}" class="btn btn-brand btn-large">新增详情字段</a>
     </div>
     <table class="table">
       <thead>
@@ -29,7 +29,7 @@
           <td class="left">{{item.fieldType|formatFieldType}}</td>
           <td class="left">{{item.sort}}</td>
           <td class="center">
-            <a href="/detailfield/create?id={{item.id}}" class="color-blue mr10">编辑</a>
+            <a href="/product/detailfield/create?id={{item.id}}" class="color-blue mr10">编辑</a>
             <a href="#" mx-click="remove({id:{{item.id}}})" class="color-blue">删除</a>
           </td>
         </tr>
