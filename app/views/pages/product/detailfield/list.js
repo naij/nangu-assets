@@ -29,13 +29,13 @@ module.exports = Magix.View.extend({
   },
   'remove<click>': function(e) {
     e.preventDefault()
-    var categoryId = e.params.categoryId
+    var id = e.params.id
     var me = this
-    me.confirm('确定要删除此类目？彻底删除后不可复原！', function() {
+    me.confirm('确定要删除此数据？彻底删除后不可复原！', function() {
       me.request().all([{
-        name: 'category_remove',
+        name: 'detailfield_remove',
         params: {
-          categoryId: categoryId
+          id: id
         }
       }], function(e, MesModel) {
         me.render()
