@@ -325,6 +325,65 @@
   }
 }
 
+/* 广告位创建 */
+.ad-create {
+  .img-placeholder {
+    float: left;
+    width: 210px;
+    height: 90px;
+    box-sizing: border-box;
+    border: 2px dashed #ebebeb;
+    color: #43b548;
+    text-align: center;
+    padding-top: 16px;
+    -webkit-transition: all .1s;
+    transition: all .1s;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #f6f8f9;
+    }
+  }
+  .img-container {
+    position: relative;
+    height: 90px;
+    float: left;
+    margin-right: 10px;
+
+    .img {
+      height: 90px;
+    }
+    .mask {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      text-align: center;
+      height: 30px;
+      line-height: 30px;
+      font-size: 14px;
+      cursor: pointer;
+      display: none;
+    }
+
+    &:hover {
+      .mask {
+        display: block;
+      }
+    }
+  }
+  .content-picker-container {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 3px;
+    margin-top: 10px;
+    width: 400px;
+  }
+}
+
 /* 订单商品信息 */
 .order-list {
   .filter {

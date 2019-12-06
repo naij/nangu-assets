@@ -1,0 +1,60 @@
+<div class="page-header clearfix">
+  <div class="title-bar">
+    <h2 class="title" t-if="id">编辑</h2>
+    <h2 class="title" t-if="!id">新增</h2>
+  </div>
+</div>
+<div class="page-body ad-create">
+  <form id="ad-create-form">
+    <input type="hidden" name="position" value="{{position}}">
+    <ul class="union-form">
+      <li class="field">
+        <p class="field-label2">图片</p>
+        <div class="cover clearfix">
+          {{^if(imageUrl)}}
+          <div class="img-placeholder" mx-click="pickImage()">
+            <span class="iconfont iconhao"></span>
+            <div>选择图片</div>
+          </div>
+          {{/if}}
+          {{#if(imageUrl)}}
+          <div class="img-container">
+            <div class="mask" mx-click="pickImage()">重新选择图片</div>
+            <img src="{{imageUrl}}" class="img">
+            <input type="hidden" name="imageUrl" value="{{imageUrl}}">
+          </div>
+          {{/if}}
+        </div>
+      </li>
+      <li class="field">
+        <p class="field-label2">链接类型</p>
+        <label class="mr10" mx-click="switchUrlType({value:0})">
+          <input name="urlType" class="mr10" checked="{{urlType==0}}" type="radio" value="0" />
+          <span>跳转网页</span>
+        </label>
+        <label mx-click="switchUrlType({value:1})">
+          <input name="urlType" class="mr10" checked="{{urlType==1}}" type="radio" value="1" />
+          <span>跳转小程序</span>
+        </label>
+
+        <div class="content-picker-container">
+          <div t-if="urlType==0">
+            <p class="field-label2">网页地址</p>
+            <input type="input" class="input" name="url" value="{{url}}">
+          </div>
+          <div t-if="urlType==1">
+            <p class="field-label2">小程序页面地址</p>
+            <input type="input" class="input" name="url" value="{{url}}">
+          </div>
+        </div>
+      </li>
+      <li class="field">
+        <p class="field-label2">排序</p>
+        <input type="number"" class="input" name="sort" value="{{sort}}">
+      </li>
+      <li class="field">
+        <a href="#" class="btn btn-brand btn-large" mx-click="submit()">提交</a>
+      </li>
+    </ul>
+  </form>
+</div>
