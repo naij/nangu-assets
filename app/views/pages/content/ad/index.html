@@ -1,0 +1,27 @@
+<div class="page-header clearfix">
+  <div class="title-bar">
+    <h2 class="title">广告位管理</h2>
+  </div>
+</div>
+<div class="page-body table-container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th class="left">名称</th>
+        <th class="left" width="150">位置</th>
+        <th class="center" width="150">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#for(item in list)}}
+      <tr>
+        <td class="left">{{item.name}}</td>
+        <td class="left">{{item.position}}</td>
+        <td class="center">
+          <a href="/content/ad/list?position={{item.position}}" class="color-blue mr10">编辑</a>
+        </td>
+      </tr>
+      {{/for}}
+    </tbody>
+  </table>
+</div>

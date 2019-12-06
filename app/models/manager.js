@@ -252,6 +252,36 @@ Service.add([
     url: '/api/wxapp/product/remove_complete.json',
     method: 'POST'
   },
+
+  // 获取广告位资源列表
+  {
+    name: 'ad_list',
+    url: '/api/wxapp/content/ad/list.json'
+  },
+  // 获取单个广告位资源详情
+  {
+    name: 'ad_detail',
+    url: '/api/wxapp/content/ad/detail.json'
+  },
+  // 创建广告位资源
+  {
+    name: 'ad_create',
+    url: '/api/wxapp/content/ad/create.json',
+    method: 'POST'
+  },
+  // 更新广告位资源
+  {
+    name: 'ad_update',
+    url: '/api/wxapp/content/ad/update.json',
+    method: 'POST'
+  },
+  // 删除广告位资源
+  {
+    name: 'ad_remove',
+    url: '/api/wxapp/content/ad/remove.json',
+    method: 'POST'
+  },
+
   // 获取订单列表
   {
     name: 'order_list',

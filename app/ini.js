@@ -4,44 +4,47 @@ var $ = require('jquery')
 
 var routeMap = {
   'app/views/layout/default': [
-    {path: '/', needLogin: true},
-    {path: '/home/overview', needLogin: true},
-    {path: '/product/category', needLogin: true},
-    {path: '/product/publish', needLogin: true},
-    {path: '/product/update', needLogin: true},
-    {path: '/product/successful', needLogin: true},
-    {path: '/product/recyclebin', needLogin: true},
-    {path: '/product/activity/list', needLogin: true},
-    {path: '/product/roomvoucher/list', needLogin: true},
-    {path: '/product/category/list', needLogin: true},
-    {path: '/product/category/create', needLogin: true},
-    {path: '/product/attribute/list', needLogin: true},
-    {path: '/product/attribute/create', needLogin: true},
-    {path: '/product/detailfield/list', needLogin: true},
-    {path: '/product/detailfield/create', needLogin: true},
-    {path: '/product/photograph/list', needLogin: true},
-    {path: '/picture/list', needLogin: true},
-    {path: '/order/custom/list', needLogin: true},
-    {path: '/order/list', needLogin: true},
-    {path: '/order/detail', needLogin: true},
-    {path: '/order/refund_detail', needLogin: true},
-    {path: '/order/refund_reason_list', needLogin: true},
-    {path: '/order/refund_reason_create', needLogin: true},
-    {path: '/member/list', needLogin: true},
-    {path: '/member/business/list', needLogin: true},
-    {path: '/member/business/create', needLogin: true},
-    {path: '/assets/list', needLogin: true},
-    {path: '/assets/detail', needLogin: true},
-    {path: '/setting/menu/list', needLogin: true},
-    {path: '/setting/menu/create', needLogin: true},
-    {path: '/setting/admin/list', needLogin: true},
-    {path: '/setting/admin/create', needLogin: true},
-    {path: '/setting/admin/reset_password', needLogin: true},
-    {path: '/setting/role/list', needLogin: true},
-    {path: '/setting/role/create', needLogin: true},
+    {path: '/', loginRequire: true},
+    {path: '/home/overview', loginRequire: true},
+    {path: '/product/category', loginRequire: true},
+    {path: '/product/publish', loginRequire: true},
+    {path: '/product/update', loginRequire: true},
+    {path: '/product/successful', loginRequire: true},
+    {path: '/product/recyclebin', loginRequire: true},
+    {path: '/product/activity/list', loginRequire: true},
+    {path: '/product/roomvoucher/list', loginRequire: true},
+    {path: '/product/category/list', loginRequire: true},
+    {path: '/product/category/create', loginRequire: true},
+    {path: '/product/attribute/list', loginRequire: true},
+    {path: '/product/attribute/create', loginRequire: true},
+    {path: '/product/detailfield/list', loginRequire: true},
+    {path: '/product/detailfield/create', loginRequire: true},
+    {path: '/product/photograph/list', loginRequire: true},
+    {path: '/content/ad/index', loginRequire: true},
+    {path: '/content/ad/list', loginRequire: true},
+    {path: '/content/ad/create', loginRequire: true},
+    {path: '/picture/list', loginRequire: true},
+    {path: '/order/custom/list', loginRequire: true},
+    {path: '/order/list', loginRequire: true},
+    {path: '/order/detail', loginRequire: true},
+    {path: '/order/refund_detail', loginRequire: true},
+    {path: '/order/refund_reason_list', loginRequire: true},
+    {path: '/order/refund_reason_create', loginRequire: true},
+    {path: '/member/list', loginRequire: true},
+    {path: '/member/business/list', loginRequire: true},
+    {path: '/member/business/create', loginRequire: true},
+    {path: '/assets/list', loginRequire: true},
+    {path: '/assets/detail', loginRequire: true},
+    {path: '/setting/menu/list', loginRequire: true},
+    {path: '/setting/menu/create', loginRequire: true},
+    {path: '/setting/admin/list', loginRequire: true},
+    {path: '/setting/admin/create', loginRequire: true},
+    {path: '/setting/admin/reset_password', loginRequire: true},
+    {path: '/setting/role/list', loginRequire: true},
+    {path: '/setting/role/create', loginRequire: true},
   ],
   'app/views/layout/blank': [
-    {path: '/member/login', needLogin: false}
+    {path: '/member/login', loginRequire: false}
   ]
 }
 var routes = function() {
@@ -59,7 +62,7 @@ Router.on('changed', function (e) {
   $.each(routeMap, function(k, item) {
     $.each(item, function(i, v) {
       if (v.path == e.path.to) {
-        if (v.needLogin) {
+        if (v.loginRequire) {
           Magix.checkToLogin()
         }
       }
