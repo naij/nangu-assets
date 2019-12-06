@@ -23,6 +23,32 @@ module.exports = Magix.View.extend({
       me.setView()
     })
   },
+  'online<click>': function(e) {
+    e.preventDefault()
+    var me = this
+    var id = e.params.id
+    me.request().all([{
+      name: 'ad_online',
+      params: {
+        id: id
+      }
+    }], function(e, MesModel) {
+      me.render()
+    })
+  },
+  'offline<click>': function(e) {
+    e.preventDefault()
+    var me = this
+    var id = e.params.id
+    me.request().all([{
+      name: 'ad_offline',
+      params: {
+        id: id
+      }
+    }], function(e, MesModel) {
+      me.render()
+    })
+  },
   'remove<click>': function(e) {
     e.preventDefault()
     var id = e.params.id
@@ -50,6 +76,18 @@ module.exports = Magix.View.extend({
           break
       }
       return type
+    },
+    formatStatus: function(value) {
+      var status
+      switch(value) {
+        case 1 :
+          status = '<span class="color-green">正常</span>'
+          break
+        case 2 :
+          status = '<span class="color-l">已下线</span>'
+          break
+      }
+      return status
     }
   }
 })

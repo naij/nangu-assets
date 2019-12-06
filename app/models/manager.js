@@ -281,6 +281,18 @@ Service.add([
     url: '/api/wxapp/content/ad/remove.json',
     method: 'POST'
   },
+  // 设置广告位资源上线
+  {
+    name: 'ad_online',
+    url: '/api/wxapp/content/ad/online.json',
+    method: 'POST'
+  },
+  // 设置广告位资源下线
+  {
+    name: 'ad_offline',
+    url: '/api/wxapp/content/ad/offline.json',
+    method: 'POST'
+  },
 
   // 获取订单列表
   {
