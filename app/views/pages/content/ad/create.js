@@ -45,7 +45,18 @@ module.exports = Magix.View.extend({
   },
   'switchUrlType<click>': function(e) {
     this.data.urlType = e.params.value
+    this.data.url = ''
     this.setView()
+  },
+  'pickProduct<click>': function(e) {
+    var me = this
+    me.mxDialog('app/views/pages/common/product_picker', {
+      width: 900,
+      callback: function(data) {
+        me.data.url = data
+        me.setView()
+      }
+    })
   },
   'submit<click>': function(e) {
     e.preventDefault()

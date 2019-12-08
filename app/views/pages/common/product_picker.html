@@ -1,0 +1,29 @@
+<div class="product-picker">
+  <div class="dialog-hd">
+    <h2 class="dialog-title">选择跳转页面</h2>
+  </div>
+  <div class="dialog-bd">
+    <ul class="product-tab clearfix">
+      {{#for(item in tabList)}}
+      <li mx-click="switchTab({index:{{__INDEX__}}})" t-class:active="item.selected">{{item.title}}</li>
+      {{/for}}
+    </ul>
+    <ul class="product-container clearfix">
+      {{#for(item in list)}}
+      <li t-class:selected="item.selected" mx-click="pick({id:{{item.id}}})">
+        <div class="img">
+          <img src="{{item.cover}}">
+        </div>
+        <div class="title">{{item.title}}</div>
+        <div class="mask"><span class="iconfont iconduigou"></span></div>
+      </li>
+      {{/for}}
+    </ul>
+    <div class="pager-container" mx-view="app/coms/pagination/pagination?total={{totalCount}}&size={{pageSize}}&page={{pageNo}}" mx-change="pageChange()"></div>
+  </div>
+  <div class="dialog-ft">
+    <a href="javascript:;" class="btn btn-brand btn-large mr10" mx-click="submit()" t-if="selectedItem">确定</a>
+    <a href="javascript:;" class="btn btn-disabled btn-large mr10" t-if="!selectedItem">确定</a>
+    <a href="javascript:;" class="btn btn-normal btn-large" mx-click="cancel()">取消</a>
+  </div>
+</div>

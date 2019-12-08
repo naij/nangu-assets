@@ -384,6 +384,82 @@
   }
 }
 
+/* 商品页面选择器 */
+.product-picker {
+  .product-tab {
+    li {
+      float: left;
+      padding: 10px 25px;
+      background-color: #f7f7f7;
+      cursor: pointer;
+    }
+    li.active {
+      color: #fff;
+      background-color: @color-brand;
+    }
+  }
+  ul.product-container {
+    border: 1px solid #eee;
+    height: 350px;
+    overflow: auto;
+    padding: 10px;
+
+    li {
+      float: left;
+      border: 1px solid #f1f1f1;
+      border-radius: 1px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      position: relative;
+      width: 190px;
+      
+      &:hover {
+        border-color: @color-green;
+      }
+      &.selected {
+        border-color: @color-green;
+    
+        .mask {
+          display: block;
+        }
+      }
+      .title {
+        font-size: 14px;
+        padding: 10px;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        color: @color-m;
+        white-space: nowrap
+      }
+    }
+  }
+  .pager-container {
+    margin-bottom: 0;
+  }
+  .mask {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: none;
+
+    .iconfont {
+      position: absolute;
+      right: 0;
+      top: 0;
+      color: #fff;
+      background: @color-green;
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+      text-align: center;
+    }
+  }
+}
+
+
 /* 订单商品信息 */
 .order-list {
   .filter {
