@@ -36,7 +36,6 @@ module.exports = Magix.View.extend({
       }
     }], function(e, MesModel) {
       var data = MesModel.get('data')
-
       me.data = {
         list: data.list,
         pageNo: pageNo,
