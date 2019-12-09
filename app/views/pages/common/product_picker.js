@@ -89,7 +89,7 @@ module.exports = Magix.View.extend({
     me.pageNo = 1
     me._getList()
   },
-  'pageChange<change>': function(e) {
+  'pageChange<change>': function (e) {
     this.pageNo = e.state.page
     this.render()
   },
