@@ -11,8 +11,8 @@
     <ul class="product-container clearfix">
       {{#for(item in list)}}
       <li t-class:selected="item.selected" mx-click="pick({id:{{item.id}}})">
-        <div class="img">
-          <img src="{{item.cover}}">
+        <div class="img-wrapper">
+          <img class="img" src="{{item.cover}}">
         </div>
         <div class="title">{{item.title}}</div>
         <div class="mask"><span class="iconfont iconduigou"></span></div>
