@@ -11,31 +11,14 @@
         <input type="text" class="input" name="title">
       </li>
       <li class="field">
+        <p class="field-label2">副标题</p>
+        <input type="text" class="input" name="subTitle">
+      </li>
+      <li class="field">
         <p class="field-label2">价格</p>
         <input type="number" class="input" name="price">
       </li>
-      <li class="field">
-        <p class="field-label2">推荐设置</p>
-        <label class="mr10" mx-click="switchRecommandStatus({value:0})">
-          <input name="recommandStatus" class="mr10" checked="{{recommandStatus==0}}" type="radio" value="0" />
-          <span>不设置成推荐</span>
-        </label>
-        <label mx-click="switchRecommandStatus({value:1})">
-          <input name="recommandStatus" class="mr10" checked="{{recommandStatus==1}}" type="radio" value="1" />
-          <span>设置成推荐</span>
-        </label>
-      </li>
-      <li class="field">
-        <p class="field-label2">出票设置</p>
-        <label class="mr10" mx-click="switchTicketGenType({value:0})">
-          <input name="ticketGenType" class="mr10" checked="{{ticketGenType==0}}" type="radio" value="0" />
-          <span>自动出票</span>
-        </label>
-        <label mx-click="switchTicketGenType({value:1})">
-          <input name="ticketGenType" class="mr10" checked="{{ticketGenType==1}}" type="radio" value="1" />
-          <span>手动出票</span>
-        </label>
-      </li>
+      
       <li class="field">
         <p class="field-label2">封面图</p>
         <div class="cover clearfix">
@@ -157,6 +140,28 @@
         </li>
         {{/if}}
       {{/for}}
+      <li class="field">
+        <p class="field-label2">推荐设置</p>
+        <label class="mr10" mx-click="switchRecommandStatus({value:0})">
+          <input name="recommandStatus" class="mr10" checked="{{recommandStatus==0}}" type="radio" value="0" />
+          <span>不设置成推荐</span>
+        </label>
+        <label mx-click="switchRecommandStatus({value:1})">
+          <input name="recommandStatus" class="mr10" checked="{{recommandStatus==1}}" type="radio" value="1" />
+          <span>设置成推荐</span>
+        </label>
+      </li>
+      <li class="field">
+        <p class="field-label2">出票设置</p>
+        <label class="mr10" mx-click="switchTicketGenType({value:0})">
+          <input name="ticketGenType" class="mr10" checked="{{ticketGenType==0}}" type="radio" value="0" />
+          <span>自动出票</span>
+        </label>
+        <label mx-click="switchTicketGenType({value:1})">
+          <input name="ticketGenType" class="mr10" checked="{{ticketGenType==1}}" type="radio" value="1" />
+          <span>手动出票</span>
+        </label>
+      </li>
       <li class="field">
         <a href="#" class="btn btn-brand btn-large mr10" mx-click="submit()">发布</a>
       </li>

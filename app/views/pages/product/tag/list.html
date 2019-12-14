@@ -1,0 +1,45 @@
+<div class="page-header clearfix">
+  <div class="title-bar">
+    <h2 class="title">标签列表</h2>
+  </div>
+</div>
+<div class="page-body table-container">
+  <div class="toolbar clearfix">
+    <a href="/product/tag/create" class="btn btn-brand btn-large">新增标签</a>
+  </div>
+  <table class="table">
+    <thead>
+      <tr t-class:no-data="list.length == 0">
+        <th class="left" width="100">字段编号</th>
+        <th class="left">标签名</th>
+        <th class="left" width="100">标签图标</th>
+        <th class="left" width="100">标签类型</th>
+        <th class="center" width="150">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#for(item in list)}}
+      <tr>
+        <td class="left">{{item.id}}</td>
+        <td class="left">{{item.name}}</td>
+        <td class="left">{{item.icon}}</td>
+        <td class="left">{{item.type|formatType}}</td>
+        <td class="center">
+          <a href="/product/tag/create?id={{item.id}}" class="color-blue mr10">编辑</a>
+          <a href="#" mx-click="remove({id:{{item.id}}})" class="color-blue">删除</a>
+        </td>
+      </tr>
+      {{/for}}
+      {{#if(list.length == 0)}}
+      <tr class="none">
+        <td class="center" colspan="5">
+          暂无数据
+        </td>
+      </tr>
+      {{/if}}
+    </tbody>
+  </table>
+  <div class="tfoot">
+    <div class="pager-container" mx-view="app/coms/pagination/pagination?total={{totalCount}}&size={{pageSize}}&page={{pageNo}}" mx-change="pageChange()"></div>
+  </div>
+</div>

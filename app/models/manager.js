@@ -206,6 +206,37 @@ Service.add([
     url: '/api/wxapp/detailfield/remove.json',
     method: 'POST'
   },
+
+  // 获取标签列表
+  {
+    name: 'tag_list',
+    url: '/api/wxapp/tag/list.json'
+  },
+  // 获取单个标签
+  {
+    name: 'tag_detail',
+    url: '/api/wxapp/tag/detail.json'
+  },
+  // 创建标签
+  {
+    name: 'tag_create',
+    url: '/api/wxapp/tag/create.json',
+    method: 'POST'
+  },
+  // 更新标签
+  {
+    name: 'tag_update',
+    url: '/api/wxapp/tag/update.json',
+    method: 'POST'
+  },
+  // 删除标签
+  {
+    name: 'tag_remove',
+    url: '/api/wxapp/tag/remove.json',
+    method: 'POST'
+  },
+
+
   // 获取商品列表
   {
     name: 'product_list',
