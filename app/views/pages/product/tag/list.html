@@ -12,7 +12,6 @@
       <tr t-class:no-data="list.length == 0">
         <th class="left" width="100">字段编号</th>
         <th class="left">标签名</th>
-        <th class="left" width="100">标签图标</th>
         <th class="left" width="100">标签类型</th>
         <th class="center" width="150">操作</th>
       </tr>
@@ -21,8 +20,7 @@
       {{#for(item in list)}}
       <tr>
         <td class="left">{{item.id}}</td>
-        <td class="left">{{item.name}}</td>
-        <td class="left">{{item.icon}}</td>
+        <td class="left"><span class="iconfont {{item.icon}} mr10" t-if="item.icon"></span>{{item.name}}</td>
         <td class="left">{{item.type|formatType}}</td>
         <td class="center">
           <a href="/product/tag/create?id={{item.id}}" class="color-blue mr10">编辑</a>
@@ -32,7 +30,7 @@
       {{/for}}
       {{#if(list.length == 0)}}
       <tr class="none">
-        <td class="center" colspan="5">
+        <td class="center" colspan="4">
           暂无数据
         </td>
       </tr>

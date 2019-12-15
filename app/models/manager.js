@@ -235,7 +235,17 @@ Service.add([
     url: '/api/wxapp/tag/remove.json',
     method: 'POST'
   },
-
+  // 类目和标签的关系列表
+  {
+    name: 'category_tag_relation_list',
+    url: '/api/wxapp/tag/category_tag_relation_list.json'
+  },
+  // 类目和标签的关系创建
+  {
+    name: 'category_tag_relation_create',
+    url: '/api/wxapp/tag/category_tag_relation_create.json',
+    method: 'POST'
+  },
 
   // 获取商品列表
   {

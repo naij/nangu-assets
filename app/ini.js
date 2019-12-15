@@ -21,6 +21,7 @@ var routeMap = {
     {path: '/product/detailfield/create', loginRequire: true},
     {path: '/product/tag/list', loginRequire: true},
     {path: '/product/tag/create', loginRequire: true},
+    {path: '/product/tag/category_tag_relation', loginRequire: true},
     {path: '/product/photograph/list', loginRequire: true},
     {path: '/content/ad/index', loginRequire: true},
     {path: '/content/ad/list', loginRequire: true},

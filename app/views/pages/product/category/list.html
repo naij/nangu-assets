@@ -30,7 +30,7 @@
           <a href="/product/attribute/list?categoryId={{item.categoryId}}&type=0" class="color-blue mr10">规则列表</a>
           <a href="/product/attribute/list?categoryId={{item.categoryId}}&type=1" class="color-blue mr10">参数列表</a>
           <a href="/product/detailfield/list?categoryId={{item.categoryId}}" class="color-blue">详情列表</a>
-          <a href="/product/detailfield/list?categoryId={{item.categoryId}}" class="color-blue">标签设置</a>
+          <a href="/product/tag/category_tag_relation?categoryId={{item.categoryId}}" class="color-blue">标签设置</a>
         </td>
         <td class="center">
           <a href="/product/category/list?parentId={{item.categoryId}}&parentName={{item.name}}" class="color-blue mr10" t-if="item.level==0">查看下级</a>
