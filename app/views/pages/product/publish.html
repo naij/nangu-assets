@@ -73,6 +73,19 @@
         {{/if}}
       </li>
       <li class="field">
+        <p class="field-label2">标签</p>
+        <div class="tag-container">
+          <ul class="clearfix">
+            {{#for(item in tagList)}}
+            <li t-class:selected="item.selected" mx-click="makeTag({id:{{item.id}}})">
+              <span>{{item.name}}</span>
+              <div class="mask"><span class="iconfont iconduigou"></span></div>
+            </li>
+            {{/for}}
+          </ul>
+        </div>
+      </li>
+      <li class="field">
         <p class="field-label2">商品规格</p>
         <div class="attribute-container">
           {{#for(item in attributeList)}}
@@ -100,6 +113,7 @@
                 <th class="left" width="150">{{item.name}}</th>
                 {{/for}}
                 <th class="left" width="150">价格</th>
+                <th class="left" width="150">促销价格</th>
                 <th class="left" width="150">库存</th>
               </tr>
             </thead>

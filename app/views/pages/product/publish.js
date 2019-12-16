@@ -18,13 +18,19 @@ module.exports = Magix.View.extend({
         type: 0
       }
     }, {
+      name: 'category_tag_relation_list',
+      params: {
+        categoryId: categoryId
+      }
+    }, {
       name: 'detailfield_list',
       params: {
         categoryId: categoryId
       }
-    }], function(e, AttributeModel, DetailfieldModel) {
+    }], function(e, AttributeModel, TagModel, DetailfieldModel) {
       me.data = {
         attributeList: AttributeModel.get('data').list,
+        tagList: TagModel.get('data').list,
         detailfieldList: DetailfieldModel.get('data').list,
         slide: [],
         recommandStatus: 0,
@@ -93,6 +99,11 @@ module.exports = Magix.View.extend({
         fieldValue: '',
         input: true
       }, {
+        fieldName: 'promotionPrice',
+        fieldLabel: '促销价格',
+        fieldValue: '',
+        input: true
+      }, {
         fieldName: 'stock',
         fieldLabel: '库存',
         fieldValue: '',
@@ -105,6 +116,7 @@ module.exports = Magix.View.extend({
           // 用字符串判断这条数据的属性值是否被改动
           // 如果没有改动则需要保持价格和库存的数据不被清空
           if (originSkuItemString.indexOf(skuItemString) != -1) {
+            v[v.length - 3].fieldValue = v2[v2.length - 3].fieldValue
             v[v.length - 2].fieldValue = v2[v2.length - 2].fieldValue
             v[v.length - 1].fieldValue = v2[v2.length - 1].fieldValue
           }
@@ -112,6 +124,22 @@ module.exports = Magix.View.extend({
       })
     })
     this.data.skuList = skuList
+  },
+  'makeTag<click>': function(e) {
+    var me = this
+    var tagList = me.data.tagList
+    var id = e.params.id
+    tagList.forEach(function(v) {
+      if (v.id == id) {
+        if (v.selected) {
+          v.selected = false
+        } else {
+          v.selected = true
+        }
+      }
+    })
+    me.data.tagList = tagList
+    me.setView()
   },
   'addAttributeValue<click>': function(e) {
     e.preventDefault()
@@ -234,6 +262,7 @@ module.exports = Magix.View.extend({
     var categoryId = me.param('categoryId')
     var attributeList = me.data.attributeList
     var skuList = me.data.skuList
+    var originTagList = me.data.tagList
     var formData = $('#product-create-form').serializeJSON({useIntKeysAsArrayIndex: true})
     var detail = me._getEditorContent()
 
@@ -244,10 +273,21 @@ module.exports = Magix.View.extend({
       })
     }
 
+    var tagList = []
+    originTagList.forEach(function(v) {
+      if (v.selected) {
+        tagList.push({
+          id: v.id,
+          name: v.name
+        })
+      }
+    })
+
     $.extend(formData, {
       categoryId: categoryId,
       attributeList: attributeList,
       skuList: skuList,
+      tagList: tagList,
       detail: detail
     })
 
