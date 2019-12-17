@@ -1,5 +1,6 @@
 var Magix = require('magix')
 var $ = require('jquery')
+var _ = require('underscore')
 var Editor = require('app/coms/editor/editor')
 var Dialog = require('app/mixins/dialog')
 var util = require('app/util/index')
@@ -283,7 +284,27 @@ module.exports = Magix.View.extend({
       }
     })
 
+    var priceArray = []
+    var promotionPriceArray = []
+    skuList.forEach(function(v) {
+      v.forEach(function(v2) {
+        if (v2.fieldName == 'price') {
+          priceArray.push(v2.fieldValue)
+        }
+        if (v2.fieldName == 'promotionPrice') {
+          promotionPriceArray.push(v2.fieldValue)
+        }
+      })
+    })
+
+    priceArray.sort(function(a, b) {return a - b})
+    promotionPriceArray.sort(function(a, b) {return a - b})
+    var price = priceArray[0]
+    var promotionPrice = promotionPriceArray[0]
+
     $.extend(formData, {
+      price: price,
+      promotionPrice: promotionPrice,
       categoryId: categoryId,
       attributeList: attributeList,
       skuList: skuList,

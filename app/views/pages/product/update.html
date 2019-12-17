@@ -14,10 +14,10 @@
         <p class="field-label2">副标题</p>
         <input type="text" class="input" name="subTitle" value="{{subTitle}}">
       </li>
-      <li class="field">
+      <!-- <li class="field">
         <p class="field-label2">价格</p>
         <input type="number" class="input" name="price" value="{{price}}" />
-      </li>
+      </li> -->
       <li class="field">
         <p class="field-label2">封面图</p>
         <div class="cover clearfix">
@@ -71,7 +71,7 @@
         </div>
         {{/if}}
       </li>
-      <li class="field">
+      <li class="field" t-if="tagList.length > 0">
         <p class="field-label2">标签</p>
         <div class="tag-container">
           <ul class="clearfix">
