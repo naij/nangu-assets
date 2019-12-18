@@ -70,6 +70,7 @@ module.exports = Magix.View.extend({
     })
     return editorContent
   },
+  // 处理返回的sku数据
   _preparseSku: function (data) {
     var originSkuList = data.originSkuList
     var attributeList = data.attributeList
@@ -138,7 +139,7 @@ module.exports = Magix.View.extend({
       }, {
         fieldName: 'stock',
         fieldLabel: '库存',
-        fieldValue: '',
+        fieldValue: '10000',
         input: true
       }, {
         skuSn: ''
@@ -159,6 +160,27 @@ module.exports = Magix.View.extend({
       })
     })
     this.data.skuList = skuList
+  },
+  // 检查所有必填字段
+  _checkField: function(formData) {
+    var me = this
+    var rule = [
+      {fieldName: 'title', msg: '标题为必填项'},
+      {fieldName: 'cover', msg: '请选择封面图'},
+      {fieldName: 'slide', msg: '请选择轮播图'},
+      {fieldName: 'businessId', msg: '请选择所属商户'}
+    ]
+
+    var flag = true
+    rule.some(function(v, i) {
+      if (!formData[v.fieldName]) {
+        flag = false
+        me.alert(v.msg)
+        return false
+      }
+    })
+
+    return flag
   },
   'makeTag<click>': function(e) {
     var me = this
@@ -312,58 +334,60 @@ module.exports = Magix.View.extend({
     var formData = $('#product-create-form').serializeJSON({useIntKeysAsArrayIndex: true})
     var detail = me._getEditorContent()
 
-    if (formData.location) {
-      $.extend(detail, {
-        location: formData.location,
-        locationPointer: formData.locationPointer
-      })
-    }
-
-    var tagList = []
-    originTagList.forEach(function(v) {
-      if (v.selected) {
-        tagList.push({
-          id: v.id,
-          name: v.name
+    if (me._checkField(formData)) {
+      if (formData.location) {
+        $.extend(detail, {
+          location: formData.location,
+          locationPointer: formData.locationPointer
         })
       }
-    })
 
-    var priceArray = []
-    var promotionPriceArray = []
-    skuList.forEach(function(v) {
-      v.forEach(function(v2) {
-        if (v2.fieldName == 'price') {
-          priceArray.push(v2.fieldValue)
-        }
-        if (v2.fieldName == 'promotionPrice') {
-          promotionPriceArray.push(v2.fieldValue)
+      var tagList = []
+      originTagList.forEach(function(v) {
+        if (v.selected) {
+          tagList.push({
+            id: v.id,
+            name: v.name
+          })
         }
       })
-    })
 
-    priceArray.sort(function(a, b) {return a - b})
-    promotionPriceArray.sort(function(a, b) {return a - b})
-    var price = priceArray[0]
-    var promotionPrice = promotionPriceArray[0]
+      var priceArray = []
+      var promotionPriceArray = []
+      skuList.forEach(function(v) {
+        v.forEach(function(v2) {
+          if (v2.fieldName == 'price') {
+            priceArray.push(v2.fieldValue)
+          }
+          if (v2.fieldName == 'promotionPrice') {
+            promotionPriceArray.push(v2.fieldValue)
+          }
+        })
+      })
 
-    $.extend(formData, {
-      price: price,
-      promotionPrice: promotionPrice,
-      productSn: productSn,
-      attributeList: attributeList,
-      deletedAttributeValueList: deletedAttributeValueList,
-      deletedSkuList: deletedSkuList,
-      skuList: skuList,
-      tagList: tagList,
-      detail: detail
-    })
+      priceArray.sort(function(a, b) {return a - b})
+      promotionPriceArray.sort(function(a, b) {return a - b})
+      var price = priceArray[0]
+      var promotionPrice = promotionPriceArray[0]
 
-    me.request().all([{
-      name: 'product_update',
-      params: formData
-    }], function(e, MesModel) {
-      me.to('/product/successful?type=update')
-    })
+      $.extend(formData, {
+        price: price,
+        promotionPrice: promotionPrice,
+        productSn: productSn,
+        attributeList: attributeList,
+        deletedAttributeValueList: deletedAttributeValueList,
+        deletedSkuList: deletedSkuList,
+        skuList: skuList,
+        tagList: tagList,
+        detail: detail
+      })
+
+      me.request().all([{
+        name: 'product_update',
+        params: formData
+      }], function(e, MesModel) {
+        me.to('/product/successful?type=update')
+      })
+    }
   }
 })
