@@ -1,53 +1,54 @@
 <div class="page-header clearfix">
-    <div class="title-bar">
-      <h2 class="title">类目列表</h2>
-    </div>
+  <div class="title-bar">
+    <h2 class="title">类目列表</h2>
   </div>
-  <div class="page-body table-container">
-    <div class="toolbar clearfix">
-        <a href="/product/category/list" class="btn btn-brand btn-large mr10" t-if="parentId!=0">返回上级类目</a>
-      <a href="/product/category/create" class="btn btn-brand btn-large">新增类目</a>
-    </div>
-    <table class="table">
-      <thead>
-        <tr t-class:no-data="list.length == 0">
-          <th class="left" width="150">类目编号</th>
-          <th class="left">类目名称</th>
-          <th class="left" t-if="parentId!=0">父级类目名称</th>
-          <th class="left" width="150">级别</th>
-          <th class="center" width="200" t-if="parentId!=0">设置</th>
-          <th class="center" width="150">操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#for(item in list)}}
-        <tr>
-          <td class="left">{{item.categoryId}}</td>
-          <td class="left">{{item.name}}</td>
-          <td class="left" t-if="item.level==1">{{parentName}}</td>
-          <td class="left">{{item.level|formatLevel}}</td>
-          <td class="center" t-if="item.level==1">
-              <a href="/product/attribute/list?categoryId={{item.categoryId}}&type=0" class="color-blue mr10">规则列表</a>
-              <a href="/product/attribute/list?categoryId={{item.categoryId}}&type=1" class="color-blue mr10">参数列表</a>
-              <a href="/product/detailfield/list?categoryId={{item.categoryId}}" class="color-blue">详情列表</a>
-          </td>
-          <td class="center">
-            <a href="/product/category/list?parentId={{item.categoryId}}&parentName={{item.name}}" class="color-blue mr10" t-if="item.level==0">查看下级</a>
-            <a href="/product/category/create?categoryId={{item.categoryId}}&parentId={{item.parentId}}" class="color-blue mr10">编辑</a>
-            <!-- <a href="#" mx-click="remove({categoryId:{{item.categoryId}}})" class="color-blue" t-if="item.level==1">删除</a> -->
-          </td>
-        </tr>
-        {{/for}}
-        {{#if(list.length == 0)}}
-        <tr class="none">
-          <td class="center" colspan="{{parentId!=0 ? 6 : 4}}">
-            暂无数据
-          </td>
-        </tr>
-        {{/if}}
-      </tbody>
-    </table>
-    <div class="tfoot">
-      <div class="pager-container" mx-view="app/coms/pagination/pagination?total={{totalCount}}&size={{pageSize}}&page={{pageNo}}" mx-change="pageChange()"></div>
-    </div>
+</div>
+<div class="page-body table-container">
+  <div class="toolbar clearfix">
+      <a href="/product/category/list" class="btn btn-brand btn-large mr10" t-if="parentId!=0">返回上级类目</a>
+    <a href="/product/category/create" class="btn btn-brand btn-large">新增类目</a>
   </div>
+  <table class="table">
+    <thead>
+      <tr t-class:no-data="list.length == 0">
+        <th class="left" width="150">类目编号</th>
+        <th class="left">类目名称</th>
+        <th class="left" t-if="parentId!=0">父级类目名称</th>
+        <th class="left" width="150">级别</th>
+        <th class="center" width="200" t-if="parentId!=0">设置</th>
+        <th class="center" width="150">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#for(item in list)}}
+      <tr>
+        <td class="left">{{item.categoryId}}</td>
+        <td class="left">{{item.name}}</td>
+        <td class="left" t-if="item.level==1">{{parentName}}</td>
+        <td class="left">{{item.level|formatLevel}}</td>
+        <td class="center" t-if="item.level==1">
+          <a href="/product/attribute/list?categoryId={{item.categoryId}}&type=0" class="color-blue mr10">规则列表</a>
+          <a href="/product/attribute/list?categoryId={{item.categoryId}}&type=1" class="color-blue mr10">参数列表</a>
+          <a href="/product/detailfield/list?categoryId={{item.categoryId}}" class="color-blue">详情列表</a>
+          <a href="/product/tag/category_tag_relation?categoryId={{item.categoryId}}" class="color-blue">标签设置</a>
+        </td>
+        <td class="center">
+          <a href="/product/category/list?parentId={{item.categoryId}}&parentName={{item.name}}" class="color-blue mr10" t-if="item.level==0">查看下级</a>
+          <a href="/product/category/create?categoryId={{item.categoryId}}&parentId={{item.parentId}}" class="color-blue mr10">编辑</a>
+          <!-- <a href="#" mx-click="remove({categoryId:{{item.categoryId}}})" class="color-blue" t-if="item.level==1">删除</a> -->
+        </td>
+      </tr>
+      {{/for}}
+      {{#if(list.length == 0)}}
+      <tr class="none">
+        <td class="center" colspan="{{parentId!=0 ? 6 : 4}}">
+          暂无数据
+        </td>
+      </tr>
+      {{/if}}
+    </tbody>
+  </table>
+  <div class="tfoot">
+    <div class="pager-container" mx-view="app/coms/pagination/pagination?total={{totalCount}}&size={{pageSize}}&page={{pageNo}}" mx-change="pageChange()"></div>
+  </div>
+</div>

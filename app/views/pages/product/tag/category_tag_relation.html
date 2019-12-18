@@ -1,0 +1,24 @@
+<div class="page-header clearfix">
+  <div class="title-bar">
+    <h2 class="title">设置标签</h2>
+  </div>
+</div>
+<div class="page-body">
+  <form id="relation-create-form">
+    <input type="hidden" name="categoryId" value="{{categoryId}}">
+    <ul class="union-form">
+      <li class="field">
+        <p class="field-label2">选择标签</p>
+        <div>
+          <label class="mr20" t-for="item in tagList">
+            <input type="checkbox" checked="{{item.selected}}" class="mr5" name="relation[]" value="{{item.id}}:{{item.relationId}}">
+            {{item.name}}
+          </label>
+        </div>
+      </li>
+      <li class="field">
+        <a href="#" class="btn btn-brand btn-large" mx-click="submit()">提交</a>
+      </li>
+    </ul>
+  </form>
+</div>

@@ -11,31 +11,13 @@
         <input type="text" class="input" name="title" value="{{title}}" />
       </li>
       <li class="field">
+        <p class="field-label2">副标题</p>
+        <input type="text" class="input" name="subTitle" value="{{subTitle}}">
+      </li>
+      <!-- <li class="field">
         <p class="field-label2">价格</p>
         <input type="number" class="input" name="price" value="{{price}}" />
-      </li>
-      <li class="field">
-        <p class="field-label2">推荐设置</p>
-        <label class="mr10" mx-click="switchRecommandStatus({value:0})">
-          <input name="recommandStatus" class="mr10" checked="{{recommandStatus==0}}" type="radio" value="0" />
-          <span>不设置成推荐</span>
-        </label>
-        <label mx-click="switchRecommandStatus({value:1})">
-          <input name="recommandStatus" class="mr10" checked="{{recommandStatus==1}}" type="radio" value="1" />
-          <span>设置成推荐</span>
-        </label>
-      </li>
-      <li class="field">
-        <p class="field-label2">出票设置</p>
-        <label class="mr10" mx-click="switchTicketGenType({value:0})">
-          <input name="ticketGenType" class="mr10" checked="{{ticketGenType==0}}" type="radio" value="0" />
-          <span>自动出票</span>
-        </label>
-        <label mx-click="switchTicketGenType({value:1})">
-          <input name="ticketGenType" class="mr10" checked="{{ticketGenType==1}}" type="radio" value="1" />
-          <span>手动出票</span>
-        </label>
-      </li>
+      </li> -->
       <li class="field">
         <p class="field-label2">封面图</p>
         <div class="cover clearfix">
@@ -89,6 +71,19 @@
         </div>
         {{/if}}
       </li>
+      <li class="field" t-if="tagList.length > 0">
+        <p class="field-label2">标签</p>
+        <div class="tag-container">
+          <ul class="clearfix">
+            {{#for(item in tagList)}}
+            <li t-class:selected="item.selected" mx-click="makeTag({id:{{item.id}}})">
+              <span>{{item.name}}</span>
+              <div class="mask"><span class="iconfont iconduigou"></span></div>
+            </li>
+            {{/for}}
+          </ul>
+        </div>
+      </li>
       <li class="field">
         <p class="field-label2">商品规格</p>
         <div class="attribute-container">
@@ -117,6 +112,7 @@
                 <th class="left" width="150">{{item.name}}</th>
                 {{/for}}
                 <th class="left" width="150">价格</th>
+                <th class="left" width="150">促销价格</th>
                 <th class="left" width="150">库存</th>
               </tr>
             </thead>
@@ -159,6 +155,28 @@
         </li>
         {{/if}}
       {{/for}}
+      <li class="field">
+        <p class="field-label2">推荐设置</p>
+        <label class="mr10" mx-click="switchRecommandStatus({value:0})">
+          <input name="recommandStatus" class="mr10" checked="{{recommandStatus==0}}" type="radio" value="0" />
+          <span>不设置成推荐</span>
+        </label>
+        <label mx-click="switchRecommandStatus({value:1})">
+          <input name="recommandStatus" class="mr10" checked="{{recommandStatus==1}}" type="radio" value="1" />
+          <span>设置成推荐</span>
+        </label>
+      </li>
+      <li class="field">
+        <p class="field-label2">出票设置</p>
+        <label class="mr10" mx-click="switchTicketGenType({value:0})">
+          <input name="ticketGenType" class="mr10" checked="{{ticketGenType==0}}" type="radio" value="0" />
+          <span>自动出票</span>
+        </label>
+        <label mx-click="switchTicketGenType({value:1})">
+          <input name="ticketGenType" class="mr10" checked="{{ticketGenType==1}}" type="radio" value="1" />
+          <span>手动出票</span>
+        </label>
+      </li>
       <li class="field">
         <a href="#" class="btn btn-brand btn-large mr10" mx-click="submit()">保存</a>
       </li>

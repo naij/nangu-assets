@@ -1,5 +1,6 @@
 var Magix = require('magix')
 var $ = require('jquery')
+var _ = require('underscore')
 var Editor = require('app/coms/editor/editor')
 var Dialog = require('app/mixins/dialog')
 var util = require('app/util/index')
@@ -18,13 +19,19 @@ module.exports = Magix.View.extend({
         type: 0
       }
     }, {
+      name: 'category_tag_relation_list',
+      params: {
+        categoryId: categoryId
+      }
+    }, {
       name: 'detailfield_list',
       params: {
         categoryId: categoryId
       }
-    }], function(e, AttributeModel, DetailfieldModel) {
+    }], function(e, AttributeModel, TagModel, DetailfieldModel) {
       me.data = {
         attributeList: AttributeModel.get('data').list,
+        tagList: TagModel.get('data').list,
         detailfieldList: DetailfieldModel.get('data').list,
         slide: [],
         recommandStatus: 0,
@@ -93,9 +100,14 @@ module.exports = Magix.View.extend({
         fieldValue: '',
         input: true
       }, {
+        fieldName: 'promotionPrice',
+        fieldLabel: '促销价格',
+        fieldValue: '',
+        input: true
+      }, {
         fieldName: 'stock',
         fieldLabel: '库存',
-        fieldValue: '',
+        fieldValue: '10000',
         input: true
       })
 
@@ -105,6 +117,7 @@ module.exports = Magix.View.extend({
           // 用字符串判断这条数据的属性值是否被改动
           // 如果没有改动则需要保持价格和库存的数据不被清空
           if (originSkuItemString.indexOf(skuItemString) != -1) {
+            v[v.length - 3].fieldValue = v2[v2.length - 3].fieldValue
             v[v.length - 2].fieldValue = v2[v2.length - 2].fieldValue
             v[v.length - 1].fieldValue = v2[v2.length - 1].fieldValue
           }
@@ -112,6 +125,43 @@ module.exports = Magix.View.extend({
       })
     })
     this.data.skuList = skuList
+  },
+  // 检查所有必填字段
+  _checkField: function(formData) {
+    var me = this
+    var rule = [
+      {fieldName: 'title', msg: '标题为必填项'},
+      {fieldName: 'cover', msg: '请选择封面图'},
+      {fieldName: 'slide', msg: '请选择轮播图'},
+      {fieldName: 'businessId', msg: '请选择所属商户'}
+    ]
+
+    var flag = true
+    rule.some(function(v, i) {
+      if (!formData[v.fieldName]) {
+        flag = false
+        me.alert(v.msg)
+        return false
+      }
+    })
+
+    return flag
+  },
+  'makeTag<click>': function(e) {
+    var me = this
+    var tagList = me.data.tagList
+    var id = e.params.id
+    tagList.forEach(function(v) {
+      if (v.id == id) {
+        if (v.selected) {
+          v.selected = false
+        } else {
+          v.selected = true
+        }
+      }
+    })
+    me.data.tagList = tagList
+    me.setView()
   },
   'addAttributeValue<click>': function(e) {
     e.preventDefault()
@@ -234,28 +284,62 @@ module.exports = Magix.View.extend({
     var categoryId = me.param('categoryId')
     var attributeList = me.data.attributeList
     var skuList = me.data.skuList
+    var originTagList = me.data.tagList
     var formData = $('#product-create-form').serializeJSON({useIntKeysAsArrayIndex: true})
     var detail = me._getEditorContent()
 
-    if (formData.location) {
-      $.extend(detail, {
-        location: formData.location,
-        locationPointer: formData.locationPointer
+    if (me._checkField(formData)) {
+      if (formData.location) {
+        $.extend(detail, {
+          location: formData.location,
+          locationPointer: formData.locationPointer
+        })
+      }
+
+      var tagList = []
+      originTagList.forEach(function(v) {
+        if (v.selected) {
+          tagList.push({
+            id: v.id,
+            name: v.name
+          })
+        }
+      })
+
+      var priceArray = []
+      var promotionPriceArray = []
+      skuList.forEach(function(v) {
+        v.forEach(function(v2) {
+          if (v2.fieldName == 'price') {
+            priceArray.push(v2.fieldValue)
+          }
+          if (v2.fieldName == 'promotionPrice') {
+            promotionPriceArray.push(v2.fieldValue)
+          }
+        })
+      })
+
+      priceArray.sort(function(a, b) {return a - b})
+      promotionPriceArray.sort(function(a, b) {return a - b})
+      var price = priceArray[0]
+      var promotionPrice = promotionPriceArray[0]
+
+      $.extend(formData, {
+        price: price,
+        promotionPrice: promotionPrice,
+        categoryId: categoryId,
+        attributeList: attributeList,
+        skuList: skuList,
+        tagList: tagList,
+        detail: detail
+      })
+
+      me.request().all([{
+        name: 'product_create',
+        params: formData
+      }], function(e, MesModel) {
+        me.to('/product/successful?type=publish')
       })
     }
-
-    $.extend(formData, {
-      categoryId: categoryId,
-      attributeList: attributeList,
-      skuList: skuList,
-      detail: detail
-    })
-
-    me.request().all([{
-      name: 'product_create',
-      params: formData
-    }], function(e, MesModel) {
-      me.to('/product/successful?type=publish')
-    })
   }
 })
