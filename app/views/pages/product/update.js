@@ -286,21 +286,36 @@ module.exports = Magix.View.extend({
   'pickSlide<click>': function(e) {
     e.preventDefault()
     var me = this
+    me.mxDialog('app/views/pages/common/img_picker', {
+      width: 700,
+      limit: 20,
+      callback: function(data) {
+        data.forEach(function(v, i) {
+          me.data.slide.push(v.picPath)
+        })
+        me.setView()
+      }
+    })
+  },
+  'updateSlide<click>': function(e) {
+    e.preventDefault()
+    var me = this
     var index = e.params.index
     me.mxDialog('app/views/pages/common/img_picker', {
       width: 700,
       limit: 1,
       callback: function(data) {
-        // 有index 说明是替换操作
-        if (typeof(index) != "undefined") {
-          me.data.slide.splice(index, 1, data[0].picPath)
-        } else {
-          me.data.slide.push(data[0].picPath)
-        }
-        
+        me.data.slide.splice(index, 1, data[0].picPath)
         me.setView()
       }
     })
+  },
+  'removeSlide<click>': function(e) {
+    e.preventDefault()
+    var me = this
+    var index = e.params.index
+    me.data.slide.splice(index, 1)
+    me.setView()
   },
   'pickBusiness<click>': function(e) {
     e.preventDefault()
