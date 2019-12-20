@@ -37,18 +37,19 @@
         </div>
       </li>
       <li class="field">
-        <p class="field-label2">轮播图</p>
+        <p class="field-label2">轮播图<span class="ml10" t-if="slide.length>0">(已添加 {{slide.length}} 张图)</span></p>
         <div class="slide clearfix">
           {{#if(slide.length > 0)}}
             {{#for(item in slide)}}
             <div class="img-container">
-              <div class="mask" mx-click="pickSlide({index:{{__INDEX__}}})">重新选择图片</div>
+              <div class="mask" mx-click="updateSlide({index:{{__INDEX__}}})">重新选择图片</div>
+              <div class="remove iconfont iconguanbi" mx-click="removeSlide({index:{{__INDEX__}}})"></div>
               <img src="{{item}}" class="img">
               <input type="hidden" name="slide[{{__INDEX__}}]" value="{{item}}">
             </div>
             {{/for}}
           {{/if}}
-          {{^if(slide.length >= 2)}}
+          {{^if(slide.length >= 20)}}
           <div class="img-placeholder" mx-click="pickSlide()">
             <span class="iconfont iconhao"></span>
             <div>添加轮播图</div>

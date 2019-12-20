@@ -160,6 +160,7 @@
     height: 90px;
     float: left;
     margin-right: 10px;
+    margin-bottom: 10px;
 
     .img {
       height: 90px;
@@ -178,9 +179,24 @@
       cursor: pointer;
       display: none;
     }
+    .remove {
+      position: absolute;
+      right: 0;
+      top: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      font-size: 14px;
+      color: #fff;
+      text-align: center;
+      cursor: pointer;
+      padding: 0 5px;
+      display: none;
+    }
 
     &:hover {
       .mask {
+        display: block;
+      }
+      .remove {
         display: block;
       }
     }
