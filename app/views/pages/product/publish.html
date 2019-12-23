@@ -98,8 +98,17 @@
               <button class="btn btn-brand btn-large" mx-click="addAttributeValue({attributeId:{{item.attributeId}}})">+添加</button>
 
               <div class="attribute-value-container clearfix" t-if="item.attributeValueList.length>0">
-                {{#for(subitem in item.attributeValueList)}}
-                <div class="attribute-value-item">{{subitem.value}}<span class="iconfont iconguanbi close" mx-click="delAttributeValue({attributeId:{{item.attributeId}},index:{{subitem.index}}})"></span></div>
+                {{#for((index, subitem) in item.attributeValueList)}}
+                <div class="attribute-value-item">
+                  {{subitem.value}}
+                  <span class="iconfont iconbianji" mx-click="showAttributeValueEdit()" title="编辑"></span>
+                  <span class="iconfont iconshanchu" mx-click="delAttributeValue({attributeId:{{item.attributeId}},index:{{index}}})" title="删除"></span>
+                  <div class="edit-wrapper">
+                    <input type="text" class="input mr10" value="{{subitem.value}}">
+                    <button class="btn btn-brand btn-large mr10" mx-click="editAttributeValue({attributeId:{{item.attributeId}},index:{{index}}})">确定</button>
+                    <button class="btn btn-common btn-large" mx-click="hideAttributeValueEdit()">取消</button>
+                  </div>
+                </div>
                 {{/for}}
               </div>
             </div>

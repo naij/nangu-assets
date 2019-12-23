@@ -108,27 +108,32 @@
       margin: 0 10px 10px 0;
       position: relative;
 
-      .close {
-        display: none;
+      .iconfont {
+        color: #999;
         line-height: 1;
-        padding: 2px;
-        position: absolute;
-        right: -9px;
-        top: -9px;
         font-size: 12px;
-        border: 1px solid #ddd;
-        background-color: #fff;
-        border-radius: 100%;
+        margin-left: 10px;
         cursor: pointer;
 
         &:hover {
           color: @color-brand;
         }
       }
+      .edit-wrapper {
+        padding: 10px;
+        border: 1px solid #eee;
+        background-color: #fdfdfd;
+        position: absolute;
+        z-index: 10;
+        left: -1px;
+        top: 40px;
+        width: 380px;
+        display: none;
 
-      &:hover {
-        .close {
-          display: block;
+        .input {
+          margin-top: 0;
+          margin-bottom: 0;
+          width: 200px;
         }
       }
     }
