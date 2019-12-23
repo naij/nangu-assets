@@ -71,7 +71,7 @@ module.exports = Magix.View.extend({
     return editorContent
   },
   // 处理返回的sku数据
-  _preparseSku: function (data) {
+  _preparseSku: function(data) {
     var originSkuList = data.originSkuList
     var attributeList = data.attributeList
     var skuList = []
