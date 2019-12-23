@@ -83,8 +83,11 @@ module.exports = Magix.View.extend({
         var propertie = v2.split(':')
         attributeList.forEach(function(v3, i3) {
           if (v3.attributeId == propertie[0]) {
-            v3.attributeValueList.forEach(function (v4, i4) {
+            var attributeValueList = v3.attributeValueList
+            attributeValueList.forEach(function (v4, i4) {
               if (v4.attributeValueId == propertie[1]) {
+                // guid 用来判断数据是否被修改过
+                v4.guid = Magix.guid('attr')
                 skuItem.push(v4)
               }
             })
@@ -123,9 +126,6 @@ module.exports = Magix.View.extend({
     var skuList = util.calcDescartes(attributeValueList)
     var originSkuList = this.data.skuList
     $.each(skuList, function (i, v) {
-      var skuItemString = JSON.stringify(v)
-      skuItemString = skuItemString.substr(0, skuItemString.length - 1)
-
       v.push({
         fieldName: 'price',
         fieldLabel: '价格',
@@ -146,16 +146,18 @@ module.exports = Magix.View.extend({
       })
       
       $.each(originSkuList, function(i2, v2) {
-        var originSkuItemString = JSON.stringify(v2)
-        if (!v2.input) {
-          // 用字符串判断这条数据的属性值是否被改动
-          // 如果没有改动则需要保持价格和库存的数据不被清空
-          if (originSkuItemString.indexOf(skuItemString) != -1) {
-            v[v.length - 4].fieldValue = v2[v2.length - 4].fieldValue
-            v[v.length - 3].fieldValue = v2[v2.length - 3].fieldValue
-            v[v.length - 2].fieldValue = v2[v2.length - 2].fieldValue
-            v[v.length - 1].skuSn = v2[v2.length - 1].skuSn
+        var unModitied = true
+        $.each(v2, function(i3, v3) {
+          if ((i3 < v2.length - 4) && (v3.guid != v[i3].guid)) {
+            unModitied = false
           }
+        })
+        // 如果没有改动则需要保持价格和库存的数据不被清空
+        if (unModitied) {
+          v[v.length - 4].fieldValue = v2[v2.length - 4].fieldValue
+          v[v.length - 3].fieldValue = v2[v2.length - 3].fieldValue
+          v[v.length - 2].fieldValue = v2[v2.length - 2].fieldValue
+          v[v.length - 1].skuSn = v2[v2.length - 1].skuSn
         }
       })
     })
@@ -204,7 +206,7 @@ module.exports = Magix.View.extend({
     var attributeId = e.params.attributeId
     var attributeList = me.data.attributeList
     var value = $('#J_attr_value_' + attributeId).val()
-    var attributeObject
+    var attributeValueList
 
     if (value) {
       $.each(attributeList, function( i, v ) {
@@ -212,15 +214,14 @@ module.exports = Magix.View.extend({
           v.attributeValueList = []
         }
         if (v.attributeId == attributeId) {
-          attributeObject = v
+          attributeValueList = v.attributeValueList
         }
       })
-      var attributeValueList = attributeObject.attributeValueList
       attributeValueList.push({
+        guid: Magix.guid('attr'),
         attributeId: attributeId,
         value: value
       })
-      attributeObject.attributeValueList = attributeValueList
       me._parseSku()
       me.setView()
     }
@@ -232,14 +233,14 @@ module.exports = Magix.View.extend({
     var attributeId = e.params.attributeId
     var attributeList = me.data.attributeList
     var originSkuList = me.data.originSkuList
-    var attributeObject 
+    var attributeValueList 
     
     $.each(attributeList, function( i, v ) {
       if (v.attributeId == attributeId) {
-        attributeObject = v
+        attributeValueList = v.attributeValueList
       }
     })
-    var attributeValueList = attributeObject.attributeValueList
+
     var deletedAttributeValue = attributeValueList.splice(index, 1)[0]
     var deletedAttributeValueList = []
     if (deletedAttributeValue.attributeValueId) {
@@ -257,6 +258,41 @@ module.exports = Magix.View.extend({
 
     me._parseSku()
     me.setView()
+  },
+  'editAttributeValue<click>': function(e) {
+    e.preventDefault()
+    var me = this
+    var curNode = $(e.eventTarget)
+    var input = curNode.parent().find('.input')
+    var value = input.val()
+
+    if (value) {
+      var index = e.params.index
+      var attributeId = e.params.attributeId
+      var attributeList = me.data.attributeList
+      var attributeValueList 
+      
+      $.each(attributeList, function( i, v ) {
+        if (v.attributeId == attributeId) {
+          attributeValueList = v.attributeValueList
+        }
+      })
+
+      attributeValueList[index].value = value
+      me._parseSku()
+      me.setView()
+      curNode.parent().hide()
+    }
+  },
+  'showAttributeValueEdit<click>': function(e) {
+    e.preventDefault()
+    var curNode = $(e.eventTarget)
+    curNode.parent().find('.edit-wrapper').show()
+  },
+  'hideAttributeValueEdit<click>': function(e) {
+    e.preventDefault()
+    var curNode = $(e.eventTarget)
+    curNode.parent().hide()
   },
   'skuFieldChange<change>': function(e) {
     var me = this
