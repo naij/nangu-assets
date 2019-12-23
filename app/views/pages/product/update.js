@@ -71,7 +71,7 @@ module.exports = Magix.View.extend({
     return editorContent
   },
   // 处理返回的sku数据
-  _preparseSku: function (data) {
+  _preparseSku: function(data) {
     var originSkuList = data.originSkuList
     var attributeList = data.attributeList
     var skuList = []
@@ -242,13 +242,13 @@ module.exports = Magix.View.extend({
     })
 
     var deletedAttributeValue = attributeValueList.splice(index, 1)[0]
-    var deletedAttributeValueList = []
+    var deletedAttributeValueList = me.data.deletedAttributeValueList || []
     if (deletedAttributeValue.attributeValueId) {
       deletedAttributeValueList.push(deletedAttributeValue.attributeValueId)
     }
     me.data.deletedAttributeValueList = deletedAttributeValueList
 
-    var deletedSkuList = []
+    var deletedSkuList = me.data.deletedSkuList || []
     $.each(originSkuList, function( i, v ) {
       if (v.properties.indexOf(deletedAttributeValue.attributeValueId) != -1) {
         deletedSkuList.push(v.skuSn)
@@ -365,11 +365,11 @@ module.exports = Magix.View.extend({
       }
     })
   },
-  'switchRecommandStatus<click>': function (e) {
+  'switchRecommandStatus<click>': function(e) {
     this.data.recommandStatus = e.params.value
     this.setView()
   },
-  'switchTicketGenType<click>': function (e) {
+  'switchTicketGenType<click>': function(e) {
     this.data.ticketGenType = e.params.value
     this.setView()
   },
