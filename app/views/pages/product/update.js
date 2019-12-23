@@ -242,13 +242,13 @@ module.exports = Magix.View.extend({
     })
 
     var deletedAttributeValue = attributeValueList.splice(index, 1)[0]
-    var deletedAttributeValueList = []
+    var deletedAttributeValueList = me.data.deletedAttributeValueList || []
     if (deletedAttributeValue.attributeValueId) {
       deletedAttributeValueList.push(deletedAttributeValue.attributeValueId)
     }
     me.data.deletedAttributeValueList = deletedAttributeValueList
 
-    var deletedSkuList = []
+    var deletedSkuList = me.data.deletedSkuList || []
     $.each(originSkuList, function( i, v ) {
       if (v.properties.indexOf(deletedAttributeValue.attributeValueId) != -1) {
         deletedSkuList.push(v.skuSn)
