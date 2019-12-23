@@ -365,11 +365,11 @@ module.exports = Magix.View.extend({
       }
     })
   },
-  'switchRecommandStatus<click>': function (e) {
+  'switchRecommandStatus<click>': function(e) {
     this.data.recommandStatus = e.params.value
     this.setView()
   },
-  'switchTicketGenType<click>': function (e) {
+  'switchTicketGenType<click>': function(e) {
     this.data.ticketGenType = e.params.value
     this.setView()
   },
