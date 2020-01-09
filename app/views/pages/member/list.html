@@ -4,6 +4,9 @@
   </div>
 </div>
 <div class="page-body table-container">
+  <div class="toolbar clearfix">
+    <input type="text" class="input fr" value="{{q}}" placeholder="输入昵称搜索" mx-keydown="search()">
+  </div>
   <table class="table member-list">
     <thead>
       <tr t-class:no-data="list.length == 0">
