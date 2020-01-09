@@ -9,7 +9,9 @@
       <tr t-class:no-data="list.length == 0">
         <th class="left" width="120">用户头像</th>
         <th class="left">昵称</th>
+        <th class="left" width="150">用户类型</th>
         <th class="left" width="150">创建时间</th>
+        <th class="left" width="150">操作</th>
       </tr>
     </thead>
     <tbody>
@@ -21,12 +23,20 @@
           </div>
         </td>
         <td class="left">{{item.nickName}}</td>
+        <td class="left">
+          <p>{{{item.businessId|formatType}}}</p>
+          <p t-if="item.businessId" class="color-l f12">[{{item.businessName}}]</p>
+        </td>
         <td class="left">{{item.createdAt|formatDate}}</td>
+        <td class="left">
+          <a href="#" class="color-blue" mx-click="bind({unionId:'{{item.unionId}}'})" t-if="!item.businessId">绑定商户</a>
+          <a href="#" class="color-blue" mx-click="unbind({unionId:'{{item.unionId}}'})" t-if="item.businessId">解绑商户</a>
+        </td>
       </tr>
       {{/for}}
       {{#if(list.length == 0)}}
       <tr class="none">
-        <td class="center" colspan="3">
+        <td class="center" colspan="5">
           暂无数据
         </td>
       </tr>
