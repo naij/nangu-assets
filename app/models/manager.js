@@ -62,6 +62,12 @@ Service.add([
     name: 'member_list',
     url: '/api/member/member/list.json'
   },
+  // 绑定商户
+  {
+    name: 'member_update',
+    url: '/api/member/member/update.json',
+    method: 'POST'
+  },
   // 获取角色列表
   {
     name: 'role_list',
