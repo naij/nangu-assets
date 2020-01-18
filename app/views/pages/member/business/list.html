@@ -13,6 +13,7 @@
       <tr t-class:no-data="list.length == 0">
         <th class="left" width="120">商户编号</th>
         <th class="left">商户名称</th>
+        <th class="left" width="150">推广者id</th>
         <th class="left" width="150">创建时间</th>
         <th class="center" width="150">操作</th>
       </tr>
@@ -22,9 +23,10 @@
       <tr>
         <td class="left">{{item.id}}</td>
         <td class="left">{{item.name}}</td>
+        <td class="left">{{item.associateId}}</td>
         <td class="left">{{item.createdAt|formatDate}}</td>
         <td class="center">
-          <a href="/member/business/create?id={{item.id}}" class="color-blue mr10">编辑</a>
+          <a href="/member/business/create?id={{item.id}}" class="color-blue">编辑</a>
         </td>
       </tr>
       {{/for}}
