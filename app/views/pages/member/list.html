@@ -28,7 +28,7 @@
         <td class="left">{{item.nickName}}</td>
         <td class="left">
           <p>{{{item.businessId|formatType}}}</p>
-          <p t-if="item.businessId" class="color-l f12">[{{item.businessName}}]</p>
+          <p t-if="item.businessId" class="color-l f12">[{{item.businessInfo.name}}]</p>
         </td>
         <td class="left">{{item.createdAt|formatDate}}</td>
         <td class="left">

@@ -67,7 +67,7 @@
         {{#if(businessId)}}
         <div class="business-container">
           <div class="mask" mx-click="pickBusiness()">重新选择商户</div>
-          <div><span class="iconfont iconshanghu color-brand mr5"></span>{{businessName}}</div>
+          <div><span class="iconfont iconshanghu color-brand mr5"></span>{{businessInfo.name}}</div>
           <input type="hidden" name="businessId" value="{{businessId}}">
         </div>
         {{/if}}
@@ -78,7 +78,7 @@
           <ul class="clearfix">
             {{#for(item in tagList)}}
             <li t-class:selected="item.selected" mx-click="makeTag({id:{{item.id}}})">
-              <span>{{item.name}}</span>
+              <span>{{item.tagInfo.name}}</span>
               <div class="mask"><span class="iconfont iconduigou"></span></div>
             </li>
             {{/for}}

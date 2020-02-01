@@ -14,6 +14,7 @@
         <th class="left" width="150">房券封面</th>
         <th class="left">房券标题</th>
         <th class="left" width="100">类目ID</th>
+        <th class="left" width="100">类目名称</th>
         <th class="left" width="120">推荐状态</th>
         <th class="left" width="150">发布时间</th>
         <th class="left" width="100">发布状态</th>
@@ -28,6 +29,7 @@
         </td>
         <td class="left">{{item.title}}</td>
         <td class="left">{{item.categoryId}}</td>
+        <td class="left">{{item.categoryInfo.name}}</td>
         <td class="left">{{{item.recommandStatus|formatRecommandStatus}}}</td>
         <td class="left">{{item.updatedAt|formatDate}}</td>
         <td class="left">{{{item.status|formatStatus}}}</td>

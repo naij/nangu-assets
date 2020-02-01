@@ -54,7 +54,7 @@ module.exports = Magix.View.extend({
           name: 'member_update',
           params: {
             unionId: unionId,
-            businessId: data.id
+            businessId: data.businessId
           }
         }], function(e, MesModel) {
           me.render()

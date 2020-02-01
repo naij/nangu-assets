@@ -35,7 +35,8 @@ module.exports = Magix.View.extend({
         detailfieldList: DetailfieldModel.get('data').list,
         slide: [],
         recommandStatus: 0,
-        ticketGenType: 0
+        ticketGenType: 0,
+        businessInfo: {}
       }
       me.setView().then(function() {
         me._rendered()
@@ -305,8 +306,8 @@ module.exports = Magix.View.extend({
     me.mxDialog('app/views/pages/common/business_picker', {
       width: 700,
       callback: function(data) {
-        me.data.businessId = data.id
-        me.data.businessName = data.name
+        me.data.businessId = data.businessId
+        me.data.businessInfo.name = data.name
         me.setView()
       }
     })
@@ -342,7 +343,7 @@ module.exports = Magix.View.extend({
         if (v.selected) {
           tagList.push({
             id: v.id,
-            name: v.name
+            name: v.tagInfo.name
           })
         }
       })
