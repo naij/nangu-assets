@@ -79,7 +79,7 @@
           <ul class="clearfix">
             {{#for(item in tagList)}}
             <li t-class:selected="item.selected" mx-click="makeTag({id:{{item.id}}})">
-              <span>{{item.tagInfo.name}}</span>
+              <span>{{item.tagName}}</span>
               <div class="mask"><span class="iconfont iconduigou"></span></div>
             </li>
             {{/for}}

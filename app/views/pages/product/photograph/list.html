@@ -13,6 +13,8 @@
       <tr t-class:no-data="list.length == 0">
         <th class="left" width="150">活动封面</th>
         <th class="left">活动标题</th>
+        <th class="left" width="100">类目ID</th>
+        <th class="left" width="100">类目名称</th>
         <th class="left" width="150">推荐状态</th>
         <th class="left" width="150">发布时间</th>
         <th class="left" width="100">发布状态</th>
@@ -26,6 +28,8 @@
           <img src="{{item.cover}}">
         </td>
         <td class="left">{{item.title}}</td>
+        <td class="left">{{item.categoryId}}</td>
+        <td class="left">{{item.categoryName}}</td>
         <td class="left">{{{item.recommandStatus|formatRecommandStatus}}}</td>
         <td class="left">{{item.updatedAt|formatDate}}</td>
         <td class="left">{{{item.status|formatStatus}}}</td>
@@ -39,7 +43,7 @@
       {{/for}}
       {{#if(list.length == 0)}}
       <tr class="none">
-        <td class="center" colspan="6">
+        <td class="center" colspan="8">
           暂无数据
         </td>
       </tr>

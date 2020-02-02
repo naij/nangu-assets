@@ -343,7 +343,7 @@ module.exports = Magix.View.extend({
         if (v.selected) {
           tagList.push({
             id: v.id,
-            name: v.tagInfo.name
+            name: v.tagName
           })
         }
       })

@@ -29,7 +29,7 @@
         </td>
         <td class="left">{{item.title}}</td>
         <td class="left">{{item.categoryId}}</td>
-        <td class="left">{{item.categoryInfo.name}}</td>
+        <td class="left">{{item.categoryName}}</td>
         <td class="left">{{{item.recommandStatus|formatRecommandStatus}}}</td>
         <td class="left">{{item.updatedAt|formatDate}}</td>
         <td class="left">{{{item.status|formatStatus}}}</td>
@@ -43,7 +43,7 @@
       {{/for}}
       {{#if(list.length == 0)}}
       <tr class="none">
-        <td class="center" colspan="7">
+        <td class="center" colspan="8">
           暂无数据
         </td>
       </tr>
