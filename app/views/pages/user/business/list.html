@@ -6,7 +6,7 @@
 <div class="page-body table-container">
   <div class="toolbar clearfix">
     <input type="text" class="input fr" value="{{q}}" placeholder="输入商户名称搜索" mx-keydown="search()">
-    <a href="/member/business/create" class="btn btn-brand btn-large">新增商户</a>
+    <a href="/user/business/create" class="btn btn-brand btn-large">新增商户</a>
   </div>
   <table class="table member-list">
     <thead>
@@ -26,7 +26,7 @@
         <td class="left">{{item.associateId}}</td>
         <td class="left">{{item.createdAt|formatDate}}</td>
         <td class="center">
-          <a href="/member/business/create?id={{item.id}}" class="color-blue">编辑</a>
+          <a href="/user/business/create?id={{item.id}}" class="color-blue">编辑</a>
         </td>
       </tr>
       {{/for}}
