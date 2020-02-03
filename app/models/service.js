@@ -51,7 +51,7 @@ var Service = Magix.Service.extend(function(bag, callback) {
           bag.set('data', resp.data)
           callback()
         } else if (resp.code && resp.code === 403) {
-          location.href = '/member/login'
+          location.href = '/user/admin/login'
         } else {
           callback({
             msg: resp.message

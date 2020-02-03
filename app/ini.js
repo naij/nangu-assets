@@ -33,9 +33,9 @@ var routeMap = {
     {path: '/order/refund_detail', loginRequire: true},
     {path: '/order/refund_reason_list', loginRequire: true},
     {path: '/order/refund_reason_create', loginRequire: true},
-    {path: '/member/list', loginRequire: true},
-    {path: '/member/business/list', loginRequire: true},
-    {path: '/member/business/create', loginRequire: true},
+    {path: '/user/member/list', loginRequire: true},
+    {path: '/user/business/list', loginRequire: true},
+    {path: '/user/business/create', loginRequire: true},
     {path: '/assets/list', loginRequire: true},
     {path: '/assets/detail', loginRequire: true},
     {path: '/setting/menu/list', loginRequire: true},
@@ -47,7 +47,7 @@ var routeMap = {
     {path: '/setting/role/create', loginRequire: true},
   ],
   'app/views/layout/blank': [
-    {path: '/member/login', loginRequire: false}
+    {path: '/user/admin/login', loginRequire: false}
   ]
 }
 var routes = function() {

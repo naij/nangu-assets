@@ -24,12 +24,12 @@ seajs.config({
 seajs.use(['magix', 'jquery'], function(Magix, $) {
   Magix.checkToLogin =  function() {
     if (!Magix.config('isLogined')) {
-      location.href = '/member/login'
+      location.href = '/user/admin/login'
     }
   }
 
   $.ajax({
-    url: '/api/member/admin/pubinfo.json',
+    url: '/api/user/admin/pubinfo.json',
     dataType: 'json',
     complete: function(xhr, text) {
       var resp = $.parseJSON(xhr.responseText)

@@ -4,125 +4,125 @@ Service.add([
   // 登录
   {
     name: 'login',
-    url: '/api/member/admin/login.json',
+    url: '/api/user/admin/login.json',
     method: 'POST'
   },
   // 登出
   {
     name: 'logout',
-    url: '/api/member/admin/logout.json'
+    url: '/api/user/admin/logout.json'
   },
   // 基础信息
   {
     name: 'pubinfo',
-    url: '/api/member/admin/pubinfo.json'
+    url: '/api/user/admin/pubinfo.json'
   },
   // 获取成员列表
   {
     name: 'admin_list',
-    url: '/api/member/admin/list.json'
+    url: '/api/user/admin/list.json'
   },
   // 获取成员详情
   {
     name: 'admin_detail',
-    url: '/api/member/admin/detail.json'
+    url: '/api/user/admin/detail.json'
   },
   // 创建成员信息
   {
     name: 'admin_create',
-    url: '/api/member/admin/create.json',
+    url: '/api/user/admin/create.json',
     method: 'POST'
   },
   // 更新成员信息
   {
     name: 'admin_update',
-    url: '/api/member/admin/update.json',
+    url: '/api/user/admin/update.json',
     method: 'POST'
   },
   // 更新成员状态
   {
     name: 'admin_update_status',
-    url: '/api/member/admin/update_status.json',
+    url: '/api/user/admin/update_status.json',
     method: 'POST'
   },
   // 重置成员密码
   {
     name: 'admin_reset_password_to_origin',
-    url: '/api/member/admin/reset_password_to_origin.json',
+    url: '/api/user/admin/reset_password_to_origin.json',
     method: 'POST'
   },
   // 重置成员密码
   {
     name: 'admin_reset_password',
-    url: '/api/member/admin/reset_password.json',
+    url: '/api/user/admin/reset_password.json',
     method: 'POST'
   },
   // 获取注册用户列表
   {
     name: 'member_list',
-    url: '/api/member/member/list.json'
+    url: '/api/user/member/list.json'
   },
   // 绑定商户
   {
     name: 'member_update',
-    url: '/api/member/member/update.json',
+    url: '/api/user/member/update.json',
     method: 'POST'
   },
   // 获取角色列表
   {
     name: 'role_list',
-    url: '/api/member/role/list.json'
+    url: '/api/user/role/list.json'
   },
   // 获取角色详情
   {
     name: 'role_detail',
-    url: '/api/member/role/detail.json'
+    url: '/api/user/role/detail.json'
   },
   // 创建角色
   {
     name: 'role_create',
-    url: '/api/member/role/create.json',
+    url: '/api/user/role/create.json',
     method: 'POST'
   },
   // 更新角色
   {
     name: 'role_update',
-    url: '/api/member/role/update.json',
+    url: '/api/user/role/update.json',
     method: 'POST'
   },
   // 更新角色状态
   {
     name: 'role_update_status',
-    url: '/api/member/role/update_status.json',
+    url: '/api/user/role/update_status.json',
     method: 'POST'
   },
   // 删除角色
   {
     name: 'role_remove',
-    url: '/api/member/role/remove.json',
+    url: '/api/user/role/remove.json',
     method: 'POST'
   },
 
   // 获取商户列表
   {
     name: 'business_list',
-    url: '/api/member/business/list.json'
+    url: '/api/user/business/list.json'
   },
   // 获取商户详情
   {
     name: 'business_detail',
-    url: '/api/member/business/detail.json'
+    url: '/api/user/business/detail.json'
   },
   // 创建商户
   {
     name: 'business_create',
-    url: '/api/member/business/create.json',
+    url: '/api/user/business/create.json',
     method: 'POST'
   },
   // 更新商户
   {
     name: 'business_update',
-    url: '/api/member/business/update.json',
+    url: '/api/user/business/update.json',
     method: 'POST'
   },
 
@@ -429,39 +429,39 @@ Service.add([
   // 获取菜单列表
   {
     name: 'menu_list',
-    url: '/api/setting/menu/list.json'
+    url: '/api/user/menu/list.json'
   },
   // 获取菜单列表
   {
     name: 'menu_full_list',
-    url: '/api/setting/menu/full_list.json'
+    url: '/api/user/menu/full_list.json'
   },
   // 获取菜单配置
   {
     name: 'menu_config',
-    url: '/api/setting/menu/config.json'
+    url: '/api/user/menu/config.json'
   },
   // 获取菜单详情
   {
     name: 'menu_detail',
-    url: '/api/setting/menu/detail.json'
+    url: '/api/user/menu/detail.json'
   },
   // 创建菜单
   {
     name: 'menu_create',
-    url: '/api/setting/menu/create.json',
+    url: '/api/user/menu/create.json',
     method: 'POST'
   },
   // 更新菜单
   {
     name: 'menu_update',
-    url: '/api/setting/menu/update.json',
+    url: '/api/user/menu/update.json',
     method: 'POST'
   },
   // 删除菜单
   {
     name: 'menu_remove',
-    url: '/api/setting/menu/remove.json',
+    url: '/api/user/menu/remove.json',
     method: 'POST'
   }
 ])
