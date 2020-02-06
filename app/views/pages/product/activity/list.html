@@ -31,7 +31,7 @@
         <td class="left">{{item.categoryId}}</td>
         <td class="left">{{item.categoryName}}</td>
         <td class="left">{{{item.recommandStatus|formatRecommandStatus}}}</td>
-        <td class="left">{{item.updatedAt|formatDate}}</td>
+        <td class="left">{{item.updatedAt}}</td>
         <td class="left">{{{item.status|formatStatus}}}</td>
         <td class="center">
           <a href="#" mx-click="online({productSn:{{item.productSn}}})" class="color-blue mr10" t-if="item.status==2">上线</a>
