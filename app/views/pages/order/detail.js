@@ -34,9 +34,6 @@ module.exports = Magix.View.extend({
     formatStatus: function(value) {
       var status
       switch(value) {
-        case 0 :
-          status = '已关闭'
-          break
         case 1 :
           status = '待付款'
           break
@@ -49,8 +46,8 @@ module.exports = Magix.View.extend({
         case 4 :
           status = '已完成'
           break
-        case 99 :
-          status = '用户删除'
+        case 5 :
+          status = '已关闭'
           break
       }
       return status

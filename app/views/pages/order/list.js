@@ -70,9 +70,6 @@ module.exports = Magix.View.extend({
     formatStatus: function(value) {
       var status
       switch(value) {
-        case 0 :
-          status = '<span class="color-m">已关闭</span>'
-          break
         case 1 :
           status = '<span class="color-orange">待付款</span>'
           break
@@ -85,8 +82,8 @@ module.exports = Magix.View.extend({
         case 4 :
           status = '<span class="color-green">已完成</span>'
           break
-        case 99 :
-          status = '<span class="color-m">用户删除</span>'
+        case 5 :
+          status = '<span class="color-m">已关闭</span>'
           break
       }
       return status
