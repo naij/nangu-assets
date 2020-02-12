@@ -36,6 +36,7 @@ var routeMap = {
     {path: '/user/member/list', loginRequire: true},
     {path: '/user/business/list', loginRequire: true},
     {path: '/user/business/create', loginRequire: true},
+    {path: '/user/associate/withdraw_list', loginRequire: true},
     {path: '/assets/list', loginRequire: true},
     {path: '/assets/detail', loginRequire: true},
     {path: '/setting/menu/list', loginRequire: true},

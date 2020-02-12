@@ -125,7 +125,17 @@ Service.add([
     url: '/api/user/business/update.json',
     method: 'POST'
   },
-
+  // 获取提现列表
+  {
+    name: 'associate_withdraw_list',
+    url: '/api/user/associate/withdraw_list.json'
+  },
+  // 发起打款
+  {
+    name: 'associate_transfers',
+    url: '/api/user/associate/transfers.json',
+    method: 'POST'
+  },
 
   // 获取类目列表
   {
