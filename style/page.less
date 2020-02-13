@@ -536,7 +536,8 @@
 
 
 /* 订单商品信息 */
-.order-list {
+.order-list,
+.withdraw-list {
   .filter {
     background-color: #fff;
     padding: 20px 15px;
@@ -640,7 +641,7 @@
         padding: 10px 0;
       }
       .label {
-        color: @color-m;
+        color: @color-l;
       }
     }
   }
@@ -966,6 +967,42 @@
     vertical-align: middle;
   }
 }
+
+/* 提现详情 */
+.associate-withdraw-detail {
+  .withdraw-status {
+    background-color: rgb(253, 249, 242);
+    border: 1px solid rgb(250, 175, 89);
+    padding: 15px;
+    margin-bottom: 30px;
+  }
+  .withdraw-info,
+  .associate-info,
+  .handle-info {
+    margin-bottom: 30px;
+
+    .hd {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+  }
+  .withdraw-info,
+  .associate-info,
+  .handle-info {
+    .bd {
+      background-color: #fff;
+      padding: 15px;
+
+      li {
+        padding: 10px 0;
+      }
+      .label {
+        color: @color-l;
+      }
+    }
+  }
+}
+
 
 /* 代码管理 */
 .assets-detail {

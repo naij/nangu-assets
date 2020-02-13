@@ -3,55 +3,84 @@
     <h2 class="title">提现列表</h2>
   </div>
 </div>
-<div class="page-body table-container">
-  <div class="toolbar clearfix">
-    <input type="text" class="input fr" value="{{q}}" placeholder="输入商户名称搜索" mx-keydown="search()">
+<div class="page-body withdraw-list">
+  <div class="filter">
+    <form class="union-form" id="filter-form">
+      <div class="col">
+        <div class="field">
+          <span class="label">提现编号：</span>
+          <input type="text" class="input" name="partnerTradeNo" value="{{partnerTradeNo}}">
+        </div>
+        <div class="field">
+          <span class="label">推广者id：</span>
+          <input type="text" class="input" name="associateId"" value="{{associateId}}">
+        </div>
+        <div class="field">
+          <span class="label">商户名称：</span>
+          <input type="text" class="input" name="businessName" value="{{businessName}}">
+        </div>
+        <div class="field">
+          <button class="btn btn-brand" mx-click="search()">搜索订单</button>
+        </div>
+      </div>
+      <div class="col"></div>
+    </form>
   </div>
-  <table class="table member-list">
-    <thead>
-      <tr t-class:no-data="list.length == 0">
-        <th class="left" width="120">提现编号</th>
-        <th class="left" width="100">推广者id</th>
-        <th class="left" width="80">提现人昵称</th>
-        <th class="left" width="100">是否商户</th>
-        <th class="left" width="100">提现金额</th>
-        <th class="left" width="100">状态</th>
-        <th class="left" width="100">创建时间</th>
-        <th class="center" width="150">操作</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#for(item in list)}}
-      <tr>
-        <td class="left"><a href="/user/associate/withdraw_detail?id={{item.partnerTradeNo}}" class="color-blue">{{item.partnerTradeNo}}</a></td>
-        <td class="left">{{item.associateId}}</td>
-        <td class="left">{{item.memberNickname}}</td>
-        <td class="left">{{item.businessName ? item.businessName : '普通用户'}}</td>
-        <td class="left"><strong>{{{item.amount|toMoneySymbol}}}</strong></td>
-        <td class="left">{{{item.status|formatStatus}}}</td>
-        <td class="left">{{item.createdAt}}</td>
-        <td class="center">
-          <block t-if="item.status == 1">
-            <a href="#" class="color-blue mr10" mx-click="transfers({partnerTradeNo:'{{item.partnerTradeNo}}'})">打款</a>
-            <a href="#" class="color-blue" mc-click="reject({partnerTradeNo:'{{item.partnerTradeNo}}'})">驳回</a>
-          </block>
-          <block t-if="item.status != 1">
-            <span class="color-m mr10">打款</span>
-            <span class="color-m">驳回</span>
-          </block>
-        </td>
-      </tr>
-      {{/for}}
-      {{#if(list.length == 0)}}
-      <tr class="none">
-        <td class="center" colspan="8">
-          暂无数据
-        </td>
-      </tr>
-      {{/if}}
-    </tbody>
-  </table>
-  <div class="tfoot">
-    <div class="pager-container" mx-view="app/coms/pagination/pagination?total={{totalCount}}&size={{pageSize}}&page={{pageNo}}" mx-change="pageChange()"></div>
+  <div class="table-container">
+    <div class="tabbar">
+      <ul class="clearfix">
+        <li t-class:active="status==''" mx-click="status({status:''})">全部记录</li>
+        <li t-class:active="status==1" mx-click="status({status:1})">申请中</li>
+        <li t-class:active="status==2" mx-click="status({status:2})">已打款</li>
+        <li t-class:active="status==3" mx-click="status({status:3})">已驳回</li>
+      </ul>
+    </div>
+    <table class="table">
+      <thead>
+        <tr t-class:no-data="list.length == 0">
+          <th class="left" width="120">提现编号</th>
+          <th class="left" width="100">推广者id</th>
+          <th class="left" width="80">提现人昵称</th>
+          <th class="left" width="100">是否商户</th>
+          <th class="left" width="100">提现金额</th>
+          <th class="left" width="100">状态</th>
+          <th class="left" width="100">创建时间</th>
+          <th class="center" width="150">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#for(item in list)}}
+        <tr>
+          <td class="left"><a href="/user/associate/withdraw_detail?partnerTradeNo={{item.partnerTradeNo}}" class="color-blue">{{item.partnerTradeNo}}</a></td>
+          <td class="left">{{item.associateId}}</td>
+          <td class="left">{{item.memberNickname}}</td>
+          <td class="left">{{item.businessName ? item.businessName : '普通用户'}}</td>
+          <td class="left"><strong>{{{item.amount|toMoneySymbol}}}</strong></td>
+          <td class="left">{{{item.status|formatStatus}}}</td>
+          <td class="left">{{item.createdAt}}</td>
+          <td class="center">
+            <block t-if="item.status == 1">
+              <a href="#" class="color-blue mr10" mx-click="transfers({partnerTradeNo:'{{item.partnerTradeNo}}'})">打款</a>
+              <a href="#" class="color-blue" mx-click="reject({partnerTradeNo:'{{item.partnerTradeNo}}'})">驳回</a>
+            </block>
+            <block t-if="item.status != 1">
+              <span class="color-m mr10">打款</span>
+              <span class="color-m">驳回</span>
+            </block>
+          </td>
+        </tr>
+        {{/for}}
+        {{#if(list.length == 0)}}
+        <tr class="none">
+          <td class="center" colspan="8">
+            暂无数据
+          </td>
+        </tr>
+        {{/if}}
+      </tbody>
+    </table>
+    <div class="tfoot">
+      <div class="pager-container" mx-view="app/coms/pagination/pagination?total={{totalCount}}&size={{pageSize}}&page={{pageNo}}" mx-change="pageChange()"></div>
+    </div>
   </div>
 </div>

@@ -130,10 +130,21 @@ Service.add([
     name: 'associate_withdraw_list',
     url: '/api/user/associate/withdraw_list.json'
   },
+  // 获取提现详情
+  {
+    name: 'associate_withdraw_detail',
+    url: '/api/user/associate/withdraw_detail.json'
+  },
   // 发起打款
   {
     name: 'associate_transfers',
     url: '/api/user/associate/transfers.json',
+    method: 'POST'
+  },
+  // 提现申请驳回
+  {
+    name: 'associate_reject',
+    url: '/api/user/associate/reject.json',
     method: 'POST'
   },
 

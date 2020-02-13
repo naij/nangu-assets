@@ -133,7 +133,8 @@ module.exports = Magix.View.extend({
       {fieldName: 'title', msg: '标题为必填项'},
       {fieldName: 'cover', msg: '请选择封面图'},
       {fieldName: 'slide', msg: '请选择轮播图'},
-      {fieldName: 'businessId', msg: '请选择所属商户'}
+      {fieldName: 'businessId', msg: '请选择所属商户'},
+      {fieldName: 'commissionRate', msg: '请填写佣金比率'}
     ]
 
     var flag = true

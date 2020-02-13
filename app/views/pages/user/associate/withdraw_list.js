@@ -6,27 +6,36 @@ module.exports = Magix.View.extend({
   tmpl: '@withdraw_list.html',
   mixins: [Dialog],
   ctor: function() {
-    this.observe(['pageNo', 'q'])
+    this.observe(['pageNo', 'partnerTradeNo', 'associateId', 'businessName', 'status'])
   },
   render: function() {
     var me = this
     var pageNo = me.param('pageNo') || 1
     var pageSize = 50
-    var q = me.param('q')
+    var partnerTradeNo = me.param('partnerTradeNo')
+    var associateId = me.param('associateId')
+    var businessName = me.param('businessName')
+    var status = me.param('status')
 
     me.request().all([{
       name: 'associate_withdraw_list',
       params: {
         pageNo: pageNo,
         pageSize: pageSize,
-        q: q
+        partnerTradeNo: partnerTradeNo,
+        associateId: associateId,
+        businessName: businessName,
+        status: status
       }
     }], function(e, MesModel) {
       var data = MesModel.get('data')
 
       me.data = {
         list: data.list,
-        q: q,
+        partnerTradeNo: partnerTradeNo,
+        associateId: associateId,
+        businessName: businessName,
+        status: status,
         pageNo: pageNo,
         pageSize: pageSize,
         totalCount: data.totalCount
@@ -34,10 +43,13 @@ module.exports = Magix.View.extend({
       me.setView()
     })
   },
-  'search<keydown>': function(e) {
-    if (e.keyCode == '13') {
-      this.to({q: $(e.eventTarget).val(), pageNo: 1})
-    }
+  'search<click>': function(e) {
+    e.preventDefault()
+    var formData = $('#filter-form').serializeJSON()
+    this.to(formData)
+  },
+  'status<click>': function(e) {
+    this.to({status: e.params.status, pageNo: 1})
   },
   'transfers<click>': function(e) {
     e.preventDefault()
@@ -52,6 +64,18 @@ module.exports = Magix.View.extend({
       }], function(e, MesModel) {
         me.render()
       })
+    })
+  },
+  'reject<click>': function(e) {
+    e.preventDefault()
+    var me = this
+    var partnerTradeNo = e.params.partnerTradeNo
+    me.mxDialog('app/views/pages/user/associate/withdraw_reject', {
+      width: 700,
+      partnerTradeNo: partnerTradeNo,
+      callback: function() {
+        me.render()
+      }
     })
   },
   'pageChange<change>': function(e) {
